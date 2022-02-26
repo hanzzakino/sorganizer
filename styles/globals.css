@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&family=Roboto:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Ubuntu:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+
+
+
+/*********************************************************************/
+/*
+	HZ CSS library
+	by: Hanz Aquino
+	started: 2/26/2022
+	version: 1.0.0
+*/
+
+/*HTML*/
+html,
+body {
+	font-size: 16px;
+	margin: 0;
+	font-family:  'Roboto', 'Times New Roman', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/*main attributes*/
+.container {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+.row {
+	display: flex;
+}
+.column {
+	flex: 50%;
+}
+/* If screen width is less than 600px */
+@media (max-width: 770px) {
+	.container {
+		margin: 0;
+	}
+	.row {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+/* components */
+.navbar {
+	height: 48px;
+	padding-top: 5px;
+	width: 100%;
+	position: fixed;
+  	z-index: 1; /* Sit on top */
+  	left: 0;
+  	top: 0;
+  	transition: 0.5s;
+  	display: flex;
+  	filter: drop-shadow(0px 3px 5px rgb(0,0,0,0.1));
+}
+.form-signin {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0px 26px 12px 26px;
+}
+.form-signin a {
+	text-decoration: none;
+}
+.form-signin a:hover {
+	text-decoration: underline;
+}
+.form-signin-label {
+	font-size: 1.7rem;
+}
+.form-signin input {
+	padding: 3px 12px 3px 12px;
+	margin: 0px 10px 26px 10px;
+	height: 36px;
+	width: 280px;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	font-size: 1rem;
+	filter: drop-shadow(0px 3px 4px rgb(0,0,0,0.3));
+}
+.form-signin input:focus {
+	outline: none;
+}
+
+.form-signin .btn-login {
+	padding: 5px 16px 5px 16px;
+	margin: 10px;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	height: 38px;
+	font-weight: bold;
+	filter: drop-shadow(0px 4px 6px rgb(0,0,0,0.5));
+	transition: 0.5s;
+}
+.form-signin .btn-login:hover {
+	background-color: white;
+	color: black;
+	filter: unset;
+	transition: 0.25s;
+}
+.form-signin .btn-login-with {
+	margin: 0px 5px 10px 5px;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 40px;
+	height: 38px;
+	padding-left: 40px;
+	padding-right: 12px;
+	font-weight: bold;
+	filter: drop-shadow(0px 4px 6px rgb(0,0,0,0.5));
+	transition: 0.5s;
+}
+.form-signin .btn-login-with:hover {
+	color: black;
+	filter: unset;
+	transition: 0.05s;
+}
+.form-signin .btn-img-google {
+	background-image: url('/img/icons/google-icon-48.png');
+	background-position: 2px 2px;
+	background-size: 32px 32px;
+	background-repeat: no-repeat;
+}
+.form-signin .btn-img-fb {
+	background-image: url('/img/icons/facebook-icon-48.png');
+	background-position: 2px 2px;
+	background-size: 32px 32px;
+	background-repeat: no-repeat;
+}
+
+
+.card {
+	border: none;
+	border-radius: 10px;
+	filter: drop-shadow(0px 3px 5px rgb(0,0,0,0.1));
+}
+/* If screen width is less than 600px */
+@media (max-width: 770px) {
+	.form-signin {
+		margin: 0;
+		padding: 0px 16px 12px 16px;
+	}
+	.form-signin input {
+		padding: 5px 12px 5px 12px;
+		margin: 5px 8px 26px 8px;
+		width: 70vw;
+	}
+}
+
+/*additional attributes*/
+.flex {
+	display: flex;
+}
+.fit-width {
+	width: fit-content;
+}
+.fit-height {
+	height: fit-content;
+}
+.horizontal-center {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.vertical-center {
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+
+
+.fill-screen {
+	height: 100vh;
+	widows: 100wh;
+}
+.fixed {
+	position: fixed;
+}
+.pd-t-10 {
+	padding-top: 10px;
+}
+
+/* Colors */
+.dark-bgcolor {
+	background-color: #212121;
+}
+.dark-bg2color {
+	background-color: #343434;
+}
+.dark-bg3color {
+	background-color: rgb(40,40,40);
+}
+.dark-fgcolor {
+	color: white;
+}
+.dark-fg2color {
+	color: rgb(160,160,160);
+}
+.dark-accentfgcolor {
+	color: #14FFEC;
+}
+.dark-accentbgcolor {
+	background-color: #14FFEC;
+}
+.dark-accentbg2color {
+	background-color: #0D7377;
+}
+
+/*for development*/
+/*.container {
+	background: lightblue;
+	border: 1px dashed blue;
+}
+.row {
+	background: pink;
+	border: 1px dashed red;
+}
+.column {
+	background: yellowgreen;
+	border: 1px dashed green;
+}*/
+
+
+/*********************************************************************/
