@@ -1,7 +1,13 @@
 
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import Navbar from '../../components/navbar'
 import Link from 'next/link'
+
+//initialize firebase app using the firebase.config file
+import '../../firebase.config'
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+
 
 export default function Login() {
 	
@@ -14,14 +20,27 @@ export default function Login() {
 	const {email, password} = formData
 
 	const onChange = (e) => {
-		setFormData((prevState) => {
-			prevState[e.target.id] = e.target.value
-			return prevState
-		})
+		setFormData((prevState) => ({
+			...prevState,
+			[e.target.id] : e.target.value
+		}))
 	}
-	const handleSubmit = (e) => {
+
+	const nextrouter = useRouter()
+
+	const onSubmit = async (e) => {
 		e.preventDefault()
-		console.log(formData)
+		try {
+			const auth = getAuth()
+			const userCredential = await signInWithEmailAndPassword(auth, email, password)
+
+			if(userCredential.user){
+				nextrouter.push('/user')
+			}
+		} catch(e) {
+			console.log(e.message);
+		}
+		
 	}
 
   	return (
@@ -38,13 +57,14 @@ export default function Login() {
 		  				</div>
 
 						<div className="row">
-							<form className='form-signin'>
+							<form className='form-signin' onSubmit={onSubmit}>
 								<div className="input-field">
 									<i className="bi bi-person-fill field-icon" />
 									<input 
 									 type="email" 
 									 placeholder='Email'
-									 id='email' 
+									 id='email'
+									 value={email}
 									 onChange={onChange}
 									 autoComplete='username' 
 									 />
@@ -54,7 +74,8 @@ export default function Login() {
 									<input 
 									type={showPassword ? 'text':'password'} 
 									placeholder='Password' 
-									id='password' 
+									id='password'
+									value={password}
 									onChange={onChange}
 									autoComplete='current-password'/>
 									<i 
@@ -66,7 +87,7 @@ export default function Login() {
 								
 								<span><Link href='/user/forgot-password'><a className='dark-fg2color'>Forgot your Password?</a></Link></span>
 								<br />
-								<button className='btn-login dark-accentbgcolor' onClick={handleSubmit}>Sign in</button>
+								<button className='btn-login dark-accentbgcolor'>Sign in</button>
 								
 								<p className='dark-fg2color'>or Sign in with</p>
 								<span className='dark-fg2color'><button className='btn-login-with btn-img-google'>Google</button><button className='btn-login-with btn-img-fb'>Facebook</button></span>

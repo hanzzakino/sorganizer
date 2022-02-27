@@ -1,11 +1,15 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Navbar from '../../components/navbar'
 import Link from 'next/link'
 
-import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import Navbar from '../../components/navbar'
+
+//initialize firebase app (and import db) using the cofig file
 import {db} from '../../firebase.config'
+import { setDoc, doc, serverTimestamp} from 'firebase/firestore'
+
+import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
 
 export default function SignUp() {
 	
@@ -24,14 +28,15 @@ export default function SignUp() {
 
 	
 	const onChange = (e) => {
-		setFormData((prevState) => {
-			prevState[e.target.id] = e.target.value
-			return prevState
-		})
+		setFormData((prevState) => ({
+			...prevState,
+			[e.target.id] : e.target.value
+			
+		}))
 	}
 
 	//Register user to google firebase authentication
-	const handleSubmit = async (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault()
 		try {
 			const auth = getAuth()
@@ -40,9 +45,19 @@ export default function SignUp() {
 			updateProfile(auth.currentUser, {
 				displayName : firstname+' '+lastname
 			})
+
+			//form data copy
+			const storageFormData = {...formData}
+			delete storageFormData.password
+			delete storageFormData.confirmpassword
+			storageFormData.timestamp = serverTimestamp()
+			//added modified formdata to firestore db
+			await setDoc(doc(db,'users',user.uid), storageFormData)
+
+
 			nextrouter.push('/user')
 		} catch(e) {
-			console.log(e);
+			console.log(e.code+'\n'+e.message);
 		}
 	}
 
@@ -51,61 +66,66 @@ export default function SignUp() {
 	  		<br />
 	  		<main className='vertical-center flex'>
 
-	  			<div className="container flex horizontal-center">
+	  			<div className='container flex horizontal-center'>
 
 	  				<div className='fit-width card dark-bg3color'>
 
-	  					<div className="row horizontal-center">
-		  					<p className="dark-fgcolor form-signin-label">Create an Account</p>
+	  					<div className='row horizontal-center'>
+		  					<p className='dark-fgcolor form-signin-label'>Create an Account</p>
 		  					<br />
 		  				</div>
 
-						<div className="row">
-							<form className='form-signin' onSubmit={handleSubmit}>
-								<div className="input-field-name">
+						<div className='row'>
+							<form className='form-signin' onSubmit={onSubmit}>
+								<div className='input-field-name'>
 									<input 
-									 type="text" 
+									 type='text' 
 									 placeholder='First Name'
 									 id='firstname' 
+									 value={firstname}
 									 onChange={onChange}
 									 autoComplete='first-name' 
 									 />
 									 <input 
-									 type="text" 
+									 type='text' 
 									 placeholder='Last Name'
 									 id='lastname' 
+									 value={lastname}
 									 onChange={onChange}
 									 autoComplete='last-name' 
 									 />
 								</div>
-								<div className="input-field">
-									<i className="bi bi-person-fill field-icon" />
+								<div className='input-field'>
+									<i className='bi bi-person-fill field-icon' />
 									<input 
-									 type="email" 
+									 type='email' 
 									 placeholder='Email'
 									 id='email' 
+									 value={email}
 									 onChange={onChange}
 									 autoComplete='username' 
 									 />
 								</div>
-								<div className="input-field">
-									<i className="bi bi-lock-fill field-icon"></i>
+								<div className='input-field'>
+									<i className='bi bi-lock-fill field-icon'></i>
 									<input 
 									type={showPassword ? 'text':'password'} 
 									placeholder='Password' 
-									id='password' 
+									id='password'
+									value={password}
 									onChange={onChange}
 									autoComplete='current-password'/>
 									<i 
 									className={showPassword ? 'bi bi-eye field-toggle':'bi bi-eye-slash field-toggle'} 
 									onClick={() => setshowPassword((prevState) => !prevState)}/>
 								</div>
-								<div className="input-field">
-									<i className="bi bi-lock-fill field-icon"></i>
+								<div className='input-field'>
+									<i className='bi bi-lock-fill field-icon'></i>
 									<input 
 									type={showPassword ? 'text':'password'} 
 									placeholder='Confirm Password' 
 									id='confirmpassword' 
+									value={confirmpassword}
 									onChange={onChange}
 									autoComplete='confirm-password'/>
 									<i 
