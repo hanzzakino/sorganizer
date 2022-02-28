@@ -35,6 +35,7 @@ export default function Login() {
 			const userCredential = await signInWithEmailAndPassword(auth, email, password)
 
 			if(userCredential.user){
+				console.log('redirected to user')
 				nextrouter.push('/user')
 			}
 		} catch(e) {
@@ -98,7 +99,7 @@ export default function Login() {
 
 					<br />
 	  				<div className="row fit-width dark-fg2color">
-	  					{'Don\'t have an account? '}&nbsp;<Link href='/user/sign-up'><a className='dark-fg2color'>Sign up</a></Link>
+	  					{'Don\'t have an account? '}&nbsp;<Link href='/user/signup'><a className='dark-fg2color'>Sign up</a></Link>
 	  				</div>
 	  				
 				</div>
