@@ -2,13 +2,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Navbar from '../../components/navbar'
 
 //initialize firebase app (and import db) using the cofig file
 import {db} from '../../firebase.config'
 import { setDoc, doc, serverTimestamp} from 'firebase/firestore'
-
 import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
 
 export default function SignUp() {
@@ -38,31 +38,40 @@ export default function SignUp() {
 	//Register user to google firebase authentication
 	const onSubmit = async (e) => {
 		e.preventDefault()
-		try {
-			const auth = getAuth()
-			const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-			const user = userCredential.user
-			updateProfile(auth.currentUser, {
-				displayName : firstname+' '+lastname
+		if(password === confirmpassword){
+			try {
+				const auth = getAuth()
+				const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+				const user = userCredential.user
+				updateProfile(auth.currentUser, {
+					displayName : firstname+' '+lastname
+				})
+				
+				//form data copy
+				const storageFormData = {...formData}
+				delete storageFormData.password
+				delete storageFormData.confirmpassword
+				storageFormData.timestamp = serverTimestamp()
+				//added modified formdata to firestore db
+				await setDoc(doc(db,'users',user.uid), storageFormData)
+				nextrouter.push('/user')
+			} catch(e) {
+				console.log(e.code+'\n'+e.message);
+			}
+		} else {
+			toast('Confirm Password didn\'t match', {
+					position : 'top-right',
+					autoClose : 5000,
+					theme : 'dark',
+					type : 'error',
+					hideProgressBar : true
 			})
-
-			//form data copy
-			const storageFormData = {...formData}
-			delete storageFormData.password
-			delete storageFormData.confirmpassword
-			storageFormData.timestamp = serverTimestamp()
-			//added modified formdata to firestore db
-			await setDoc(doc(db,'users',user.uid), storageFormData)
-
-
-			nextrouter.push('/user')
-		} catch(e) {
-			console.log(e.code+'\n'+e.message);
 		}
 	}
 
   	return (
 	  	<div>
+	  		<ToastContainer />
 	  		<br />
 	  		<main className='vertical-center flex'>
 
@@ -137,14 +146,18 @@ export default function SignUp() {
 								
 								<span><Link href='/user/forgot-password'><a className='dark-fg2color'>Forgot your Password?</a></Link></span>
 								<br />
-								<button className='btn-login dark-accentbgcolor'>Sign up</button>
+								<button className='btn-signin dark-accentbgcolor'>Sign up</button>
 								
 								<p className='dark-fg2color'>or Create an Account with</p>
-								<span className='dark-fg2color'><button className='btn-login-with btn-img-google'>Google</button><button className='btn-login-with btn-img-fb'>Facebook</button></span>
+								<span className='dark-fg2color'><button className='btn-signin-with btn-img-google'>Google</button><button className='btn-signin-with btn-img-fb'>Facebook</button></span>
 								<br />
 							</form>
 						</div>
 
+	  				</div>
+	  				<br />
+	  				<div className="row fit-width dark-fg2color">
+	  					<span>{'Already have an account? '}&nbsp;<Link href='/user/sign-in'><a className='dark-fg2color'>Sign in</a></Link></span>
 	  				</div>
 				</div>
 			</main>

@@ -3,9 +3,7 @@ import '../firebase.config'
 import {getAuth} from 'firebase/auth'
 
 const formatAuthUser = (user) => ({
-	uid: user.uid,
-	displayName: user.displayName,
-	email: user.email
+	...user
 })
 
 export default function useFirebaseAuth() {
