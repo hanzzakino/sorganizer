@@ -30,7 +30,7 @@ export default function useFirebaseAuth() {
 	}
 
 	const signOut = () => {
-		auth.signOut().then(clear)
+		auth.signOut()
 	}
 
 	useEffect(() => {

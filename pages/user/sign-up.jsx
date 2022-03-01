@@ -1,6 +1,7 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 import Link from 'next/link'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -11,8 +12,12 @@ import {db} from '../../firebase.config'
 import { setDoc, doc, serverTimestamp} from 'firebase/firestore'
 import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
 
+//useAuthContext
+import {useAuth} from '../../context/AuthUserContext'
+
 export default function SignUp() {
-	
+	const {authUser, loading} = useAuth()
+	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
 	const [formData, setFormData] = useState({
 		firstname : '',
@@ -21,11 +26,13 @@ export default function SignUp() {
 		password : '',
 		confirmpassword : ''
 	})
-
 	const {firstname, lastname, email, password, confirmpassword} = formData
-
-	const nextrouter = useRouter()
-
+	
+	useEffect(() => {
+		if(!loading &&  authUser){
+			router.push('/user')
+		}
+	}, [authUser, loading])
 	
 	const onChange = (e) => {
 		setFormData((prevState) => ({
@@ -54,9 +61,15 @@ export default function SignUp() {
 				storageFormData.timestamp = serverTimestamp()
 				//added modified formdata to firestore db
 				await setDoc(doc(db,'users',user.uid), storageFormData)
-				nextrouter.push('/user')
+				router.push('/user')
 			} catch(e) {
-				console.log(e.code+'\n'+e.message);
+				toast('An error occured', {
+						position : 'top-right',
+						autoClose : 5000,
+						theme : 'dark',
+						type : 'error',
+						hideProgressBar : true
+				})
 			}
 		} else {
 			toast('Confirm Password didn\'t match', {
@@ -70,7 +83,10 @@ export default function SignUp() {
 	}
 
   	return (
-	  	<div>
+	  	!loading &&  !authUser ? (<div>
+	  		<Head>
+	        	<title>Sign up - SOrganizer</title>
+	      	</Head>
 	  		<ToastContainer />
 	  		<br />
 	  		<main className='vertical-center flex'>
@@ -162,6 +178,11 @@ export default function SignUp() {
 				</div>
 			</main>
 			<br />
-	  	</div>
+	  	</div>):(<div className='container dark-fgcolor' align='center'>
+					<Head>
+				    	<title>SOrganizer</title>
+				  	</Head>
+				  	<p>Loading</p>
+				</div>)
   	)
 }

@@ -1,22 +1,26 @@
-
 import {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
+
 //initialize firebase app using the firebase.config file
 import {db} from '../firebase.config'
 import {doc, getDoc} from 'firebase/firestore'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
+
+//useAuthContext
 import {useAuth} from '../context/AuthUserContext'
 
 
 export default function User() {
 	const {authUser, loading, signOut} = useAuth()
+	const router = useRouter()
 	const [dbData, setDbData] = useState({
 		firstname : '',
 		lastname : '',
 		email : '',
 		timestamp : null
 	})
-	const router = useRouter()
+	const {firstname, lastname, email} = dbData
 	
 	const getDocData = async () => {
 		try {
@@ -26,11 +30,15 @@ export default function User() {
 				setDbData(docSnap.data())
 			}
 		} catch(e) {
-			console.log(e)
+			toast('An error occured while getting Database data', {
+					position : 'top-right',
+					autoClose : 5000,
+					theme : 'dark',
+					type : 'error',
+					hideProgressBar : true
+			})
 		}
 	}
-
-	const {firstname, lastname, email} = dbData
 
 	useEffect(() => {
 		if(!loading &&  !authUser){
@@ -40,14 +48,16 @@ export default function User() {
 		}
 	}, [authUser, loading])
 
-	
-
 	return (
+		<>
 		<div className='container dark-fgcolor' align='center'>
 			<br />
 			{
 				authUser && !loading ? 
 				(<div>
+					<Head>
+				    	<title>Dashboard - SOrganizer</title>
+				  	</Head>
 					<div className='vertical-center flex row temp-textcontainer vertical-center'>
 						<h1>{firstname+' '+lastname}</h1>
 						<p>{JSON.stringify(authUser, null, 2)}</p>
@@ -60,9 +70,16 @@ export default function User() {
 				<br /><br />
 				</div>
 
-				):(<div></div>)
+				):(
+				<div>
+					<Head>
+				    	<title>SOrganizer</title>
+				  	</Head>
+				  	<p>Loading</p>
+				</div>)
 			}
 		</div>
+		</>
 		)
 }
 

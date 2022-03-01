@@ -1,25 +1,35 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Navbar from '../../components/navbar'
 import Link from 'next/link'
+import Head from 'next/head'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Navbar from '../../components/navbar'
 
 //initialize firebase app using the firebase.config file
 import '../../firebase.config'
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 
+//useAuthContext
+import {useAuth} from '../../context/AuthUserContext'
 
 export default function SignIn() {
-	
+
+	const {authUser, loading} = useAuth()
+	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
 	const [formData, setFormData] = useState({
 		email : '',
 		password : ''
 	})
-
 	const {email, password} = formData
+	
+	useEffect(() => {
+		if(!loading &&  authUser){
+			router.push('/user')
+		}
+	}, [authUser, loading])
 
 	const onChange = (e) => {
 		setFormData((prevState) => ({
@@ -27,9 +37,6 @@ export default function SignIn() {
 			[e.target.id] : e.target.value
 		}))
 	}
-
-	const nextrouter = useRouter()
-
 	const parseErrorMessage = (errMessage) => {
 		let message = null
 		let attributes = null
@@ -88,7 +95,7 @@ export default function SignIn() {
 			const userCredential = await signInWithEmailAndPassword(auth, email, password)
 
 			if(userCredential.user){
-				nextrouter.push('/user')
+				router.push('/user')
 			}
 		} catch(e) {
 			const {message,attributes} = parseErrorMessage(e.message)
@@ -98,7 +105,10 @@ export default function SignIn() {
 	}
 
   	return (
-	  	<div>
+	  	!loading &&  !authUser ? (<div>
+	  		<Head>
+	        	<title>Sign in - SOrganizer</title>
+	      	</Head>
 	  		<ToastContainer/>
 	  		<main className='fill-screen vertical-center flex'>
 
@@ -161,6 +171,11 @@ export default function SignIn() {
 				
 				
 			</main>
-	  	</div>
+	  	</div>):(<div className='container dark-fgcolor' align='center'>
+					<Head>
+				    	<title>SOrganizer</title>
+				  	</Head>
+				  	<p>Loading</p>
+				</div>)
   	)
 }
