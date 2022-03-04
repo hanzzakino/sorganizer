@@ -6,16 +6,20 @@ import Link from 'next/link'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Navbar from '../../components/navbar'
+import Spinner from '../../components/spinner'
 
 //initialize firebase app (and import db) using the cofig file
 import {db} from '../../firebase.config'
 import { setDoc, doc, serverTimestamp} from 'firebase/firestore'
 import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
 
-//useAuthContext
+//Context
 import {useAuth} from '../../context/AuthUserContext'
+import {useTheme} from '../../context/ThemeContext'
+
 
 export default function SignUp() {
+	const {theme, setTheme} = useTheme()
 	const {authUser, loading} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
@@ -66,7 +70,7 @@ export default function SignUp() {
 				toast('An error occured', {
 						position : 'top-right',
 						autoClose : 5000,
-						theme : 'dark',
+						theme : theme,
 						type : 'error',
 						hideProgressBar : true
 				})
@@ -75,7 +79,7 @@ export default function SignUp() {
 			toast('Confirm Password didn\'t match', {
 					position : 'top-right',
 					autoClose : 5000,
-					theme : 'dark',
+					theme : theme,
 					type : 'error',
 					hideProgressBar : true
 			})
@@ -84,24 +88,25 @@ export default function SignUp() {
 
   	return (
 	  	!loading &&  !authUser ? (<div>
+	  		<div className={theme+'-bg'}></div>
 	  		<Head>
-	        	<title>Sign up - SOrganizer</title>
+	        	<title>Sign up | SOrganizer</title>
 	      	</Head>
 	  		<ToastContainer />
 	  		<br />
-	  		<main className='vertical-center flex'>
+	  		<main className='horizontal-center flex'>
 
-	  			<div className='container flex horizontal-center'>
+	  			<div className='container flex vertical-center'>
 
-	  				<div className='fit-width card dark-bg3color'>
+	  				<div className={'fit-width card '+theme+'-bg3color'}>
 
-	  					<div className='row horizontal-center'>
-		  					<p className='dark-fgcolor form-signin-label'>Create an Account</p>
+	  					<div className='row vertical-center'>
+		  					<p className={theme+'-fgcolor form-label'}>Create an Account</p>
 		  					<br />
 		  				</div>
 
 						<div className='row'>
-							<form className='form-signin' onSubmit={onSubmit}>
+							<form className='form vetical-center flex' onSubmit={onSubmit}>
 								<div className='input-field-name'>
 									<input 
 									 type='text' 
@@ -156,33 +161,29 @@ export default function SignUp() {
 									<i 
 									className={showPassword ? 'bi bi-eye field-toggle':'bi bi-eye-slash field-toggle'} 
 									onClick={() => setshowPassword((prevState) => !prevState)}/>
-								</div>
+								</div>							
 								
-								
-								
-								<span><Link href='/user/forgot-password'><a className='dark-fg2color'>Forgot your Password?</a></Link></span>
-								<br />
-								<button className='btn-signin dark-accentbgcolor'>Sign up</button>
-								
-								<p className='dark-fg2color'>or Create an Account with</p>
-								<span className='dark-fg2color'><button className='btn-signin-with btn-img-google'>Google</button><button className='btn-signin-with btn-img-fb'>Facebook</button></span>
-								<br />
+								<button className={'btn '+theme+'-accentbgcolor'}>Sign up</button>
 							</form>
 						</div>
 
+						<div className="row">
+							<div className="column vertical-center flex">
+								<p className={theme+'-fg2color'}>or Create an Account with</p>
+								<span className={theme+'-fg2color'}><button className='btn-with-logo btn-img-google'>Google</button><button className='btn-with-logo btn-img-fb'>Facebook</button></span>
+								
+							</div>
+						</div>
+
+						<br />
 	  				</div>
 	  				<br />
-	  				<div className="row fit-width dark-fg2color">
-	  					<span>{'Already have an account? '}&nbsp;<Link href='/user/sign-in'><a className='dark-fg2color'>Sign in</a></Link></span>
+	  				<div className={'row fit-width '+theme+'-fg2color'}>
+	  					<span>{'Already have an account? '}&nbsp;<Link href='/user/sign-in'><a className={theme+'-fg2color'}>Sign in</a></Link></span>
 	  				</div>
 				</div>
 			</main>
 			<br />
-	  	</div>):(<div className='container dark-fgcolor' align='center'>
-					<Head>
-				    	<title>SOrganizer</title>
-				  	</Head>
-				  	<p>Loading</p>
-				</div>)
+	  	</div>):(<Spinner theme={theme}/>)
   	)
 }

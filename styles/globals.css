@@ -58,25 +58,122 @@ body {
   	display: flex;
   	filter: drop-shadow(0px 3px 5px rgb(0,0,0,0.1));
 }
-.form-signin {
+
+.spinner {
+	font-size: 10px;
+	margin: 8px auto;
+	text-indent: -9999em;
+	width: 3em;
+	height: 3em;
+	border-radius: 50%;
+	background: #fff;
+	background: linear-gradient(180deg, rgba(150,230,255,1) 0%, rgba(110,255,155,1) 50%, rgba(0,212,255,0) 100%);
+	position: relative;
+	animation: load3 1.4s infinite linear;
+	transform: translateZ(0);
+}
+.spinner:before {
+	width: 50%;
+	height: 50%;
+	background: #fff;
+	border-radius: 100% 0 0 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: '',
+}
+.spinner:after {
+	width: 75%;
+	height: 75%;
+	border-radius: 50%;
+	content: '';
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+@keyframes load3 {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.btn {
+	padding: 5px 16px 5px 16px;
+	margin: 10px;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	height: 38px;
+	font-weight: bold;
+	filter: drop-shadow(0px 4px 6px rgb(0,0,0,0.5));
+	transition: 0.5s;
+}
+.btn:hover {
+	background-color: white;
+	color: black;
+	transition: 0.25s;
+}
+.btn:active {
+	filter: unset;
+}
+
+.btn-with-logo {
+	margin: 0px 5px 10px 5px;
+	border: 1px solid rgb(0,0,0,0.4);
+	border-radius: 40px;
+	height: 38px;
+	padding-left: 40px;
+	padding-right: 12px;
+	font-weight: bold;
+	filter: drop-shadow(0px 4px 6px rgb(0,0,0,0.5));
+	transition: 0.5s;
+}
+.btn-with-logo:hover {
+	background-color: white;
+	color: black;
+	transition: 0.25s;
+}
+.btn-with-logo:active {
+	filter: unset;
+}
+.btn-img-google {
+	background-image: url('/img/icons/google-icon-48.png');
+	background-position: 2px 2px;
+	background-size: 32px 32px;
+	background-repeat: no-repeat;
+}
+.btn-img-fb {
+	background-image: url('/img/icons/facebook-icon-48.png');
+	background-position: 2px 2px;
+	background-size: 32px 32px;
+	background-repeat: no-repeat;
+}
+
+
+
+.form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	padding: 0px 26px 12px 26px;
 }
-.form-signin a {
+.form a {
 	text-decoration: none;
 }
-.form-signin a:hover {
+.form a:hover {
 	text-decoration: underline;
 }
-.form-signin-label {
+.form-label {
 	font-size: 1.7rem;
 }
-/*.input-field {
-	background-color: blue;
-}*/
+
 .input-field input {
 	position: relative;
 	padding: 3px 42px 3px 42px;
@@ -122,51 +219,6 @@ body {
 }
 
 
-.form-signin .btn-signin {
-	padding: 5px 16px 5px 16px;
-	margin: 10px;
-	border: 1px solid rgb(0,0,0,0.3);
-	border-radius: 10px;
-	height: 38px;
-	font-weight: bold;
-	filter: drop-shadow(0px 4px 6px rgb(0,0,0,0.5));
-	transition: 0.5s;
-}
-.form-signin .btn-signin:hover {
-	background-color: white;
-	color: black;
-	filter: unset;
-	transition: 0.25s;
-}
-.form-signin .btn-signin-with {
-	margin: 0px 5px 10px 5px;
-	border: 1px solid rgb(0,0,0,0.3);
-	border-radius: 40px;
-	height: 38px;
-	padding-left: 40px;
-	padding-right: 12px;
-	font-weight: bold;
-	filter: drop-shadow(0px 4px 6px rgb(0,0,0,0.5));
-	transition: 0.5s;
-}
-.form-signin .btn-signin-with:hover {
-	color: black;
-	filter: unset;
-	transition: 0.05s;
-}
-.form-signin .btn-img-google {
-	background-image: url('/img/icons/google-icon-48.png');
-	background-position: 2px 2px;
-	background-size: 32px 32px;
-	background-repeat: no-repeat;
-}
-.form-signin .btn-img-fb {
-	background-image: url('/img/icons/facebook-icon-48.png');
-	background-position: 2px 2px;
-	background-size: 32px 32px;
-	background-repeat: no-repeat;
-}
-
 
 
 .card {
@@ -176,7 +228,7 @@ body {
 }
 /* If screen width is less than 600px */
 @media (max-width: 770px) {
-	.form-signin {
+	.form {
 		margin: 0;
 		padding: 0px 16px 12px 16px;
 	}
@@ -197,12 +249,12 @@ body {
 .fit-height {
 	height: fit-content;
 }
-.horizontal-center {
+.vertical-center {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
-.vertical-center {
+.horizontal-center {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -233,7 +285,24 @@ body {
 
 /* Colors */
 
-body, .dark-bgcolor {
+.dark-bg-spinner {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: #212121;
+	z-index: 1;
+}
+.dark-spinner:after {
+	background: #212121;
+}
+.dark-bg {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: #212121;
+	z-index: -1;
+}
+.dark-bgcolor {
 	background-color: #212121;
 }
 .dark-bg2color {
@@ -258,8 +327,47 @@ body, .dark-bgcolor {
 	background-color: #0D7377;
 }
 
+
+.light-bg-spinner {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: white;
+	z-index: 1;
+}
+.light-spinner:after {
+	background: white;
+}
+.light-bg {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: white;
+	z-index: -1;
+}
 .light-bgcolor {
 	background-color:rgb(253,253,253);
+}
+.light-bg2color {
+	background-color: gray;
+}
+.light-bg3color {
+	background-color: gainsboro;
+}
+.light-fgcolor {
+	color: black;
+}
+.light-fg2color {
+	color: rgb(60,60,60);
+}
+.light-accentfgcolor {
+	color: #14FFEC;
+}
+.light-accentbgcolor {
+	background-color: #14FFEC;
+}
+.light-accentbg2color {
+	background-color: #0D7377;
 }
 
 /*for development*/
@@ -278,3 +386,41 @@ body, .dark-bgcolor {
 
 
 /*********************************************************************/
+
+
+
+/* trash **********************/
+
+/*
+.form .btn {
+	padding: 5px 16px 5px 16px;
+	margin: 10px;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	height: 38px;
+	font-weight: bold;
+	filter: drop-shadow(0px 4px 6px rgb(0,0,0,0.5));
+	transition: 0.5s;
+}
+.form .btn:hover {
+	background-color: white;
+	color: black;
+	filter: unset;
+	transition: 0.25s;
+}
+.form .btn-with {
+	margin: 0px 5px 10px 5px;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 40px;
+	height: 38px;
+	padding-left: 40px;
+	padding-right: 12px;
+	font-weight: bold;
+	filter: drop-shadow(0px 4px 6px rgb(0,0,0,0.5));
+	transition: 0.5s;
+}
+.form .btn-with:hover {
+	color: black;
+	filter: unset;
+	transition: 0.05s;
+}*/

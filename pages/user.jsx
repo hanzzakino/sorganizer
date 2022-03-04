@@ -1,18 +1,24 @@
 import {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Spinner from '../components/spinner'
 
 //initialize firebase app using the firebase.config file
 import {db} from '../firebase.config'
 import {doc, getDoc} from 'firebase/firestore'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
-//useAuthContext
+//Context
 import {useAuth} from '../context/AuthUserContext'
+import {useTheme} from '../context/ThemeContext'
 
 
 export default function User() {
+	const {theme, toggleTheme} = useTheme()
 	const {authUser, loading, signOut} = useAuth()
+	const [gettingDB, setGettingDB] = useState(true)
 	const router = useRouter()
 	const [dbData, setDbData] = useState({
 		firstname : '',
@@ -24,19 +30,22 @@ export default function User() {
 	
 	const getDocData = async () => {
 		try {
+			setGettingDB(true)
 			const docRef = doc(db,'users',authUser.uid)
 			const docSnap = await getDoc(docRef)
 			if(docSnap.exists()){
 				setDbData(docSnap.data())
 			}
+			setGettingDB(false)
 		} catch(e) {
 			toast('An error occured while getting Database data', {
 					position : 'top-right',
 					autoClose : 5000,
-					theme : 'dark',
+					theme : theme,
 					type : 'error',
 					hideProgressBar : true
 			})
+			setGettingDB(false)
 		}
 	}
 
@@ -50,33 +59,32 @@ export default function User() {
 
 	return (
 		<>
-		<div className='container dark-fgcolor' align='center'>
+		<div className={theme+'-bg'}></div>
+		<div className={'container '+theme+'-fgcolor'} align='center'>
+
 			<br />
+			
 			{
 				authUser && !loading ? 
 				(<div>
 					<Head>
-				    	<title>Dashboard - SOrganizer</title>
+				    	<title>Dashboard | SOrganizer</title>
 				  	</Head>
-					<div className='vertical-center flex row temp-textcontainer vertical-center'>
-						<h1>{firstname+' '+lastname}</h1>
+					<div className='horizontal-center flex row temp-textcontainer horizontal-center'>
+						{gettingDB ? <Spinner theme={theme} spinnerOnly/>:<h1>{firstname+' '+lastname}</h1>}
 						<p>{JSON.stringify(authUser, null, 2)}</p>
 						<h1>DB DATA</h1>
 						<br />
 						<p>{JSON.stringify(dbData, null, 2)}</p>
 						<br />
 					</div>
-					<div className="vertical-center flex row"><button onClick={signOut}>Logout</button></div>
+					<div className='horizontal-center flex row'><button className='btn' onClick={signOut}>Logout</button></div>
+
+					<div className='horizontal-center flex row'><button className='btn' onClick={toggleTheme}>Switch to {theme==='dark' ? 'Light':'Dark'} Theme</button></div>
 				<br /><br />
 				</div>
 
-				):(
-				<div>
-					<Head>
-				    	<title>SOrganizer</title>
-				  	</Head>
-				  	<p>Loading</p>
-				</div>)
+				):(<Spinner theme={theme}/>)
 			}
 		</div>
 		</>

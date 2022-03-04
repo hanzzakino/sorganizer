@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -7,15 +5,17 @@ import Link from 'next/link'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Navbar from '../../components/navbar'
+import Spinner from '../../components/spinner'
 
 //initialize firebase app using the firebase.config file
-import '../../firebase.config'
 import {getAuth, sendPasswordResetEmail} from 'firebase/auth'
 
-//useAuthContext
+//Context
 import {useAuth} from '../../context/AuthUserContext'
+import {useTheme} from '../../context/ThemeContext'
 
 export default function ForgotPassword() {
+	const {theme, setTheme} = useTheme()
 	const {authUser, loading} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
@@ -46,7 +46,7 @@ export default function ForgotPassword() {
 				attributes = {
 					position : 'top-right',
 					autoClose : 5000,
-					theme : 'dark',
+					theme : theme,
 					type : 'error',
 					hideProgressBar : true
 				}
@@ -57,7 +57,7 @@ export default function ForgotPassword() {
 				attributes = {
 					position : 'top-right',
 					autoClose : 5000,
-					theme : 'dark',
+					theme : theme,
 					type : 'error',
 					hideProgressBar : true
 				}
@@ -68,7 +68,7 @@ export default function ForgotPassword() {
 				attributes = {
 					position : 'top-right',
 					autoClose : 5000,
-					theme : 'dark',
+					theme : theme,
 					type : 'error',
 					hideProgressBar : true
 				}
@@ -82,7 +82,7 @@ export default function ForgotPassword() {
 		try {
 			const auth = getAuth()
 			await sendPasswordResetEmail(auth, email)
-			toast.success('Email was Sent')
+			toast.success('Email was Sent',{autoClose : false, theme : theme})
 		} catch(e) {
 			const {message,attributes} = parseErrorMessage(e.message)
 			toast(message,attributes)
@@ -92,28 +92,29 @@ export default function ForgotPassword() {
 
   	return (
 	  	!loading &&  !authUser ? (<div>
+	  		<div className={theme+'-bg'}></div>
 	  		<Head>
-	        	<title>Sign in - SOrganizer</title>
+	        	<title>Reset password | SOrganizer</title>
 	      	</Head>
 	  		<ToastContainer/>
 
-	  		<main className='fill-screen vertical-center flex'>
+	  		<main className='fill-screen horizontal-center flex'>
 
-	  			<div className="container flex horizontal-center">
+	  			<div className='container flex vertical-center'>
 
-	  				<div className='fit-width card dark-bg3color'>
+	  				<div className={'fit-width card '+theme+'-bg3color'}>
 
-	  					<div className="row horizontal-center">
-		  					<h1 className="dark-fgcolor form-signin-label">Forgot Password</h1>
+	  					<div className='row vertical-center'>
+		  					<h1 className={theme+'-fgcolor form-label'}>Forgot Password</h1>
 		  					<br />
 		  				</div>
 		  				
-						<div className="row">
-							<form className='form-signin' onSubmit={onSubmit}>
-								<div className="input-field">
-									<i className="bi bi-person-fill field-icon" />
+						<div className='row'>
+							<form className='form' onSubmit={onSubmit}>
+								<div className='input-field'>
+									<i className='bi bi-person-fill field-icon' />
 									<input 
-									 type="email" 
+									 type='email' 
 									 placeholder='Email'
 									 id='email'
 									 value={email}
@@ -121,15 +122,15 @@ export default function ForgotPassword() {
 									 autoComplete='username' 
 									 />
 								</div>
-								<button className='btn-signin dark-accentbgcolor'>Send Reset Link</button>
+								<button className={'btn '+theme+'-accentbgcolor'}>Send Reset Link</button>
 								</form>
 						</div>
 
 	  				</div>
 
 					<br />
-	  				<div className="row fit-width dark-fg2color">
-	  					<span>{'Go back to'}&nbsp;<Link href='/user/sign-in'><a className='dark-fg2color'>Sign in</a></Link></span>
+	  				<div className={'row fit-width '+theme+'-fg2color'}>
+	  					<span>{'Go back to'}&nbsp;<Link href='/user/sign-in'><a className={theme+'-fg2color'}>Sign in</a></Link></span>
 	  				</div>
 	  				
 				</div>
@@ -137,11 +138,6 @@ export default function ForgotPassword() {
 				
 				
 			</main>
-	  	</div>):(<div className='container dark-fgcolor' align='center'>
-					<Head>
-				    	<title>SOrganizer</title>
-				  	</Head>
-				  	<p>Loading</p>
-				</div>)
+	  	</div>):(<Spinner theme={theme}/>)
   	)
 }
