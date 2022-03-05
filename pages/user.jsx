@@ -57,16 +57,14 @@ export default function User() {
 		}
 	}, [authUser, loading])
 
-	return (
+	return authUser && !loading ? (
 		<>
 		<div className={theme+'-bg'}></div>
 		<div className={'container '+theme+'-fgcolor'} align='center'>
 
 			<br />
-			
-			{
-				authUser && !loading ? 
-				(<div>
+							 
+				<div>
 					<Head>
 				    	<title>Dashboard | SOrganizer</title>
 				  	</Head>
@@ -83,12 +81,10 @@ export default function User() {
 					<div className='horizontal-center flex row'><button className='btn' onClick={toggleTheme}>Switch to {theme==='dark' ? 'Light':'Dark'} Theme</button></div>
 				<br /><br />
 				</div>
-
-				):(<Spinner theme={theme}/>)
-			}
+			
 		</div>
 		</>
-		)
+		):(<Spinner theme={theme}/>)
 }
 
 // export async function getStaticProps(context){

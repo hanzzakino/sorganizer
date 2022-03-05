@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Navbar from '../../components/navbar'
 import Spinner from '../../components/spinner'
+import OauthButton from '../../components/oauthButton'
 
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 
@@ -111,20 +112,20 @@ export default function SignIn() {
 	        	<title>Sign in | SOrganizer</title>
 	      	</Head>
 	  		<ToastContainer/>
-	  		<main className='fill-screen horizontal-center flex'>
 
-	  			<div className='container flex vertical-center'>
+	  		<div className="container">
 
-	  				<div className={'fit-width  card '+theme+'-bg3color'}>
-
-	  					<div className='row vertical-center'>
-		  					<h1 className={theme+'-fgcolor form-label'}>SOrganizer</h1>
+	  			<div className="row fill-screen flex horizontal-center">
+	  				
+	  				<div className={'column flex vertical-center '+theme+'-fgcolor'}>
+	  					<h1>SOrganizer</h1>
+	  					<br />
+	  				</div>
+	  				<div className='column flex vertical-center'>
+	  					<div className={'flex vertical-center fit-width  card '+theme+'-bg3color'}>
+		  					<h1 className={theme+'-fgcolor form-label'}>Sign in</h1>
 		  					<br />
-		  				</div>
-
-						<div className='row'>
-							<div className="column">
-								<form className='form' onSubmit={onSubmit}>
+		  					<form onSubmit={onSubmit}>
 								<div className='input-field'>
 									<i className='bi bi-person-fill field-icon' />
 									<input 
@@ -149,34 +150,87 @@ export default function SignIn() {
 									className={showPassword ? 'bi bi-eye field-toggle':'bi bi-eye-slash field-toggle'} 
 									onClick={() => setshowPassword((prevState) => !prevState)}/>
 								</div>
-								<span><Link href='/user/forgot-password'><a className={theme+'-fg2color'}>Forgot your Password?</a></Link></span>
-								<br />
-								<button className={'btn '+theme+'-accentbgcolor'}>Sign in</button>
+								<div className="flex vertical-center">
+									<span><Link href='/user/forgot-password'><a className={theme+'-fg2color'}>Forgot your Password?</a></Link></span>
+									<br />
+									<button className={'btn '+theme+'-accentbgcolor'}>Sign in</button>
+								</div>
+							</form>
+							<p className={theme+'-fg2color'}>or Sign in with</p>
+							<OauthButton />
+							<br />
+						</div>
+				
+	  					<div className={'fit-width '+theme+'-fg2color'}>
+	  						<br />
+	  						<span>{'Don\'t have an account? '}&nbsp;<Link href='/user/sign-up'><a className={theme+'-fg2color'}>Sign up</a></Link></span>
+	  					</div>
+	  				</div>
+
+	  			</div>
+
+	  		</div>	
+
+	  		{/*<main className='fill-screen horizontal-center flex'>
+	  			<div className='container flex vertical-center'>
+	  				<div className={'fit-width  card '+theme+'-bg3color'}>
+	  					<div className='row'>
+	  						<div className="column flex horizontal-center">
+	  							
+		  						<br />
+	  						</div>
+		  				</div>
+						<div className='row'>
+							<div className="column">
+								<form className='form' onSubmit={onSubmit}>
+									<div className='input-field'>
+										<i className='bi bi-person-fill field-icon' />
+										<input 
+										 type='email' 
+										 placeholder='Email'
+										 id='email'
+										 value={email}
+										 onChange={onChange}
+										 autoComplete='username' 
+										 />
+									</div>
+									<div className='input-field'>
+										<i className='bi bi-lock-fill field-icon'></i>
+										<input 
+										type={showPassword ? 'text':'password'} 
+										placeholder='Password' 
+										id='password'
+										value={password}
+										onChange={onChange}
+										autoComplete='current-password'/>
+										<i 
+										className={showPassword ? 'bi bi-eye field-toggle':'bi bi-eye-slash field-toggle'} 
+										onClick={() => setshowPassword((prevState) => !prevState)}/>
+									</div>
+									<span><Link href='/user/forgot-password'><a className={theme+'-fg2color'}>Forgot your Password?</a></Link></span>
+									<br />
+									<button className={'btn '+theme+'-accentbgcolor'}>Sign in</button>
 								</form>
 							</div>
 						</div>
-
 						<div className='row'>
 							<div className="column vertical-center flex">
 								<p className={theme+'-fg2color'}>or Sign in with</p>
-								<span className={theme+'-fg2color'}><button className='btn-with-logo btn-img-google'>Google</button><button className='btn-with-logo btn-img-fb'>Facebook</button></span>
+								<OauthButton />
 	  						</div>
 	  					</div>
-
 	  					<br />
 	  				</div>
-
-
 					<br />
-	  				<div className={'row fit-width '+theme+'-fg2color'}>
-	  					<span>{'Don\'t have an account? '}&nbsp;<Link href='/user/sign-up'><a className={theme+'-fg2color'}>Sign up</a></Link></span>
+	  				<div className='row'>
+	  					<div className={'column fit-width '+theme+'-fg2color'}>
+	  						<span>{'Don\'t have an account? '}&nbsp;<Link href='/user/sign-up'><a className={theme+'-fg2color'}>Sign up</a></Link></span>
+	  					</div>	
 	  				</div>
-	  				
-				</div>
 
-				
-				
-			</main>
+				</div>
+			</main>*/}
+			
 	  	</div>):(<Spinner theme={theme}/>)
   	)
 }

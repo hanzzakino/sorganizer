@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Navbar from '../../components/navbar'
 import Spinner from '../../components/spinner'
+import OauthButton from '../../components/oauthButton'
 
 //initialize firebase app (and import db) using the cofig file
 import {db} from '../../firebase.config'
@@ -94,19 +95,16 @@ export default function SignUp() {
 	      	</Head>
 	  		<ToastContainer />
 	  		<br />
-	  		<main className='horizontal-center flex'>
 
-	  			<div className='container flex vertical-center'>
+	  		<div className="container">
 
-	  				<div className={'fit-width card '+theme+'-bg3color'}>
+	  			<div className="row fill-screen flex horizontal-center">
 
-	  					<div className='row vertical-center'>
-		  					<p className={theme+'-fgcolor form-label'}>Create an Account</p>
+	  				<div className='column flex vertical-center'>
+	  					<div className={'flex vertical-center fit-width  card '+theme+'-bg3color'}>
+		  					<h1 className={theme+'-fgcolor form-label'}>Create an Account</h1>
 		  					<br />
-		  				</div>
-
-						<div className='row'>
-							<form className='form vetical-center flex' onSubmit={onSubmit}>
+		  					<form onSubmit={onSubmit}>
 								<div className='input-field-name'>
 									<input 
 									 type='text' 
@@ -161,29 +159,28 @@ export default function SignUp() {
 									<i 
 									className={showPassword ? 'bi bi-eye field-toggle':'bi bi-eye-slash field-toggle'} 
 									onClick={() => setshowPassword((prevState) => !prevState)}/>
-								</div>							
-								
-								<button className={'btn '+theme+'-accentbgcolor'}>Sign up</button>
+								</div>	
+								<div className="flex vertical-center">
+									<button className={'btn '+theme+'-accentbgcolor'}>Sign up</button>
+								</div>
 							</form>
+							<p className={theme+'-fg2color'}>or Sign up with</p>
+							<OauthButton />
+							<br />
 						</div>
-
-						<div className="row">
-							<div className="column vertical-center flex">
-								<p className={theme+'-fg2color'}>or Create an Account with</p>
-								<span className={theme+'-fg2color'}><button className='btn-with-logo btn-img-google'>Google</button><button className='btn-with-logo btn-img-fb'>Facebook</button></span>
-								
-							</div>
-						</div>
-
-						<br />
+				
+	  					<div className={'fit-width '+theme+'-fg2color'}>
+	  						<br />
+	  						<span>{'Already have an account? '}&nbsp;<Link href='/user/sign-in'><a className={theme+'-fg2color'}>Sign in</a></Link></span>
+	  					</div>
 	  				</div>
-	  				<br />
-	  				<div className={'row fit-width '+theme+'-fg2color'}>
-	  					<span>{'Already have an account? '}&nbsp;<Link href='/user/sign-in'><a className={theme+'-fg2color'}>Sign in</a></Link></span>
-	  				</div>
-				</div>
-			</main>
-			<br />
+
+	  			</div>
+
+	  		</div>	
+
+
+
 	  	</div>):(<Spinner theme={theme}/>)
   	)
 }

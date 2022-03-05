@@ -2,8 +2,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Navbar from '../components/navbar'
 
+//Context
+import {useAuth} from '../context/AuthUserContext'
+import {useTheme} from '../context/ThemeContext'
 
 export default function Home() {
+  const {theme, toggleTheme} = useTheme()
   return (
     <>
       <Head>
@@ -12,35 +16,23 @@ export default function Home() {
         <link rel="manifest" href="/manifest.json" />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      
-      <Navbar />
-      <main className='dark-bgcolor'>
+      <div className={theme+'-bg'}></div>
+
+      <main>
         <div className='container'>
-          <h1 className='dark-fgcolor'>Home</h1>
-          <Link href='/user'><a  className='dark-fgcolor'>User </a></Link>
-          <Link href='/user/sign-in'><a  className='dark-fgcolor'>Sign In </a></Link>
-          <Link href='/user/sign-up'><a  className='dark-fgcolor'>Sign Up </a></Link>
-          <Link href='/user/forgot-password'><a  className='dark-fgcolor'>Forgot Password </a></Link>
+          <div className="row">
+            <div className="column">
+              <Link href='/user'><a  className='dark-fgcolor'>User </a></Link>
+              <Link href='/user/sign-in'><a  className='dark-fgcolor'>Sign In </a></Link>
+              <Link href='/user/sign-up'><a  className='dark-fgcolor'>Sign Up </a></Link>
+              </div>
+            <div className="column">
+              <Link href='/user/forgot-password'><a  className='dark-fgcolor'>Forgot Password </a></Link>
+            </div>
+          </div>
         </div>
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
       </main>
 
-      <footer>
-        hanz
-      </footer>
     </>
   )
 }

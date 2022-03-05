@@ -222,6 +222,7 @@ body {
 
 
 .card {
+	padding: 2px 12px 2px 12px;
 	border: none;
 	border-radius: 10px;
 	filter: drop-shadow(0px 3px 5px rgb(0,0,0,0.1));
@@ -264,7 +265,7 @@ body {
 
 .fill-screen {
 	height: 100vh;
-	widows: 100wh;
+	width: 100wh;
 }
 .fixed {
 	position: fixed;
@@ -272,8 +273,19 @@ body {
 .pd-t-10 {
 	padding-top: 10px;
 }
-
-
+.pd-tb-10 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.pd-t-20 {
+	padding-top: 20px;
+}
+@media (max-width: 770px) {
+	.fill-screen {
+		height: auto;
+		width: 100wh;
+	}
+}
 
 .temp-textcontainer {
 	width: 80%;
