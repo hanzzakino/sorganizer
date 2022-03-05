@@ -24,21 +24,22 @@ export default function OauthButton() {
     	const docSnap = await getDoc(docRef)
 
     	if(!docSnap.exists()){
-    		await setDoc(doc(db, 'users', user.uid), {
-    			firstname : user.displayName.split(' ').pop().join(),
-				lastname : user.displayName.split(' ')[1],
+    		await setDoc(doc(db,'users',user.uid), {
+	    		firstname : String(user.displayName.split(' ').slice(0, -1).join()),
+				lastname : String((user.displayName.split(' ').slice(-1))[0]),
 				email : user.email,
 				timestamp : serverTimestamp()
-    		})
+			})
     	}
     	router.push('/user')
     } catch(e) {
+    	console.log(e)
     	toast('Could not sign in with Google', {
-						position : 'top-right',
-						autoClose : 5000,
-						theme : theme,
-						type : 'error',
-						hideProgressBar : true
+			position : 'top-right',
+			autoClose : 5000,
+			theme : theme,
+			type : 'error',
+			hideProgressBar : true
 		})
     }
   }
