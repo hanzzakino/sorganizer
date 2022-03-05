@@ -16,8 +16,8 @@ import {useTheme} from '../../context/ThemeContext'
 
 
 export default function SignIn() {
-	const {theme, setTheme} = useTheme()
-	const {authUser, loading} = useAuth()
+	const {theme} = useTheme()
+	const {authUser, loading, oauthloading} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
 	const [formData, setFormData] = useState({
@@ -27,7 +27,8 @@ export default function SignIn() {
 	const {email, password} = formData
 	
 	useEffect(() => {
-		if(!loading &&  authUser){
+		if(!oauthloading && !loading &&  authUser){
+			console.log('push45')
 			router.push('/user')
 		}
 	}, [authUser, loading])
@@ -96,6 +97,7 @@ export default function SignIn() {
 			const userCredential = await signInWithEmailAndPassword(auth, email, password)
 
 			if(userCredential.user){
+				console.log('push3')
 				router.push('/user')
 			}
 		} catch(e) {

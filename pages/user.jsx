@@ -7,7 +7,7 @@ import Spinner from '../components/spinner'
 
 //initialize firebase app using the firebase.config file
 import {db} from '../firebase.config'
-import {doc, getDoc} from 'firebase/firestore'
+import {doc, getDoc, onSnapshot} from 'firebase/firestore'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 //Context
@@ -35,8 +35,9 @@ export default function User() {
 			const docSnap = await getDoc(docRef)
 			if(docSnap.exists()){
 				setDbData(docSnap.data())
+				setGettingDB(false)
 			}
-			setGettingDB(false)
+			
 		} catch(e) {
 			toast('An error occured while getting Database data', {
 					position : 'top-right',

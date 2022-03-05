@@ -21,7 +21,7 @@ import {useTheme} from '../../context/ThemeContext'
 
 export default function SignUp() {
 	const {theme, setTheme} = useTheme()
-	const {authUser, loading} = useAuth()
+	const {authUser, loading, oauthloading} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
 	const [formData, setFormData] = useState({
@@ -34,7 +34,7 @@ export default function SignUp() {
 	const {firstname, lastname, email, password, confirmpassword} = formData
 	
 	useEffect(() => {
-		if(!loading &&  authUser){
+		if(!oauthloading && !loading &&  authUser){
 			router.push('/user')
 		}
 	}, [authUser, loading])

@@ -9,6 +9,7 @@ const formatAuthUser = (user) => ({
 export default function useFirebaseAuth() {
 	const [authUser, setAuthUser] = useState(null)
 	const [loading, setLoading] = useState(true)
+	const [oauthloading, setoauthloading] = useState(false)
 
 	const authStateChanged = async (authState) => {
 		if(!authState) {
@@ -20,6 +21,13 @@ export default function useFirebaseAuth() {
 		var formattedUser = formatAuthUser(authState)
 		setAuthUser(formattedUser)
 		setLoading(false)
+	}
+
+	const oauthloadingtrue = () => {
+		setoauthloading(true)
+	}
+	const oauthloadingfalse = () => {
+		setoauthloading(false)
 	}
 
 	const auth = getAuth()
@@ -41,6 +49,9 @@ export default function useFirebaseAuth() {
 	return {
 		authUser,
 		loading,
-		signOut
+		signOut,
+		oauthloading,
+		oauthloadingtrue,
+		oauthloadingfalse
 	}
 }
