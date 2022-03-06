@@ -101,6 +101,8 @@ export default function SignUp() {
 	  			<div className="row fill-screen flex horizontal-center">
 
 	  				<div className='column flex vertical-center'>
+		  				<h1 className={theme+'-fgcolor'}>SOrganizer</h1>
+		  				<br />
 	  					<div className={'flex vertical-center fit-width  card '+theme+'-bg3color'}>
 		  					<h1 className={theme+'-fgcolor form-label'}>Create an Account</h1>
 		  					<br />
@@ -172,6 +174,8 @@ export default function SignUp() {
 	  					<div className={'fit-width '+theme+'-fg2color'}>
 	  						<br />
 	  						<span>{'Already have an account? '}&nbsp;<Link href='/user/sign-in'><a className={theme+'-fg2color'}>Sign in</a></Link></span>
+	  						<br />
+	  						<br />
 	  					</div>
 	  				</div>
 
@@ -179,7 +183,7 @@ export default function SignUp() {
 
 	  		</div>	
 
-
+	  		
 
 	  	</div>):(<Spinner theme={theme}/>)
   	)

@@ -87,25 +87,26 @@ export default function ForgotPassword() {
 			const {message,attributes} = parseErrorMessage(e.message)
 			toast(message,attributes)
 		}
-		
 	}
 
   	return (
 	  	!loading &&  !authUser ? (<div>
 	  		<div className={theme+'-bg'}></div>
 	  		<Head>
-	        	<title>Reset password | SOrganizer</title>
+	        	<title>Reset Password | SOrganizer</title>
 	      	</Head>
 	  		<ToastContainer/>
 
 	  		<main className='fill-screen horizontal-center flex'>
 
 	  			<div className='container flex vertical-center'>
-
+	  				<br />
+	  				<h1 className={theme+'-fgcolor'}>SOrganizer</h1>
+	  				<br />
 	  				<div className={'fit-width card '+theme+'-bg3color'}>
 
 	  					<div className='row vertical-center'>
-		  					<h1 className={theme+'-fgcolor form-label'}>Forgot Password</h1>
+		  					<h1 className={theme+'-fgcolor form-label'}>Reset Password</h1>
 		  					<br />
 		  				</div>
 		  				
@@ -132,7 +133,7 @@ export default function ForgotPassword() {
 	  				<div className={'row fit-width '+theme+'-fg2color'}>
 	  					<span>{'Go back to'}&nbsp;<Link href='/user/sign-in'><a className={theme+'-fg2color'}>Sign in</a></Link></span>
 	  				</div>
-	  				
+
 				</div>
 
 				
