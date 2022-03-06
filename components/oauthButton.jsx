@@ -18,6 +18,17 @@ export default function OauthButton() {
 		let message = null
 		let attributes = null
 		switch (errMessage) {
+			case 'auth/account-exists-with-different-credential':
+				message = 'An error occured. Could not link credentials to existing user'
+				attributes = {
+					position : 'top-right',
+					autoClose : 5000,
+					theme : theme,
+					type : 'error',
+					hideProgressBar : true
+				}
+				return {message,attributes}
+				break;
 			default:
 				message = 'An error occured. Could not Authenticate user'
 				attributes = {
@@ -32,7 +43,6 @@ export default function OauthButton() {
 		}
 	}
 
-
   	const facebookOauth = async () => {
 	    try {
 	    	oauthloadingtrue()
@@ -40,7 +50,7 @@ export default function OauthButton() {
 	    	const provider = new FacebookAuthProvider()
 	    	const result = await signInWithPopup(auth, provider)
 	    	const user = result.user
-	    	console.log(user)
+	    	console.log(result)
 
 	    	const docRef = doc(db, 'users', user.uid)
 	    	const docSnap = await getDoc(docRef)
@@ -59,13 +69,13 @@ export default function OauthButton() {
 	    	}
 
 	    } catch(e) {
-	    	console.log(e)
-	    	const {message,attributes} = parseErrorMessage(e.message)
+	    	const {message,attributes} = parseErrorMessage(e.code)
 	    	toast(message,attributes)
 	    } finally {
 	    	oauthloadingfalse()
 	    }
 	}
+
   	const googleOauth = async () => {
 
 	    try {
@@ -92,7 +102,6 @@ export default function OauthButton() {
 	    	}
 
 	    } catch(e) {
-	    	console.log(e)
 	    	const {message,attributes} = parseErrorMessage(e.message)
 	    	toast(message,attributes)
 	    } finally {
