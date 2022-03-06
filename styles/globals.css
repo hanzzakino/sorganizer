@@ -313,6 +313,15 @@ body {
 	background-color: #212121;
 	z-index: 1;
 }
+.dark-spinner-text{
+	position: fixed;
+	text-align: center;
+	top: 56%;
+	left: calc(50%-4px);
+	opacity: 35%;
+	color: white;
+	font-size: 12px;
+}
 .dark-spinner:after {
 	background: #212121;
 }
@@ -355,6 +364,15 @@ body {
 	position: fixed;
 	background-color: white;
 	z-index: 1;
+}
+.light-spinner-text{
+	position: fixed;
+	text-align: center;
+	top: 56%;
+	left: calc(50%-4px);
+	opacity: 35%;
+	color: black;
+	font-size: 12px;
 }
 .light-spinner:after {
 	background: white;

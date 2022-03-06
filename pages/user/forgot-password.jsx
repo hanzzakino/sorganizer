@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+
+//Components
 import Navbar from '../../components/navbar'
 import Spinner from '../../components/spinner'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-//initialize firebase app using the firebase.config file
-import {getAuth, sendPasswordResetEmail} from 'firebase/auth'
 
 //Context
 import {useAuth} from '../../context/AuthUserContext'
@@ -16,7 +16,7 @@ import {useTheme} from '../../context/ThemeContext'
 
 export default function ForgotPassword() {
 	const {theme, setTheme} = useTheme()
-	const {authUser, loading} = useAuth()
+	const {authUser, loading, resetPassword} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
 	const [formData, setFormData] = useState({
@@ -37,56 +37,9 @@ export default function ForgotPassword() {
 		}))
 	}
 
-	const parseErrorMessage = (errMessage) => {
-		let message = null
-		let attributes = null
-		switch (errMessage) {
-			case 'Firebase: Error (auth/user-not-found).':
-				message = 'User not found'
-				attributes = {
-					position : 'top-right',
-					autoClose : 5000,
-					theme : theme,
-					type : 'error',
-					hideProgressBar : true
-				}
-				return {message,attributes}
-				break;
-			case 'Firebase: Access to this account has been temporarily disabled due to many failed signin attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).':
-				message = 'Too many attempts. Please try again later'
-				attributes = {
-					position : 'top-right',
-					autoClose : 5000,
-					theme : theme,
-					type : 'error',
-					hideProgressBar : true
-				}
-				return {message,attributes}
-				break;
-			default:
-				message = 'An error occured'
-				attributes = {
-					position : 'top-right',
-					autoClose : 5000,
-					theme : theme,
-					type : 'error',
-					hideProgressBar : true
-				}
-				return {message,attributes}
-				break;
-		}
-	}
-
-	const onSubmit = async (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault()
-		try {
-			const auth = getAuth()
-			await sendPasswordResetEmail(auth, email)
-			toast.success('Email was Sent',{autoClose : false, theme : theme})
-		} catch(e) {
-			const {message,attributes} = parseErrorMessage(e.message)
-			toast(message,attributes)
-		}
+		resetPassword(email, theme)
 	}
 
   	return (

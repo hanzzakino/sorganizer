@@ -17,7 +17,7 @@ import {useTheme} from '../context/ThemeContext'
 
 export default function User() {
 	const {theme, toggleTheme} = useTheme()
-	const {authUser, loading, signOut} = useAuth()
+	const {authUser, loading, signOut, currentTask} = useAuth()
 	const [gettingDB, setGettingDB] = useState(true)
 	const router = useRouter()
 	const [dbData, setDbData] = useState({
@@ -85,47 +85,5 @@ export default function User() {
 			
 		</div>
 		</>
-		):(<Spinner theme={theme}/>)
+		):(<Spinner theme={theme} currentTask={currentTask}/>)
 }
-
-// export async function getStaticProps(context){
-// 	try {
-// 		const auth = getAuth()
-// 		let loggedIn = false
-// 		onAuthStateChanged(auth, user => {
-// 			console.log(auth)
-// 			if(user){
-// 				loggedIn = true
-// 				console.log('loggedIn')
-// 			}
-// 			else{
-// 				loggedIn  = false
-// 				console.log('not loggedIn')
-// 			}
-// 		})
-
-// 		loggedIn = true
-// 		if(loggedIn){
-// 			return { props: { loggedIn } }
-// 		} else {
-// 			console.log('redirected to signin2')
-// 			return {
-// 				redirect: {
-// 					destination: '/user/signin',
-// 					permanent: false
-// 				}
-// 			}
-// 		}
-
-// 	} catch(e) {
-// 		console.log(e);
-// 		console.log('redirected to signin2')
-	
-// 		return {
-// 			redirect: {
-// 				destination: '/user/signin',
-// 				permanent: false
-// 			}
-// 		}
-// 	}
-// }

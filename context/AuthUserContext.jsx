@@ -4,10 +4,13 @@ import useFirebaseAuth from '../hooks/useFirebaseAuth'
 const authUserContext = createContext({
 	authUser : null,
 	loading: true,
+	signInEmail: null,
+	signUpEmail: null,
+	googleOauth: null,
+	facebookOauth: null,
 	signOut: null,
-	oauthloading: null,
-	oauthloadingtrue: null,
-	oauthloadingfalse: null
+	resetPassword: null,
+	currentTask: null
 })
 
 export function AuthUserProvider({children}) {

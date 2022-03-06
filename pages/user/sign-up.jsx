@@ -1,18 +1,14 @@
-
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+
+//Components
 import Navbar from '../../components/navbar'
 import Spinner from '../../components/spinner'
 import OauthButton from '../../components/oauthButton'
-
-//initialize firebase app (and import db) using the cofig file
-import {db} from '../../firebase.config'
-import { setDoc, doc, serverTimestamp} from 'firebase/firestore'
-import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 //Context
 import {useAuth} from '../../context/AuthUserContext'
@@ -21,7 +17,7 @@ import {useTheme} from '../../context/ThemeContext'
 
 export default function SignUp() {
 	const {theme, setTheme} = useTheme()
-	const {authUser, loading, oauthloading} = useAuth()
+	const {authUser, loading, signUpEmail, currentTask} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
 	const [formData, setFormData] = useState({
@@ -34,7 +30,7 @@ export default function SignUp() {
 	const {firstname, lastname, email, password, confirmpassword} = formData
 	
 	useEffect(() => {
-		if(!oauthloading && !loading &&  authUser){
+		if(!loading &&  authUser){
 			router.push('/user')
 		}
 	}, [authUser, loading])
@@ -48,34 +44,11 @@ export default function SignUp() {
 	}
 
 	//Register user to google firebase authentication
-	const onSubmit = async (e) => {
+	//TODO Make sure that before passing to db all fileds are filled up
+	const onSubmit = (e) => {
 		e.preventDefault()
 		if(password === confirmpassword){
-			try {
-				const auth = getAuth()
-				const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-				const user = userCredential.user
-				updateProfile(auth.currentUser, {
-					displayName : firstname+' '+lastname
-				})
-				
-				//form data copy
-				const storageFormData = {...formData}
-				delete storageFormData.password
-				delete storageFormData.confirmpassword
-				storageFormData.timestamp = serverTimestamp()
-				//added modified formdata to firestore db
-				await setDoc(doc(db,'users',user.uid), storageFormData)
-				router.push('/user')
-			} catch(e) {
-				toast('An error occured', {
-						position : 'top-right',
-						autoClose : 5000,
-						theme : theme,
-						type : 'error',
-						hideProgressBar : true
-				})
-			}
+			signUpEmail(firstname, lastname, email, password, formData, theme)
 		} else {
 			toast('Confirm Password didn\'t match', {
 					position : 'top-right',
@@ -185,6 +158,6 @@ export default function SignUp() {
 
 	  		
 
-	  	</div>):(<Spinner theme={theme}/>)
+	  	</div>):(<Spinner theme={theme} currentTask={currentTask}/>)
   	)
 }
