@@ -17,7 +17,7 @@ import {useTheme} from '../context/ThemeContext'
 
 export default function User() {
 	const {theme, toggleTheme} = useTheme()
-	const {authUser, loading, signOut, currentTask} = useAuth()
+	const {authUser, loading, signOut, currentTask, dataWriteDone} = useAuth()
 	const [gettingDB, setGettingDB] = useState(true)
 	const router = useRouter()
 	const [dbData, setDbData] = useState({
@@ -51,12 +51,12 @@ export default function User() {
 	}
 
 	useEffect(() => {
-		if(!loading &&  !authUser){
+		if(!loading &&  !authUser && dataWriteDone){
 			router.push('/user/sign-in')
 		} else if(authUser && !loading){
 			getDocData()
 		}
-	}, [authUser, loading])
+	}, [authUser, loading, dataWriteDone])
 
 	return authUser && !loading ? (
 		<>

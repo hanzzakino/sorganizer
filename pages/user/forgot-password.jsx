@@ -16,7 +16,7 @@ import {useTheme} from '../../context/ThemeContext'
 
 export default function ForgotPassword() {
 	const {theme, setTheme} = useTheme()
-	const {authUser, loading, resetPassword} = useAuth()
+	const {authUser, loading, resetPassword, dataWriteDone} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
 	const [formData, setFormData] = useState({
@@ -25,10 +25,10 @@ export default function ForgotPassword() {
 	const {email} = formData
 
 	useEffect(() => {
-		if(!loading &&  authUser){
+		if(!loading &&  authUser && dataWriteDone){
 			router.push('/user')
 		}
-	}, [authUser, loading])
+	}, [authUser, loading, dataWriteDone])
 
 	const onChange = (e) => {
 		setFormData((prevState) => ({

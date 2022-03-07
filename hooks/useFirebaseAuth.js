@@ -30,19 +30,25 @@ const formatAuthUser = (user) => ({
 export default function useFirebaseAuth() {
 	const [authUser, setAuthUser] = useState(null)
 	const [loading, setLoading] = useState(true)
-	const [currentTask, setCurrentTask] = useState('')
+	const [dataWriteDone, setDataWriteDone] = useState(true)
+	const [currentTask, setCurrentTask] = useState('Loading')
 
 	const authStateChanged = async (authState) => {
+		//console.log('auth state is change to ',authState)
 		setCurrentTask('Loading')
 		if(!authState) {
 			setAuthUser(null)
-			setLoading(false)
+			if(dataWriteDone){
+				setLoading(false)
+			}
 			return
 		}
 		setLoading(true)
 		var formattedUser = formatAuthUser(authState)
 		setAuthUser(formattedUser)
-		setLoading(false)
+		if(dataWriteDone){
+			setLoading(false)
+		}
 		setCurrentTask('')
 	}
 
@@ -149,6 +155,7 @@ export default function useFirebaseAuth() {
 
 	const signUpEmail = async (firstname, lastname, email, password, formData, theme) => {
 		try {
+			setDatawWriteDone(false)
 			const auth = getAuth()
 			const userCredential = await createUserWithEmailAndPassword(auth, email, password)
 			const user = userCredential.user
@@ -166,6 +173,9 @@ export default function useFirebaseAuth() {
 		} catch(e) {
 			const {message,attributes} = parseErrorMessage(e.code, theme)
 			toast(message,attributes)
+		} finally {
+			setDatawWriteDone(true)
+			setLoading(false)
 		}
 	}
 
@@ -182,7 +192,7 @@ export default function useFirebaseAuth() {
 
 	const googleOauth = async (theme) => {
 	    try {
-	    	setLoading(true)
+	    	setDataWriteDone(false)
 	    	setCurrentTask('Signing in using Google')
 	    	const auth = getAuth()
 	    	const provider = new GoogleAuthProvider()
@@ -199,8 +209,10 @@ export default function useFirebaseAuth() {
 					email : user.email,
 					timestamp : serverTimestamp()
 				})
+				//console.log('PUSHED 123',loading,authUser)
 				router.push('/user')
 	    	} else {
+	    		//console.log('PUSHED 12',loading,authUser)
 	    		router.push('/user')
 	    	}
 	    } catch(e) {
@@ -208,13 +220,14 @@ export default function useFirebaseAuth() {
 	    	toast(message,attributes)
 	    } finally {
 	    	setCurrentTask('')
+	    	setDataWriteDone(true)
 	    	setLoading(false)
 	    }
 	}
 
 	const facebookOauth = async (theme) => {
 	    try {
-	    	setLoading(true)
+	    	setDatawWriteDone(false)
 	    	setCurrentTask('Signing in using Facebook')
 	    	const auth = getAuth()
 	    	const provider = new FacebookAuthProvider()
@@ -242,6 +255,7 @@ export default function useFirebaseAuth() {
 	    	toast(message,attributes)
 	    } finally {
 	    	setCurrentTask('')
+	    	setDatawWriteDone(true)
 	    	setLoading(false)
 	    }
 	}
@@ -267,5 +281,6 @@ export default function useFirebaseAuth() {
 		signOut,
 		resetPassword,
 		currentTask,
+		dataWriteDone
 	}
 }

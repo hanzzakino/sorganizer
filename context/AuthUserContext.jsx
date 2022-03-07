@@ -10,7 +10,8 @@ const authUserContext = createContext({
 	facebookOauth: null,
 	signOut: null,
 	resetPassword: null,
-	currentTask: null
+	currentTask: null,
+	dataWriteDone: false
 })
 
 export function AuthUserProvider({children}) {
