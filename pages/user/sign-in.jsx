@@ -20,6 +20,10 @@ export default function SignIn() {
 	const {authUser, loading, signInEmail, currentTask, dataWriteDone} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
+	const [emptyfield, setEmptyfield] = useState({
+		emailEmpty : false,
+		passwordEmpty: false
+	})
 	const [formData, setFormData] = useState({
 		email : '',
 		password : ''
@@ -45,6 +49,10 @@ export default function SignIn() {
 	const onSubmit = (e) => {
 		e.preventDefault()
 		signInEmail(email, password, theme)
+		.then((emptyfields) => {
+				setEmptyfield(emptyfields)
+			}
+		)
 	}
 
   	return (
@@ -70,7 +78,8 @@ export default function SignIn() {
 		  					<form onSubmit={onSubmit}>
 								<div className='input-field'>
 									<i className='bi bi-person-fill field-icon' />
-									<input 
+									<input
+									 className = {emptyfield.emailEmpty ? 'empty-field-error':''}
 									 type='email' 
 									 placeholder='Email'
 									 id='email'
@@ -82,6 +91,7 @@ export default function SignIn() {
 								<div className='input-field'>
 									<i className='bi bi-lock-fill field-icon'></i>
 									<input 
+									className = {emptyfield.passwordEmpty ? 'empty-field-error':''}
 									type={showPassword ? 'text':'password'} 
 									placeholder='Password' 
 									id='password'

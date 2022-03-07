@@ -20,7 +20,6 @@ import {
 	serverTimestamp
 } from 'firebase/firestore'
 
-//import { useRouter } from 'next/router'
 
 
 
@@ -33,10 +32,9 @@ export default function useFirebaseAuth() {
 	const [loading, setLoading] = useState(true)
 	const [dataWriteDone, setDataWriteDone] = useState(true)
 	const [currentTask, setCurrentTask] = useState('Loading')
-	//const router = useRouter()
 
 	const authStateChanged = async (authState) => {
-		console.log('auth state is change to ',authState)
+		//console.log('auth state is change to ',authState)
 		setCurrentTask('Loading')
 		if(!authState) {
 			setAuthUser(null)
@@ -127,6 +125,50 @@ export default function useFirebaseAuth() {
 				}
 				return {message,attributes}
 				break;
+			case 'auth/email-already-in-use':
+				message = 'User already exists'
+				attributes = {
+					position : 'top-right',
+					autoClose : 5000,
+					theme : theme,
+					type : 'error',
+					hideProgressBar : true
+				}
+				return {message,attributes}
+				break;
+			case 'sorganizer/empty-fields':
+				message = 'Please fill up all fields'
+				attributes = {
+					position : 'top-right',
+					autoClose : 5000,
+					theme : theme,
+					type : 'warning',
+					hideProgressBar : true
+				}
+				return {message,attributes}
+				break;
+			case 'sorganizer/password-not-match':
+				message = 'Confirm Password didn\'t match'
+				attributes = {
+					position : 'top-right',
+					autoClose : 5000,
+					theme : theme,
+					type : 'warning',
+					hideProgressBar : true
+				}
+				return {message,attributes}
+				break;
+			case 'sorganizer/password-too-short':
+				message = 'Password must be atleast 8 characters'
+				attributes = {
+					position : 'top-right',
+					autoClose : 5000,
+					theme : theme,
+					type : 'warning',
+					hideProgressBar : true
+				}
+				return {message,attributes}
+				break;
 			default:
 				message = 'An error occured - '+errMessage
 				attributes = {
@@ -142,43 +184,78 @@ export default function useFirebaseAuth() {
 	}
 
 	const signInEmail = async (email, password, theme) => {
-		try {
-			const auth = getAuth()
-			const userCredential = await signInWithEmailAndPassword(auth, email, password)
-
-			// if(userCredential.user){
-			// 	router.push('/user')
-			// }
-		} catch(e) {
-			const {message,attributes} = parseErrorMessage(e.code, theme)
-			toast(message,attributes)
+		let emptyfield = { 
+			emailEmpty : false, 
+			passwordEmpty : false
 		}
+		if(email === '' || password == ''){
+			emptyfield.emailEmpty = email === '' ? true:false
+			emptyfield.passwordEmpty = password === '' ? true:false
+			const {message,attributes} = parseErrorMessage('sorganizer/empty-fields', theme)
+			toast(message,attributes)
+		} else {
+			try {
+				const auth = getAuth()
+				const userCredential = await signInWithEmailAndPassword(auth, email, password)
+			} catch(e) {
+				const {message,attributes} = parseErrorMessage(e.code, theme)
+				toast(message,attributes)
+			}
+		}
+		return emptyfield
 	}
 
-	const signUpEmail = async (firstname, lastname, email, password, formData, theme) => {
-		try {
-			setDataWriteDone(false)
-			const auth = getAuth()
-			const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-			const user = userCredential.user
-			updateProfile(auth.currentUser, {
-				displayName : firstname+' '+lastname
-			})
-			//form data copy
-			const storageFormData = {...formData}
-			delete storageFormData.password
-			delete storageFormData.confirmpassword
-			storageFormData.timestamp = serverTimestamp()
-			//add modified formdata to firestore db
-			await setDoc(doc(db,'users',user.uid), storageFormData)
-			//router.push('/user')
-		} catch(e) {
-			const {message,attributes} = parseErrorMessage(e.code, theme)
-			toast(message,attributes)
-		} finally {
-			setDataWriteDone(true)
-			setLoading(false)
+	const signUpEmail = async (firstname, lastname, email, password, confirmpassword, formData, theme) => {
+		let emptyfield = {
+			firstnameEmpty : false,
+			lastnameEmpty : false,
+			emailEmpty : false, 
+			passwordEmpty : false,
+			confirmpasswordEmpty: false
 		}
+		if(firstname === '' || lastname === '' || email === '' || password == '' || confirmpassword === ''){
+			emptyfield.firstnameEmpty = firstname === '' ? true:false
+			emptyfield.lastnameEmpty = lastname === '' ? true:false
+			emptyfield.emailEmpty = email === '' ? true:false
+			emptyfield.passwordEmpty = password === '' ? true:false
+			emptyfield.confirmpasswordEmpty = confirmpassword === '' ? true:false
+			const {message,attributes} = parseErrorMessage('sorganizer/empty-fields', theme)
+			toast(message,attributes)
+		} else if(password.length < 8){
+			emptyfield.passwordEmpty = true
+			emptyfield.confirmpasswordEmpty = true
+			const {message,attributes} = parseErrorMessage('sorganizer/password-too-short', theme)
+			toast(message,attributes)
+		} else if(!(confirmpassword === password)) {
+			emptyfield.passwordEmpty = true
+			emptyfield.confirmpasswordEmpty = true
+			const {message,attributes} = parseErrorMessage('sorganizer/password-not-match', theme)
+			toast(message,attributes)
+		} else {
+			try {
+				setDataWriteDone(false)
+				const auth = getAuth()
+				const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+				const user = userCredential.user
+				updateProfile(auth.currentUser, {
+					displayName : firstname+' '+lastname
+				})
+				//form data copy
+				const storageFormData = {...formData}
+				delete storageFormData.password
+				delete storageFormData.confirmpassword
+				storageFormData.timestamp = serverTimestamp()
+				//add modified formdata to firestore db
+				await setDoc(doc(db,'users',user.uid), storageFormData)
+			} catch(e) {
+				const {message,attributes} = parseErrorMessage(e.code, theme)
+				toast(message,attributes)
+			} finally {
+				setDataWriteDone(true)
+				setLoading(false)
+			}
+		}
+		return emptyfield
 	}
 
 	const resetPassword = async (email, theme) => {
@@ -211,14 +288,8 @@ export default function useFirebaseAuth() {
 					email : user.email,
 					timestamp : serverTimestamp()
 				})
-				//console.log('PUSHED 123',loading,authUser)
-				//router.push('/user')
-	    	} else {
-	    		//console.log('PUSHED 12',loading,authUser)
-	    		//router.push('/user')
 	    	}
 	    } catch(e) {
-	    	console.log(e)
 	    	const {message,attributes} = parseErrorMessage(e.code, theme)
 	    	toast(message,attributes)
 	    } finally {
@@ -241,20 +312,14 @@ export default function useFirebaseAuth() {
 	    	const docSnap = await getDoc(docRef)
 
 	    	if(!docSnap.exists()){
-	    		
 	    		await setDoc(doc(db,'users',user.uid), {
 		    		firstname : String(user.displayName.split(' ').slice(0,-1).join(' ')),
 					lastname : String((user.displayName.split(' ').slice(-1))[0]),
 					email : user.email,
 					timestamp : serverTimestamp()
 				})
-				//router.push('/user')
-	    	} else {
-	    		//router.push('/user')
 	    	}
-
 	    } catch(e) {
-	    	console.log(e)
 	    	const {message,attributes} = parseErrorMessage(e.code, theme)
 	    	toast(message,attributes)
 	    } finally {

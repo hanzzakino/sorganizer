@@ -27,6 +27,14 @@ export default function User() {
 		timestamp : null
 	})
 	const {firstname, lastname, email} = dbData
+
+	useEffect(() => {
+		if(!loading &&  !authUser && dataWriteDone){
+			router.push('/user/sign-in')
+		} else if(authUser && !loading){
+			getDocData()
+		}
+	}, [authUser, loading, dataWriteDone])
 	
 	const getDocData = async () => {
 		try {
@@ -50,13 +58,7 @@ export default function User() {
 		}
 	}
 
-	useEffect(() => {
-		if(!loading &&  !authUser && dataWriteDone){
-			router.push('/user/sign-in')
-		} else if(authUser && !loading){
-			getDocData()
-		}
-	}, [authUser, loading, dataWriteDone])
+	
 
 	return authUser && !loading ? (
 		<>

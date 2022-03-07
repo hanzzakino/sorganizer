@@ -217,7 +217,9 @@ body {
 .input-field-name input:focus {
 	outline: none;
 }
-
+.empty-field-error {
+	border: 1px solid red !important;
+}
 
 
 

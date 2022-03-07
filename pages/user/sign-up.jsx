@@ -20,6 +20,13 @@ export default function SignUp() {
 	const {authUser, loading, signUpEmail, currentTask, dataWriteDone} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
+	const [emptyfield, setEmptyfield] = useState({
+		firstnameEmpty : false,
+		lastnameEmpty : false,
+		emailEmpty : false, 
+		passwordEmpty : false,
+		confirmpasswordEmpty: false
+	})
 	const [formData, setFormData] = useState({
 		firstname : '',
 		lastname : '',
@@ -47,17 +54,10 @@ export default function SignUp() {
 	//TODO Make sure that before passing to db all fileds are filled up
 	const onSubmit = (e) => {
 		e.preventDefault()
-		if(password === confirmpassword){
-			signUpEmail(firstname, lastname, email, password, formData, theme)
-		} else {
-			toast('Confirm Password didn\'t match', {
-					position : 'top-right',
-					autoClose : 5000,
-					theme : theme,
-					type : 'error',
-					hideProgressBar : true
-			})
-		}
+		signUpEmail(firstname, lastname, email, password, confirmpassword, formData, theme)
+		.then((emptyfields) => {
+			setEmptyfield(emptyfields)
+		})
 	}
 
   	return (
@@ -82,6 +82,7 @@ export default function SignUp() {
 		  					<form onSubmit={onSubmit}>
 								<div className='input-field-name'>
 									<input 
+									 className = {emptyfield.firstnameEmpty ? 'empty-field-error':''}
 									 type='text' 
 									 placeholder='First Name'
 									 id='firstname' 
@@ -90,6 +91,7 @@ export default function SignUp() {
 									 autoComplete='first-name' 
 									 />
 									 <input 
+									 className = {emptyfield.lastnameEmpty ? 'empty-field-error':''}
 									 type='text' 
 									 placeholder='Last Name'
 									 id='lastname' 
@@ -101,6 +103,7 @@ export default function SignUp() {
 								<div className='input-field'>
 									<i className='bi bi-person-fill field-icon' />
 									<input 
+									 className = {emptyfield.emailEmpty ? 'empty-field-error':''}
 									 type='email' 
 									 placeholder='Email'
 									 id='email' 
@@ -112,6 +115,7 @@ export default function SignUp() {
 								<div className='input-field'>
 									<i className='bi bi-lock-fill field-icon'></i>
 									<input 
+									className = {emptyfield.passwordEmpty ? 'empty-field-error':''}
 									type={showPassword ? 'text':'password'} 
 									placeholder='Password' 
 									id='password'
@@ -125,6 +129,7 @@ export default function SignUp() {
 								<div className='input-field'>
 									<i className='bi bi-lock-fill field-icon'></i>
 									<input 
+									className = {emptyfield.confirmpasswordEmpty ? 'empty-field-error':''}
 									type={showPassword ? 'text':'password'} 
 									placeholder='Confirm Password' 
 									id='confirmpassword' 
