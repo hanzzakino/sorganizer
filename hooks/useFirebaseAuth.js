@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import '../firebase.config'
+import { toast } from 'react-toastify'
+
 import {
 	getAuth, 
 	signInWithEmailAndPassword, 
@@ -19,9 +20,9 @@ import {
 	serverTimestamp
 } from 'firebase/firestore'
 
-import { useRouter } from 'next/router'
+//import { useRouter } from 'next/router'
 
-import { toast } from 'react-toastify'
+
 
 const formatAuthUser = (user) => ({
 	...user
@@ -32,9 +33,10 @@ export default function useFirebaseAuth() {
 	const [loading, setLoading] = useState(true)
 	const [dataWriteDone, setDataWriteDone] = useState(true)
 	const [currentTask, setCurrentTask] = useState('Loading')
+	//const router = useRouter()
 
 	const authStateChanged = async (authState) => {
-		//console.log('auth state is change to ',authState)
+		console.log('auth state is change to ',authState)
 		setCurrentTask('Loading')
 		if(!authState) {
 			setAuthUser(null)
@@ -144,9 +146,9 @@ export default function useFirebaseAuth() {
 			const auth = getAuth()
 			const userCredential = await signInWithEmailAndPassword(auth, email, password)
 
-			if(userCredential.user){
-				router.push('/user')
-			}
+			// if(userCredential.user){
+			// 	router.push('/user')
+			// }
 		} catch(e) {
 			const {message,attributes} = parseErrorMessage(e.code, theme)
 			toast(message,attributes)
@@ -155,7 +157,7 @@ export default function useFirebaseAuth() {
 
 	const signUpEmail = async (firstname, lastname, email, password, formData, theme) => {
 		try {
-			setDatawWriteDone(false)
+			setDataWriteDone(false)
 			const auth = getAuth()
 			const userCredential = await createUserWithEmailAndPassword(auth, email, password)
 			const user = userCredential.user
@@ -169,12 +171,12 @@ export default function useFirebaseAuth() {
 			storageFormData.timestamp = serverTimestamp()
 			//add modified formdata to firestore db
 			await setDoc(doc(db,'users',user.uid), storageFormData)
-			router.push('/user')
+			//router.push('/user')
 		} catch(e) {
 			const {message,attributes} = parseErrorMessage(e.code, theme)
 			toast(message,attributes)
 		} finally {
-			setDatawWriteDone(true)
+			setDataWriteDone(true)
 			setLoading(false)
 		}
 	}
@@ -210,10 +212,10 @@ export default function useFirebaseAuth() {
 					timestamp : serverTimestamp()
 				})
 				//console.log('PUSHED 123',loading,authUser)
-				router.push('/user')
+				//router.push('/user')
 	    	} else {
 	    		//console.log('PUSHED 12',loading,authUser)
-	    		router.push('/user')
+	    		//router.push('/user')
 	    	}
 	    } catch(e) {
 	    	console.log(e)
@@ -246,9 +248,9 @@ export default function useFirebaseAuth() {
 					email : user.email,
 					timestamp : serverTimestamp()
 				})
-				router.push('/user')
+				//router.push('/user')
 	    	} else {
-	    		router.push('/user')
+	    		//router.push('/user')
 	    	}
 
 	    } catch(e) {

@@ -26,6 +26,8 @@ export default function SignIn() {
 	})
 	const {email, password} = formData
 	
+	//This checks if there are any signed in user
+	// then redirects to sign in if no user is signed in
 	useEffect(() => {
 		if(!loading &&  authUser && dataWriteDone){
 			router.push('/user')
