@@ -216,6 +216,7 @@ export default function useFirebaseAuth() {
 	    		router.push('/user')
 	    	}
 	    } catch(e) {
+	    	console.log(e)
 	    	const {message,attributes} = parseErrorMessage(e.code, theme)
 	    	toast(message,attributes)
 	    } finally {
@@ -227,7 +228,7 @@ export default function useFirebaseAuth() {
 
 	const facebookOauth = async (theme) => {
 	    try {
-	    	setDatawWriteDone(false)
+	    	setDataWriteDone(false)
 	    	setCurrentTask('Signing in using Facebook')
 	    	const auth = getAuth()
 	    	const provider = new FacebookAuthProvider()
@@ -251,11 +252,12 @@ export default function useFirebaseAuth() {
 	    	}
 
 	    } catch(e) {
+	    	console.log(e)
 	    	const {message,attributes} = parseErrorMessage(e.code, theme)
 	    	toast(message,attributes)
 	    } finally {
 	    	setCurrentTask('')
-	    	setDatawWriteDone(true)
+	    	setDataWriteDone(true)
 	    	setLoading(false)
 	    }
 	}
