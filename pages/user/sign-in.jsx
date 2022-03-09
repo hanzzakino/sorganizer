@@ -12,11 +12,11 @@ import 'react-toastify/dist/ReactToastify.css'
 
 //Context
 import {useAuth} from '../../context/AuthUserContext'
-import {useTheme} from '../../context/ThemeContext'
+import {useSettings} from '../../context/SettingsContext'
 
 
 export default function SignIn() {
-	const {theme} = useTheme()
+	const {settings} = useSettings()
 	const {authUser, loading, signInEmail, currentTask, dataWriteDone} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
@@ -48,7 +48,7 @@ export default function SignIn() {
 	//TODO check if the fields are filled before passing to firebase
 	const onSubmit = (e) => {
 		e.preventDefault()
-		signInEmail(email, password, theme)
+		signInEmail(email, password, settings.general.theme)
 		.then((emptyfields) => {
 				setEmptyfield(emptyfields)
 			}
@@ -57,7 +57,7 @@ export default function SignIn() {
 
   	return (
 	  	!loading &&  !authUser ? (<div>
-	  		<div className={theme+'-bg'}></div>
+	  		<div className={settings.general.theme+'-bg'}></div>
 	  		<Head>
 	        	<title>Sign in | SOrganizer</title>
 	      	</Head>
@@ -67,13 +67,13 @@ export default function SignIn() {
 
 	  			<div className="row fill-screen flex horizontal-center">
 	  				
-	  				<div className={'column flex vertical-center '+theme+'-fgcolor'}>
+	  				<div className={'column flex vertical-center '+settings.general.theme+'-fgcolor'}>
 	  					<h1>SOrganizer</h1>
 	  					<br />
 	  				</div>
 	  				<div className='column flex vertical-center'>
-	  					<div className={'flex vertical-center fit-width  card '+theme+'-bg3color'}>
-		  					<h1 className={theme+'-fgcolor form-label'}>Sign in</h1>
+	  					<div className={'flex vertical-center fit-width  card '+settings.general.theme+'-bg3color'}>
+		  					<h1 className={settings.general.theme+'-fgcolor form-label'}>Sign in</h1>
 		  					<br />
 		  					<form onSubmit={onSubmit}>
 								<div className='input-field'>
@@ -103,24 +103,24 @@ export default function SignIn() {
 									onClick={() => setshowPassword((prevState) => !prevState)}/>
 								</div>
 								<div className="flex vertical-center">
-									<span><Link href='/user/forgot-password'><a className={theme+'-fg2color'}>Forgot your Password?</a></Link></span>
+									<span><Link href='/user/forgot-password'><a className={settings.general.theme+'-fg2color'}>Forgot your Password?</a></Link></span>
 									<br />
-									<button className={'btn '+theme+'-accentbgcolor'}>Sign in</button>
+									<button className={'btn '+settings.general.theme+'-accentbgcolor'}>Sign in</button>
 								</div>
 							</form>
-							<p className={theme+'-fg2color'}>or Sign in with</p>
+							<p className={settings.general.theme+'-fg2color'}>or Sign in with</p>
 							<OauthButton />
 							<br />
 						</div>
 				
-	  					<div className={'fit-width '+theme+'-fg2color'}>
+	  					<div className={'fit-width '+settings.general.theme+'-fg2color'}>
 	  						<br />
-	  						<span>{'Don\'t have an account? '}&nbsp;<Link href='/user/sign-up'><a className={theme+'-fg2color'}>Sign up</a></Link></span>
+	  						<span>{'Don\'t have an account? '}&nbsp;<Link href='/user/sign-up'><a className={settings.general.theme+'-fg2color'}>Sign up</a></Link></span>
 	  					</div>
 	  				</div>
 	  			</div>
 	  		</div>	
 
-	  	</div>):(<Spinner theme={theme} currentTask={currentTask}/>)
+	  	</div>):(<Spinner theme={settings.general.theme} currentTask={currentTask}/>)
   	)
 }

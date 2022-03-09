@@ -12,10 +12,10 @@ import 'react-toastify/dist/ReactToastify.css'
 
 //Context
 import {useAuth} from '../../context/AuthUserContext'
-import {useTheme} from '../../context/ThemeContext'
+import {useSettings} from '../../context/SettingsContext'
 
 export default function ForgotPassword() {
-	const {theme, setTheme} = useTheme()
+	const {settings} = useSettings()
 	const {authUser, loading, resetPassword, dataWriteDone} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
@@ -39,12 +39,12 @@ export default function ForgotPassword() {
 
 	const onSubmit = (e) => {
 		e.preventDefault()
-		resetPassword(email, theme)
+		resetPassword(email, settings.general.theme)
 	}
 
   	return (
 	  	!loading &&  !authUser ? (<div>
-	  		<div className={theme+'-bg'}></div>
+	  		<div className={settings.general.theme+'-bg'}></div>
 	  		<Head>
 	        	<title>Reset Password | SOrganizer</title>
 	      	</Head>
@@ -54,12 +54,12 @@ export default function ForgotPassword() {
 
 	  			<div className='container flex vertical-center'>
 	  				<br />
-	  				<h1 className={theme+'-fgcolor'}>SOrganizer</h1>
+	  				<h1 className={settings.general.theme+'-fgcolor'}>SOrganizer</h1>
 	  				<br />
-	  				<div className={'fit-width card '+theme+'-bg3color'}>
+	  				<div className={'fit-width card '+settings.general.theme+'-bg3color'}>
 
 	  					<div className='row vertical-center'>
-		  					<h1 className={theme+'-fgcolor form-label'}>Reset Password</h1>
+		  					<h1 className={settings.general.theme+'-fgcolor form-label'}>Reset Password</h1>
 		  					<br />
 		  				</div>
 		  				
@@ -76,15 +76,15 @@ export default function ForgotPassword() {
 									 autoComplete='username' 
 									 />
 								</div>
-								<button className={'btn '+theme+'-accentbgcolor'}>Send Reset Link</button>
+								<button className={'btn '+settings.general.theme+'-accentbgcolor'}>Send Reset Link</button>
 								</form>
 						</div>
 
 	  				</div>
 
 					<br />
-	  				<div className={'row fit-width '+theme+'-fg2color'}>
-	  					<span>{'Go back to'}&nbsp;<Link href='/user/sign-in'><a className={theme+'-fg2color'}>Sign in</a></Link></span>
+	  				<div className={'row fit-width '+settings.general.theme+'-fg2color'}>
+	  					<span>{'Go back to'}&nbsp;<Link href='/user/sign-in'><a className={settings.general.theme+'-fg2color'}>Sign in</a></Link></span>
 	  				</div>
 
 				</div>
@@ -92,6 +92,6 @@ export default function ForgotPassword() {
 				
 				
 			</main>
-	  	</div>):(<Spinner theme={theme}/>)
+	  	</div>):(<Spinner theme={settings.general.theme}/>)
   	)
 }

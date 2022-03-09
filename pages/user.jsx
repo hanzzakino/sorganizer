@@ -12,11 +12,11 @@ import {getAuth, onAuthStateChanged} from 'firebase/auth'
 
 //Context
 import {useAuth} from '../context/AuthUserContext'
-import {useTheme} from '../context/ThemeContext'
+import {useSettings} from '../context/SettingsContext'
 
 
 export default function User() {
-	const {theme, toggleTheme} = useTheme()
+	const {settings, toggleTheme} = useSettings()
 	const {authUser, loading, signOut, currentTask, dataWriteDone} = useAuth()
 	const [gettingDB, setGettingDB] = useState(true)
 	const router = useRouter()
@@ -50,7 +50,7 @@ export default function User() {
 			toast('An error occured while getting Database data', {
 					position : 'top-right',
 					autoClose : 5000,
-					theme : theme,
+					theme : settings.general.theme,
 					type : 'error',
 					hideProgressBar : true
 			})
@@ -62,30 +62,43 @@ export default function User() {
 
 	return authUser && !loading ? (
 		<>
-		<div className={theme+'-bg'}></div>
-		<div className={'container '+theme+'-fgcolor'} align='center'>
+		<Head>
+	    	<title>Dashboard | SOrganizer</title>
+	  	</Head>
+		<div className={settings.general.theme+'-bg'}></div>
+		<div className={settings.general.theme+'-fgcolor'} align='center'>
+			 
+				<div className='container'>
 
-			<br />
-							 
-				<div>
-					<Head>
-				    	<title>Dashboard | SOrganizer</title>
-				  	</Head>
-					<div className='horizontal-center flex row temp-textcontainer horizontal-center'>
-						{gettingDB ? <Spinner theme={theme} spinnerOnly/>:<h1>{firstname+' '+lastname}</h1>}
-						<p>{JSON.stringify(authUser, null, 2)}</p>
-						<h1>DB DATA</h1>
-						<br />
-						<p>{JSON.stringify(dbData, null, 2)}</p>
-						<br />
+					<div className='horizontal-center flex row'>
+						{gettingDB ? <Spinner theme={settings.general.theme} spinnerOnly/>:<h1>{firstname+' '+lastname}</h1>}
 					</div>
-					<div className='horizontal-center flex row'><button className='btn' onClick={signOut}>Logout</button></div>
 
-					<div className='horizontal-center flex row'><button className='btn' onClick={toggleTheme}>Switch to {theme==='dark' ? 'Light':'Dark'} Theme</button></div>
-				<br /><br />
+					<div className='horizontal-center row'>
+						<img src={authUser.photoURL} alt='profile picture' />
+					</div>
+
+					<div className='horizontal-center flex row'>
+						{gettingDB ? (<Spinner theme={settings.general.theme} spinnerOnly/>):(<p>
+						First Name : {dbData.firstname}
+						<br />
+						Last Name : {dbData.lastname}
+						<br />
+						Email : {dbData.email}
+						<br />
+						Date joined : {dbData.timestamp.seconds}
+						</p>)}
+					</div>
+
+					<div className='horizontal-center flex row'>
+						<p>{JSON.stringify(settings, null, 2)}</p>
+					</div>
+
+					<div className='horizontal-center flex row'><button className='btn' onClick={signOut}>Logout</button></div>
+					<div className='horizontal-center flex row'><button className='btn' onClick={toggleTheme}>Switch to {settings.general.theme==='dark' ? 'Light':'Dark'} Theme</button></div>
 				</div>
 			
 		</div>
 		</>
-		):(<Spinner theme={theme} currentTask={currentTask}/>)
+		):(<Spinner theme={settings.general.theme} currentTask={currentTask}/>)
 }

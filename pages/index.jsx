@@ -4,10 +4,10 @@ import Navbar from '../components/navbar'
 
 //Context
 import {useAuth} from '../context/AuthUserContext'
-import {useTheme} from '../context/ThemeContext'
+import {useSettings} from '../context/SettingsContext'
 
 export default function Home() {
-  const {theme, toggleTheme} = useTheme()
+  const {settings, toggleTheme} = useSettings()
   return (
     <>
       <Head>
@@ -16,18 +16,18 @@ export default function Home() {
         <link rel="manifest" href="/manifest.json" />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className={theme+'-bg'}></div>
+      <div className={settings.general.theme+'-bg'}></div>
 
       <main>
         <div className='container'>
           <div className="row">
             <div className="column">
-              <Link href='/user'><a  className='dark-fgcolor'>User </a></Link>
-              <Link href='/user/sign-in'><a  className='dark-fgcolor'>Sign In </a></Link>
-              <Link href='/user/sign-up'><a  className='dark-fgcolor'>Sign Up </a></Link>
+              <Link href='/user'><a  className={settings.general.theme+'-fgcolor'}>User </a></Link>
+              <Link href='/user/sign-in'><a  className={settings.general.theme+'-fgcolor'}>Sign In </a></Link>
+              <Link href='/user/sign-up'><a  className={settings.general.theme+'-fgcolor'}>Sign Up </a></Link>
               </div>
             <div className="column">
-              <Link href='/user/forgot-password'><a  className='dark-fgcolor'>Forgot Password </a></Link>
+              <Link href='/user/forgot-password'><a  className={settings.general.theme+'-fgcolor'}>Forgot Password </a></Link>
             </div>
           </div>
         </div>

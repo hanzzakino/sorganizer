@@ -27,6 +27,12 @@ body {
 	margin-left: 10%;
 	margin-right: 10%;
 }
+.text-container {
+	margin-left: 10%;
+	margin-right: 10%;
+	text-overflow: break-word;
+	overflow: hidden;
+}
 .row {
 	display: flex;
 	flex-wrap: wrap;
@@ -38,6 +44,10 @@ body {
 @media (max-width: 770px) {
 	.container {
 		margin: 0;
+	}
+	.text-container {
+		margin-left: 10%;
+		margin-right: 10%;
 	}
 	.row {
 		display: flex;
@@ -298,13 +308,7 @@ body {
 	}
 }
 
-.temp-textcontainer {
-	width: 80%;
-}
-.temp-textcontainer p {
-	overflow: hidden;
-	overflow-wrap: break-word;
-}
+
 
 /* Colors */
 

@@ -1,10 +1,10 @@
 import '../styles/globals.css'
 import {AuthUserProvider} from '../context/AuthUserContext'
-import {ThemeProvider} from '../context/ThemeContext'
+import {SettingsProvider} from '../context/SettingsContext'
 import '../firebase.config'
 
 function MyApp({ Component, pageProps }) {
- 	return <AuthUserProvider><ThemeProvider><Component {...pageProps} /></ThemeProvider></AuthUserProvider>
+ 	return <AuthUserProvider><SettingsProvider><Component {...pageProps} /></SettingsProvider></AuthUserProvider>
 }
 
 export default MyApp

@@ -1,22 +1,22 @@
 //Context
-import {useTheme} from '../context/ThemeContext'
+import {useSettings} from '../context/SettingsContext'
 import {useAuth} from '../context/AuthUserContext'
 
 export default function OauthButton() {
-  	const {theme, setTheme} = useTheme()
+  	const {settings} = useSettings()
   	const {googleOauth, facebookOauth} = useAuth()
 
   	const googleAuthClick = (e) => {
   		e.preventDefault()
-  		googleOauth(theme)
+  		googleOauth(settings.general.theme)
   	}
 
   	const facebookAuthClick = (e) => {
   		e.preventDefault()
-  		facebookOauth(theme)
+  		facebookOauth(settings.general.theme)
   	}
 
   	return (
-    	<span className={theme+'-fg2color'}><button className='btn-with-logo btn-img-google' onClick={googleAuthClick}>Google</button><button className='btn-with-logo btn-img-fb' onClick={facebookAuthClick}>Facebook</button></span>
+    	<span className={settings.general.theme+'-fg2color'}><button className='btn-with-logo btn-img-google' onClick={googleAuthClick}>Google</button><button className='btn-with-logo btn-img-fb' onClick={facebookAuthClick}>Facebook</button></span>
   	)
 }

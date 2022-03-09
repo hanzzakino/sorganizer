@@ -12,11 +12,11 @@ import 'react-toastify/dist/ReactToastify.css'
 
 //Context
 import {useAuth} from '../../context/AuthUserContext'
-import {useTheme} from '../../context/ThemeContext'
+import {useSettings} from '../../context/SettingsContext'
 
 
 export default function SignUp() {
-	const {theme, setTheme} = useTheme()
+	const {settings} = useSettings()
 	const {authUser, loading, signUpEmail, currentTask, dataWriteDone} = useAuth()
 	const router = useRouter()
 	const [showPassword , setshowPassword] = useState(false)
@@ -54,7 +54,7 @@ export default function SignUp() {
 	//TODO Make sure that before passing to db all fileds are filled up
 	const onSubmit = (e) => {
 		e.preventDefault()
-		signUpEmail(firstname, lastname, email, password, confirmpassword, formData, theme)
+		signUpEmail(firstname, lastname, email, password, confirmpassword, formData, settings.general.theme)
 		.then((emptyfields) => {
 			setEmptyfield(emptyfields)
 		})
@@ -62,7 +62,7 @@ export default function SignUp() {
 
   	return (
 	  	!loading &&  !authUser ? (<div>
-	  		<div className={theme+'-bg'}></div>
+	  		<div className={settings.general.theme+'-bg'}></div>
 	  		<Head>
 	        	<title>Sign up | SOrganizer</title>
 	      	</Head>
@@ -74,10 +74,10 @@ export default function SignUp() {
 	  			<div className="row fill-screen flex horizontal-center">
 
 	  				<div className='column flex vertical-center'>
-		  				<h1 className={theme+'-fgcolor'}>SOrganizer</h1>
+		  				<h1 className={settings.general.theme+'-fgcolor'}>SOrganizer</h1>
 		  				<br />
-	  					<div className={'flex vertical-center fit-width  card '+theme+'-bg3color'}>
-		  					<h1 className={theme+'-fgcolor form-label'}>Create an Account</h1>
+	  					<div className={'flex vertical-center fit-width  card '+settings.general.theme+'-bg3color'}>
+		  					<h1 className={settings.general.theme+'-fgcolor form-label'}>Create an Account</h1>
 		  					<br />
 		  					<form onSubmit={onSubmit}>
 								<div className='input-field-name'>
@@ -141,17 +141,17 @@ export default function SignUp() {
 									onClick={() => setshowPassword((prevState) => !prevState)}/>
 								</div>	
 								<div className="flex vertical-center">
-									<button className={'btn '+theme+'-accentbgcolor'}>Sign up</button>
+									<button className={'btn '+settings.general.theme+'-accentbgcolor'}>Sign up</button>
 								</div>
 							</form>
-							<p className={theme+'-fg2color'}>or Sign up with</p>
+							<p className={settings.general.theme+'-fg2color'}>or Sign up with</p>
 							<OauthButton />
 							<br />
 						</div>
 				
-	  					<div className={'fit-width '+theme+'-fg2color'}>
+	  					<div className={'fit-width '+settings.general.theme+'-fg2color'}>
 	  						<br />
-	  						<span>{'Already have an account? '}&nbsp;<Link href='/user/sign-in'><a className={theme+'-fg2color'}>Sign in</a></Link></span>
+	  						<span>{'Already have an account? '}&nbsp;<Link href='/user/sign-in'><a className={settings.general.theme+'-fg2color'}>Sign in</a></Link></span>
 	  						<br />
 	  						<br />
 	  					</div>
@@ -163,6 +163,6 @@ export default function SignUp() {
 
 	  		
 
-	  	</div>):(<Spinner theme={theme} currentTask={currentTask}/>)
+	  	</div>):(<Spinner theme={settings.general.theme} currentTask={currentTask}/>)
   	)
 }

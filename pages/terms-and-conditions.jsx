@@ -2,20 +2,20 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 //Context
-import {useTheme} from '../context/ThemeContext'
+import {useSettings} from '../context/SettingsContext'
 
 export default function TermsAndConditions() {
-  const {theme, toggleTheme} = useTheme()
+  const {settings} = useSettings()
   return (
     <>
       <Head>
         <title>Terms and Conditions | SOrganizer</title>
       </Head>
-      <div className={theme+'-bg'}></div>
+      <div className={settings.general.theme+'-bg'}></div>
 
       <main>
-        <div className='container'>
-          <div className={theme+'-fgcolor'}>
+        <div className='text-container'>
+          <div className={settings.general.theme+'-fgcolor'}>
             <br />
             <h1>Terms and Conditions</h1>
             <p>Last updated: March 06, 2022</p>
