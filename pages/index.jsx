@@ -14,7 +14,7 @@ export default function Home() {
         <title>SOrganizer</title>
         <meta name='description' content='Student Organizer Website for organizing school task, activities, and schedules' />
         <link rel="manifest" href="/manifest.json" />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/favicon.svg' />
       </Head>
       <div className={settings.general.theme+'-bg'}></div>
 

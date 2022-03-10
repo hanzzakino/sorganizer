@@ -64,6 +64,7 @@ export default function User() {
 		<>
 		<Head>
 	    	<title>Dashboard | SOrganizer</title>
+	    	<link rel='icon' href='/favicon.svg' />
 	  	</Head>
 		<div className={settings.general.theme+'-bg'}></div>
 		<div className={settings.general.theme+'-fgcolor'} align='center'>

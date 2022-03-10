@@ -47,6 +47,7 @@ export default function ForgotPassword() {
 	  		<div className={settings.general.theme+'-bg'}></div>
 	  		<Head>
 	        	<title>Reset Password | SOrganizer</title>
+	        	<link rel='icon' href='/favicon.svg' />
 	      	</Head>
 	  		<ToastContainer/>
 

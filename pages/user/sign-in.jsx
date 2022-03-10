@@ -60,14 +60,16 @@ export default function SignIn() {
 	  		<div className={settings.general.theme+'-bg'}></div>
 	  		<Head>
 	        	<title>Sign in | SOrganizer</title>
+	        	<link rel='icon' href='/favicon.svg' />
 	      	</Head>
 	  		<ToastContainer/>
 
-	  		<div className="container">
+	  		<div className='container'>
 
-	  			<div className="row fill-screen flex horizontal-center">
+	  			<div className='row fill-screen flex horizontal-center'>
 	  				
 	  				<div className={'column flex vertical-center '+settings.general.theme+'-fgcolor'}>
+	  					<img src='/img/logo/sorganizer-logo-main.svg' alt='sorganizer' height='50px' width='50px'></img>
 	  					<h1>SOrganizer</h1>
 	  					<br />
 	  				</div>
@@ -102,7 +104,7 @@ export default function SignIn() {
 									className={showPassword ? 'bi bi-eye field-toggle':'bi bi-eye-slash field-toggle'} 
 									onClick={() => setshowPassword((prevState) => !prevState)}/>
 								</div>
-								<div className="flex vertical-center">
+								<div className='flex vertical-center'>
 									<span><Link href='/user/forgot-password'><a className={settings.general.theme+'-fg2color'}>Forgot your Password?</a></Link></span>
 									<br />
 									<button className={'btn '+settings.general.theme+'-accentbgcolor'}>Sign in</button>

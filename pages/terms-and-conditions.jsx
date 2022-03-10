@@ -10,6 +10,7 @@ export default function TermsAndConditions() {
     <>
       <Head>
         <title>Terms and Conditions | SOrganizer</title>
+        <link rel='icon' href='/favicon.svg' />
       </Head>
       <div className={settings.general.theme+'-bg'}></div>
 

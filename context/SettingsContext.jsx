@@ -3,23 +3,14 @@ import { createContext, useState, useContext } from 'react'
 const SettingsContext = createContext()
 
 export const SettingsProvider = ({children}) =>{
-	const [theme, setTheme] = useState('dark')
 	//default settings
 	const [settings, setSettings] = useState({
 		general : {
-			tempsettings : true,
-			theme : 'light'
-		},
-		temp : {
-			tempsettings : true,
+			theme : 'dark'
 		}
-
 	})
 
 	const toggleTheme = () => {
-		setTheme((prevState) => {
-			return prevState ==='dark' ? 'light':'dark'
-		})
 		setSettings((prevSettings) => {
 			return prevSettings.general.theme ==='dark' ? {
 				...prevSettings,
@@ -39,7 +30,6 @@ export const SettingsProvider = ({children}) =>{
 
 	return <SettingsContext.Provider value={({
 		settings,
-		theme,
 		toggleTheme,
 	})}>{children}</SettingsContext.Provider>
 }

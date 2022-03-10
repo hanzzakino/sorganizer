@@ -10,6 +10,7 @@ export default function PrivacyPolicy() {
     <>
       <Head>
         <title>Privacy Policy | SOrganizer</title>
+        <link rel='icon' href='/favicon.svg' />
       </Head>
       <div className={settings.general.theme+'-bg'}></div>
 

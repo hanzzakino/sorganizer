@@ -65,6 +65,7 @@ export default function SignUp() {
 	  		<div className={settings.general.theme+'-bg'}></div>
 	  		<Head>
 	        	<title>Sign up | SOrganizer</title>
+	        	<link rel='icon' href='/favicon.svg' />
 	      	</Head>
 	  		<ToastContainer />
 	  		<br />

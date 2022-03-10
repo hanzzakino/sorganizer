@@ -3,19 +3,8 @@
   "name": "SOrganizer - Student Organizer App",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/ico"
-    },
-    {
-      "src": "favicon.ico",
-      "type": "image/ico",
-      "sizes": "192x192"
-    },
-    {
-      "src": "favicon.ico",
-      "type": "image/ico",
-      "sizes": "512x512"
+      "src": "favicon.svg",
+      "sizes": "any"
     }
   ],
   "start_url": ".",

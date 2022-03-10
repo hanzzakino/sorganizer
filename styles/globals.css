@@ -310,13 +310,13 @@ body {
 
 
 
-/* Colors */
+/* Theme Colors */
 
 .dark-bg-spinner {
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	background-color: #212121;
+	background-color: #24292b;
 	z-index: 1;
 }
 .dark-spinner-text{
@@ -329,23 +329,23 @@ body {
 	font-size: 12px;
 }
 .dark-spinner:after {
-	background: #212121;
+	background: #24292b;
 }
 .dark-bg {
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	background-color: #212121;
+	background-color: #24292b;
 	z-index: -1;
 }
 .dark-bgcolor {
-	background-color: #212121;
+	background-color: #24292b;
 }
 .dark-bg2color {
-	background-color: #343434;
+	background-color: #1a1e1f;
 }
 .dark-bg3color {
-	background-color: rgb(40,40,40);
+	background-color: #1a1e1f;
 }
 .dark-fgcolor {
 	color: white;
@@ -354,10 +354,10 @@ body {
 	color: rgb(160,160,160);
 }
 .dark-accentfgcolor {
-	color: #14FFEC;
+	color: #00c0ff;
 }
 .dark-accentbgcolor {
-	background-color: #14FFEC;
+	background-color: #00c0ff;
 }
 .dark-accentbg2color {
 	background-color: #0D7377;
