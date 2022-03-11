@@ -205,7 +205,7 @@ export default function useFirebaseAuth() {
 		return emptyfield
 	}
 
-	const signUpEmail = async (firstname, lastname, email, password, confirmpassword, formData, theme) => {
+	const signUpEmail = async (firstname, lastname, email, password, confirmpassword, formData, settings) => {
 		let emptyfield = {
 			firstnameEmpty : false,
 			lastnameEmpty : false,
@@ -245,10 +245,11 @@ export default function useFirebaseAuth() {
 				delete storageFormData.password
 				delete storageFormData.confirmpassword
 				storageFormData.timestamp = serverTimestamp()
+				storageFormData.settings = settings
 				//add modified formdata to firestore db
 				await setDoc(doc(db,'users',user.uid), storageFormData)
 			} catch(e) {
-				const {message,attributes} = parseErrorMessage(e.code, theme)
+				const {message,attributes} = parseErrorMessage(e.code, settings.general.theme,)
 				toast(message,attributes)
 			} finally {
 				setDataWriteDone(true)
@@ -269,7 +270,7 @@ export default function useFirebaseAuth() {
 		}
 	}
 
-	const googleOauth = async (theme) => {
+	const googleOauth = async (settings) => {
 	    try {
 	    	setDataWriteDone(false)
 	    	setCurrentTask('Signing in using Google')
@@ -286,11 +287,12 @@ export default function useFirebaseAuth() {
 		    		firstname : String(user.displayName.split(' ').slice(0,-1).join(' ')),
 					lastname : String((user.displayName.split(' ').slice(-1))[0]),
 					email : user.email,
-					timestamp : serverTimestamp()
+					timestamp : serverTimestamp(),
+					settings : settings
 				})
 	    	}
 	    } catch(e) {
-	    	const {message,attributes} = parseErrorMessage(e.code, theme)
+	    	const {message,attributes} = parseErrorMessage(e.code, settings.general.theme,)
 	    	toast(message,attributes)
 	    } finally {
 	    	setCurrentTask('')
@@ -299,7 +301,7 @@ export default function useFirebaseAuth() {
 	    }
 	}
 
-	const facebookOauth = async (theme) => {
+	const facebookOauth = async (settings) => {
 	    try {
 	    	setDataWriteDone(false)
 	    	setCurrentTask('Signing in using Facebook')
@@ -316,11 +318,12 @@ export default function useFirebaseAuth() {
 		    		firstname : String(user.displayName.split(' ').slice(0,-1).join(' ')),
 					lastname : String((user.displayName.split(' ').slice(-1))[0]),
 					email : user.email,
-					timestamp : serverTimestamp()
+					timestamp : serverTimestamp(),
+					settings : settings
 				})
 	    	}
 	    } catch(e) {
-	    	const {message,attributes} = parseErrorMessage(e.code, theme)
+	    	const {message,attributes} = parseErrorMessage(e.code, settings.general.theme,)
 	    	toast(message,attributes)
 	    } finally {
 	    	setCurrentTask('')

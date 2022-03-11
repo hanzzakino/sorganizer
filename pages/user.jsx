@@ -16,34 +16,36 @@ import {useSettings} from '../context/SettingsContext'
 
 
 export default function User() {
-	const {settings, toggleTheme} = useSettings()
+	const {settings, toggleTheme, setLocalSettings} = useSettings()
 	const {authUser, loading, signOut, currentTask, dataWriteDone} = useAuth()
-	const [gettingDB, setGettingDB] = useState(true)
+	const [gettingUserDB, setGettingUserDB] = useState(true)
 	const router = useRouter()
-	const [dbData, setDbData] = useState({
+	const [userData, setUserData] = useState({
 		firstname : '',
 		lastname : '',
 		email : '',
-		timestamp : null
+		timestamp : null,
+		settings : null
 	})
-	const {firstname, lastname, email} = dbData
+	const {firstname, lastname, email} = userData
 
 	useEffect(() => {
 		if(!loading &&  !authUser && dataWriteDone){
 			router.push('/user/sign-in')
 		} else if(authUser && !loading){
-			getDocData()
+			getUserData()
 		}
 	}, [authUser, loading, dataWriteDone])
 	
-	const getDocData = async () => {
+	const getUserData = async () => {
 		try {
-			setGettingDB(true)
+			setGettingUserDB(true)
 			const docRef = doc(db,'users',authUser.uid)
 			const docSnap = await getDoc(docRef)
 			if(docSnap.exists()){
-				setDbData(docSnap.data())
-				setGettingDB(false)
+				setLocalSettings()
+				setUserData(docSnap.data())
+				setGettingUserDB(false)
 			}
 			
 		} catch(e) {
@@ -54,7 +56,7 @@ export default function User() {
 					type : 'error',
 					hideProgressBar : true
 			})
-			setGettingDB(false)
+			setGettingUserDB(false)
 		}
 	}
 
@@ -72,7 +74,7 @@ export default function User() {
 				<div className='container'>
 
 					<div className='horizontal-center flex row'>
-						{gettingDB ? <Spinner theme={settings.general.theme} spinnerOnly/>:<h1>{firstname+' '+lastname}</h1>}
+						{gettingUserDB ? <Spinner theme={settings.general.theme} spinnerOnly/>:<h1>{firstname+' '+lastname}</h1>}
 					</div>
 
 					<div className='horizontal-center row'>
@@ -80,14 +82,14 @@ export default function User() {
 					</div>
 
 					<div className='horizontal-center flex row'>
-						{gettingDB ? (<Spinner theme={settings.general.theme} spinnerOnly/>):(<p>
-						First Name : {dbData.firstname}
+						{gettingUserDB ? (<Spinner theme={settings.general.theme} spinnerOnly/>):(<p>
+						First Name : {userData.firstname}
 						<br />
-						Last Name : {dbData.lastname}
+						Last Name : {userData.lastname}
 						<br />
-						Email : {dbData.email}
+						Email : {userData.email}
 						<br />
-						Date joined : {dbData.timestamp.seconds}
+						Date joined : {userData.timestamp.seconds}
 						</p>)}
 					</div>
 

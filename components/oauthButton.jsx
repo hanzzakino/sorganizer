@@ -8,12 +8,12 @@ export default function OauthButton() {
 
   	const googleAuthClick = (e) => {
   		e.preventDefault()
-  		googleOauth(settings.general.theme)
+  		googleOauth(settings)
   	}
 
   	const facebookAuthClick = (e) => {
   		e.preventDefault()
-  		facebookOauth(settings.general.theme)
+  		facebookOauth(settings)
   	}
 
   	return (

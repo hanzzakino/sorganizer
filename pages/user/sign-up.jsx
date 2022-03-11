@@ -54,7 +54,7 @@ export default function SignUp() {
 	//TODO Make sure that before passing to db all fileds are filled up
 	const onSubmit = (e) => {
 		e.preventDefault()
-		signUpEmail(firstname, lastname, email, password, confirmpassword, formData, settings.general.theme)
+		signUpEmail(firstname, lastname, email, password, confirmpassword, formData, settings)
 		.then((emptyfields) => {
 			setEmptyfield(emptyfields)
 		})
