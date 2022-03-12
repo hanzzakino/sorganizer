@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Spinner from '../components/spinner'
+import Navbar from '../components/navbar'
 
 //initialize firebase app using the firebase.config file
 import {db} from '../firebase.config'
@@ -69,6 +70,8 @@ export default function User() {
 	    	<link rel='icon' href='/favicon.svg' />
 	  	</Head>
 		<div className={settings.general.theme+'-bg'}></div>
+		<Navbar theme={settings.general.theme}/>
+		<br /><br /><br />
 		<div className={settings.general.theme+'-fgcolor'} align='center'>
 			 
 				<div className='container'>

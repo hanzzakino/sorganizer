@@ -1,7 +1,7 @@
 
-export default function Navbar() {
+export default function Navbar({theme}) {
   return (
-    <nav className="navbar dark-bg2color dark-fgcolor">
+    <nav className={'navbar '+theme+'-bg2color '+theme+'-fgcolor'}>
       Navbar
     </nav>
   )

@@ -57,16 +57,31 @@ body {
 
 /* components */
 .navbar {
-	height: 48px;
+	height: 100%;
 	padding-top: 5px;
-	width: 100%;
+	width: 56px;
 	position: fixed;
   	z-index: 1; /* Sit on top */
+  	overflow: hidden;
   	left: 0;
   	top: 0;
   	transition: 0.5s;
-  	display: flex;
-  	filter: drop-shadow(0px 3px 5px rgb(0,0,0,0.1));
+  	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.5));
+}
+.navbar:hover {
+	width: 160px;
+}
+@media (max-width: 770px) {
+	.navbar {
+		height: 100%;
+		padding-top: 5px;
+		width: 5px;
+	  	filter: unset;
+	}
+	.navbar:hover {
+		width: 50%;
+		filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.5));
+	}
 }
 
 .spinner {
