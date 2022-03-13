@@ -34,7 +34,7 @@ export default function SignIn() {
 	// then redirects to sign in if no user is signed in
 	useEffect(() => {
 		if(!loading &&  authUser && dataWriteDone){
-			router.push('/user')
+			router.push('/user/dashboard')
 		}
 	}, [authUser, loading, dataWriteDone])
 

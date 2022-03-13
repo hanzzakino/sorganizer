@@ -38,7 +38,7 @@ export default function SignUp() {
 	
 	useEffect(() => {
 		if(!loading &&  authUser && dataWriteDone){
-			router.push('/user')
+			router.push('/user/dashboard')
 		}
 	}, [authUser, loading, dataWriteDone])
 	
