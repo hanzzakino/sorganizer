@@ -25,12 +25,12 @@ export default function Dashboard() {
 
 
 	useEffect(() => {
-		if(!loading &&  !authUser && dataWriteDone && getDataDone){
+		if(!loading &&  !authUser && dataWriteDone){
 			router.push('/user/sign-in')
 		} else if(authUser && !loading){
 			getSubjects()
 		}
-	}, [authUser, loading, dataWriteDone, getDataDone, getSubjects, router])
+	}, [authUser, loading, dataWriteDone, getSubjects, router])
 	
 	
 
