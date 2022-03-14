@@ -30,7 +30,7 @@ export default function Dashboard() {
 		} else if(authUser && !loading){
 			getSubjects()
 		}
-	}, [authUser, loading, dataWriteDone, getDataDone])
+	}, [authUser, loading, dataWriteDone, getDataDone, getSubjects, router])
 	
 	
 
@@ -45,12 +45,12 @@ export default function Dashboard() {
 		<br />
 		<div className={settings.general.theme+'-fgcolor container'}>
 			{subjects.map((subject) => 
-				<ul>
+				<ul key={subject.id}>
 					<li>{subject.data.code}</li>
-					<li>---> {subject.data.name}</li>
-					<li>---> Prof. {subject.data.teacher}</li>
-					<li>---> {subject.data.scheduleDay}</li>
-					<li>---> {subject.data.scheduleTimeFrom} to {subject.data.scheduleTimeTo}</li>
+					<li>{subject.data.name}</li>
+					<li>Prof. {subject.data.teacher}</li>
+					<li>{subject.data.scheduleDay}</li>
+					<li>{subject.data.scheduleTimeFrom} to {subject.data.scheduleTimeTo}</li>
 				</ul>
 				)}
 		</div>

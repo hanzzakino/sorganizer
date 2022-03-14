@@ -14,56 +14,27 @@ import {getAuth, onAuthStateChanged} from 'firebase/auth'
 //Context
 import {useAuth} from '../context/AuthUserContext'
 import {useSettings} from '../context/SettingsContext'
-
+import {useFirestoreData} from '../context/FirestoreDataContext'
 
 export default function User() {
 	const {settings, toggleTheme, setLocalSettings} = useSettings()
 	const {authUser, loading, signOut, currentTask, dataWriteDone} = useAuth()
-	const [gettingUserDB, setGettingUserDB] = useState(true)
+	const {userData, getUserDataDone, getUserData} = useFirestoreData()
 	const router = useRouter()
-	const [userData, setUserData] = useState({
-		firstname : '',
-		lastname : '',
-		email : '',
-		timestamp : null,
-		settings : null
-	})
-	const {firstname, lastname, email} = userData
 
 	useEffect(() => {
 		if(!loading &&  !authUser && dataWriteDone){
 			router.push('/user/sign-in')
-		} else if(authUser && !loading){
+		} else if(!userData && !getUserDataDone && authUser){
 			getUserData()
+			setLocalSettings()
 		}
-	}, [authUser, loading, dataWriteDone])
+	}, [authUser, loading, dataWriteDone, router, userData, getUserDataDone, getUserData, setLocalSettings])
 	
-	const getUserData = async () => {
-		try {
-			setGettingUserDB(true)
-			const docRef = doc(db,'users',authUser.uid)
-			const docSnap = await getDoc(docRef)
-			if(docSnap.exists()){
-				setLocalSettings()
-				setUserData(docSnap.data())
-				setGettingUserDB(false)
-			}
-			
-		} catch(e) {
-			toast('An error occured while getting Database data', {
-					position : 'top-right',
-					autoClose : 5000,
-					theme : settings.general.theme,
-					type : 'error',
-					hideProgressBar : true
-			})
-			setGettingUserDB(false)
-		}
-	}
 
 	
 
-	return authUser && !loading ? (
+	return userData && authUser && !loading ? (
 		<>
 		<Head>
 	    	<title>Profile | SOrganizer</title>
@@ -75,25 +46,12 @@ export default function User() {
 		<div className={settings.general.theme+'-fgcolor'} align='center'>
 			 
 				<div className='container'>
-
 					<div className='horizontal-center flex row'>
-						{gettingUserDB ? <Spinner theme={settings.general.theme} spinnerOnly/>:<h1>{firstname+' '+lastname}</h1>}
-					</div>
-
-					<div className='horizontal-center row'>
-						<img src={authUser.photoURL} alt='profile picture' />
+						<h1>Hi! {userData.firstname} {userData.lastname}</h1>
 					</div>
 
 					<div className='horizontal-center flex row'>
-						{gettingUserDB ? (<Spinner theme={settings.general.theme} spinnerOnly/>):(<p>
-						First Name : {userData.firstname}
-						<br />
-						Last Name : {userData.lastname}
-						<br />
-						Email : {userData.email}
-						<br />
-						Date joined : {userData.timestamp.seconds}
-						</p>)}
+						<p>{authUser.uid}</p>
 					</div>
 
 					<div className='horizontal-center flex row'>

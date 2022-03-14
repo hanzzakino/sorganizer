@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Head from 'next/head'
-
+import Image from 'next/image'
 //components
 import Navbar from '../../components/navbar'
 import Spinner from '../../components/spinner'
@@ -36,7 +36,7 @@ export default function SignIn() {
 		if(!loading &&  authUser && dataWriteDone){
 			router.push('/user/dashboard')
 		}
-	}, [authUser, loading, dataWriteDone])
+	}, [authUser, loading, dataWriteDone, router])
 
 	const onChange = (e) => {
 		setFormData((prevState) => ({
@@ -69,7 +69,7 @@ export default function SignIn() {
 	  			<div className='row fill-screen flex horizontal-center'>
 	  				
 	  				<div className={'column flex vertical-center '+settings.general.theme+'-fgcolor'}>
-	  					<img src='/img/logo/sorganizer-logo-main.svg' alt='sorganizer' height='50px' width='50px'></img>
+	  					<Image src='/img/logo/sorganizer-logo-main.svg' alt='sorganizer' height='50px' width='50px'></Image>
 	  					<h1>SOrganizer</h1>
 	  					<br />
 	  				</div>
