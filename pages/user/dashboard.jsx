@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Spinner from '../../components/spinner'
 import Navbar from '../../components/navbar'
-
+import NotificationBar from '../../components/notificationBar'
 import Subjects from '../../components/dashboard/subjects'
 
 //initialize firebase app using the firebase.config file
@@ -26,11 +26,9 @@ export default function Dashboard() {
 	const {settings, toggleTheme, setLocalSettings} = useSettings()
 	const {authUser, loading, signOut, currentTask, dataWriteDone} = useAuth()
 	const router = useRouter()
-
-
-
 	const [navbarCollapsed, setNavbarCollapsed] = useState(false)
-
+	const [pageScrollTop, setPageScrollTop] = useState(true)
+	const [scrollY, setScrollY] = useState(0)
 
 	useEffect(() => {
 		console.log('effect',loading,authUser)
@@ -44,8 +42,24 @@ export default function Dashboard() {
 			setLocalSettings()
 		}
 	}, [authUser, loading, dataWriteDone])
-	
 
+	useEffect(() => {
+		const handleScroll = () => {
+			if(window.scrollY > 5) {
+				setPageScrollTop(false)
+			} else {
+				setPageScrollTop(true)
+			}
+			setScrollY(window.scrollY)
+		}
+		handleScroll()
+		window.addEventListener('scroll', handleScroll)
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll)
+		}
+	},[])
+	
 	const toggleNavbar = () => {
 		setNavbarCollapsed(!navbarCollapsed)
 	}
@@ -85,12 +99,13 @@ export default function Dashboard() {
 
 	  	<Navbar theme={settings.general.theme} collapsed={navbarCollapsed}/>
 
-
+	  	
 
 	  	<main className={'main-area'+(navbarCollapsed ? '-expanded':'')}>
-	  		<h1>Hi!, {userData.firstname+' '+userData.lastname}</h1>
+	  		<NotificationBar collapsed={navbarCollapsed} userData={userData} scrolled={!pageScrollTop}/>
 	  		<button className={'btn-navbarToggle'+(navbarCollapsed ? '-collapsed':'')+' '+settings.general.theme+'-fgcolor'} onClick={toggleNavbar}><i className='bi bi-chevron-left'/></button>
 	  		
+
 	  		{showView()}
 
 

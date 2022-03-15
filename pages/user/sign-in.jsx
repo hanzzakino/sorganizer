@@ -48,7 +48,7 @@ export default function SignIn() {
 	//TODO check if the fields are filled before passing to firebase
 	const onSubmit = (e) => {
 		e.preventDefault()
-		signInEmail(email, password, settings.general.theme)
+		signInEmail(email, password, settings)
 		.then((emptyfields) => {
 				setEmptyfield(emptyfields)
 			}

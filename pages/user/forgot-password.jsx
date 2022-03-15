@@ -39,7 +39,7 @@ export default function ForgotPassword() {
 
 	const onSubmit = (e) => {
 		e.preventDefault()
-		resetPassword(email, settings.general.theme)
+		resetPassword(email, settings)
 	}
 
   	return (

@@ -57,14 +57,68 @@ body {
 
 /*Main Components*/
 .main-area {
+	padding-top: 120px;
 	margin-left: 200px;
-	background-color: yellow;
-	transition: 0.5s;
+	transition: 0.2s;
 }
 .main-area-expanded {
+	padding-top: 120px;
 	margin-left: 56px;
-	background-color: yellow;
-	transition: 0.5s;
+	transition: 0.2s;
+}
+.notificationbar-top {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: red;
+	z-index: 1;
+	height: 56px;
+	width: 100%;
+}
+.notificationbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin-left: 200px;
+	height: 200px;
+	width: 100%;
+	background-color: blue;
+	z-index: -1;
+	transition: 0.2s;
+}
+.notificationbar-collapsed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin-left: 56px;
+	height: 200px;
+	width: 100%;
+	background-color: blue;
+	z-index: -1;
+	transition: 0.2s;
+}
+.notificationbar-scrolled {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin-left: 200px;
+	height: 56px;
+	width: 100%;
+	background-color: blue;
+	z-index: 1;
+}
+.notificationbar-collapsed-scrolled {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin-left: 56px;
+	height: 56px;
+	width: 100%;
+	background-color: blue;
+	z-index: 1;
+}
+.subjects-area {
+	background-color: rgba(255,255,255,0.5);
 }
 .navbar {
 	padding-top: 40px;
@@ -75,7 +129,7 @@ body {
   	overflow: hidden;
   	left: 0;
   	top: 0;
-  	transition: 0.4s;
+  	transition: 0.2s;
   	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
 }
 .navbar-collapsed {
@@ -87,7 +141,7 @@ body {
   	overflow: hidden;
   	left: 0;
   	top: 0;
-  	transition: 0.4s;
+  	transition: 0.2s;
   	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
 }
 .navbar-menulist{
@@ -169,7 +223,7 @@ body {
 .btn-navbarToggle-collapsed {
 	position: fixed;
 	transform: rotateY(180deg);
-	transition: 0.4s;
+	transition: 0.2s;
 	background-color: transparent;
 	font-size: 1.2rem;
 	top: 16px;
@@ -179,7 +233,7 @@ body {
 }
 .btn-navbarToggle {
 	position: fixed;
-	transition: 0.4s;
+	transition: 0.2s;
 	background-color: transparent;
 	font-size: 1.2rem;
 	top: 16px;
@@ -191,13 +245,21 @@ body {
 @media (max-width: 770px) {
 	.main-area {
 		margin-left: 40%;
-		background-color: yellow;
-		transition: 0.5s;
 	}
 	.main-area-expanded {
 		margin-left: 0;
-		background-color: yellow;
-		transition: 0.5s;
+	}
+	.notificationbar {
+		margin-left: 40%;
+	}
+	.notificationbar-collapsed {
+		margin-left: 0;
+	}
+	.notificationbar-scrolled {
+		margin-left: 40%;
+	}
+	.notificationbar-collapsed-scrolled {
+		margin-left: 0;
 	}
 	.navbar {
 		width: 40%;
@@ -207,15 +269,10 @@ body {
 		padding: 4px 2px 18px 2px;
 	}
 	.navbar-collapsed {
-		height: 100%;
 		width: 0;
-		position: fixed;
-	  	z-index: 1; /* Sit on top */
-	  	overflow: hidden;
-	  	left: 0;
-	  	top: 0;
-	  	transition: 0.5s;
-	  	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
+	}
+	.btn-navbarToggle {
+		left: 28%;
 	}
 }
 
@@ -489,7 +546,7 @@ body {
 	left: 0;
 	position: fixed;
 	background-color: #24292b;
-	z-index: -1;
+	z-index: -3;
 }
 .dark-bgcolor {
 	background-color: #24292b;
@@ -545,7 +602,7 @@ body {
 	left: 0;
 	position: fixed;
 	background-color: white;
-	z-index: -1;
+	z-index: -3;
 }
 .light-bgcolor {
 	background-color:rgb(253,253,253);

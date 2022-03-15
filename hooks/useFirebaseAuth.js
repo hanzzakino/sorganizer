@@ -183,7 +183,7 @@ export default function useFirebaseAuth() {
 		}
 	}
 
-	const signInEmail = async (email, password, theme) => {
+	const signInEmail = async (email, password, settings) => {
 		let emptyfield = { 
 			emailEmpty : false, 
 			passwordEmpty : false
@@ -191,7 +191,7 @@ export default function useFirebaseAuth() {
 		if(email === '' || password == ''){
 			emptyfield.emailEmpty = email === '' ? true:false
 			emptyfield.passwordEmpty = password === '' ? true:false
-			const {message,attributes} = parseErrorMessage('sorganizer/empty-fields', theme)
+			const {message,attributes} = parseErrorMessage('sorganizer/empty-fields', settings.general.theme)
 			toast(message,attributes)
 		} else {
 			try {
@@ -259,13 +259,13 @@ export default function useFirebaseAuth() {
 		return emptyfield
 	}
 
-	const resetPassword = async (email, theme) => {
+	const resetPassword = async (email, settings) => {
 		try {
 			const auth = getAuth()
 			await sendPasswordResetEmail(auth, email)
-			toast.success('Email was Sent',{autoClose : false, theme : theme})
+			toast.success('Email was Sent',{autoClose : false, theme : settings.general.theme})
 		} catch(e) {
-			const {message,attributes} = parseErrorMessage(e.code, theme)
+			const {message,attributes} = parseErrorMessage(e.code, settings.general.theme)
 			toast(message,attributes)
 		}
 	}
