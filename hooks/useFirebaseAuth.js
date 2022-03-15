@@ -60,7 +60,7 @@ export default function useFirebaseAuth() {
 		let attributes = null
 		switch (errMessage) {
 			case 'auth/user-not-found':
-				message = 'Invalid Username'
+				message = 'Invalid Username/Password'
 				attributes = {
 					position : 'top-right',
 					autoClose : 5000,
@@ -71,7 +71,7 @@ export default function useFirebaseAuth() {
 				return {message,attributes}
 				break;
 			case 'auth/wrong-password':
-				message = 'Invalid Password'
+				message = 'Invalid Username/Password'
 				attributes = {
 					position : 'top-right',
 					autoClose : 5000,
@@ -198,7 +198,7 @@ export default function useFirebaseAuth() {
 				const auth = getAuth()
 				const userCredential = await signInWithEmailAndPassword(auth, email, password)
 			} catch(e) {
-				const {message,attributes} = parseErrorMessage(e.code, theme)
+				const {message,attributes} = parseErrorMessage(e.code, settings.general.theme)
 				toast(message,attributes)
 			}
 		}
@@ -219,17 +219,17 @@ export default function useFirebaseAuth() {
 			emptyfield.emailEmpty = email === '' ? true:false
 			emptyfield.passwordEmpty = password === '' ? true:false
 			emptyfield.confirmpasswordEmpty = confirmpassword === '' ? true:false
-			const {message,attributes} = parseErrorMessage('sorganizer/empty-fields', theme)
+			const {message,attributes} = parseErrorMessage('sorganizer/empty-fields', settings.general.theme)
 			toast(message,attributes)
 		} else if(password.length < 8){
 			emptyfield.passwordEmpty = true
 			emptyfield.confirmpasswordEmpty = true
-			const {message,attributes} = parseErrorMessage('sorganizer/password-too-short', theme)
+			const {message,attributes} = parseErrorMessage('sorganizer/password-too-short', settings.general.theme)
 			toast(message,attributes)
 		} else if(!(confirmpassword === password)) {
 			emptyfield.passwordEmpty = true
 			emptyfield.confirmpasswordEmpty = true
-			const {message,attributes} = parseErrorMessage('sorganizer/password-not-match', theme)
+			const {message,attributes} = parseErrorMessage('sorganizer/password-not-match', settings.general.theme)
 			toast(message,attributes)
 		} else {
 			try {
@@ -249,7 +249,7 @@ export default function useFirebaseAuth() {
 				//add modified formdata to firestore db
 				await setDoc(doc(db,'users',user.uid), storageFormData)
 			} catch(e) {
-				const {message,attributes} = parseErrorMessage(e.code, settings.general.theme,)
+				const {message,attributes} = parseErrorMessage(e.code, settings.general.theme)
 				toast(message,attributes)
 			} finally {
 				setDataWriteDone(true)
@@ -271,6 +271,7 @@ export default function useFirebaseAuth() {
 	}
 
 	const googleOauth = async (settings) => {
+		console.log('getting googleOauth')
 	    try {
 	    	setDataWriteDone(false)
 	    	setCurrentTask('Signing in using Google')
@@ -302,6 +303,7 @@ export default function useFirebaseAuth() {
 	}
 
 	const facebookOauth = async (settings) => {
+		console.log('getting FBOAUTH')
 	    try {
 	    	setDataWriteDone(false)
 	    	setCurrentTask('Signing in using Facebook')

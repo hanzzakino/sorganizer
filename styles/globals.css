@@ -55,35 +55,164 @@ body {
 	}
 }
 
-/* components */
+/*Main Components*/
+.main-area {
+	margin-left: 200px;
+	background-color: yellow;
+	transition: 0.5s;
+}
+.main-area-expanded {
+	margin-left: 56px;
+	background-color: yellow;
+	transition: 0.5s;
+}
 .navbar {
+	padding-top: 40px;
 	height: 100%;
-	padding-top: 5px;
+	width: 200px;
+	position: fixed;
+  	z-index: 1; /* Sit on top */
+  	overflow: hidden;
+  	left: 0;
+  	top: 0;
+  	transition: 0.4s;
+  	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
+}
+.navbar-collapsed {
+	padding-top: 40px;
+	height: 100%;
 	width: 56px;
 	position: fixed;
   	z-index: 1; /* Sit on top */
   	overflow: hidden;
   	left: 0;
   	top: 0;
-  	transition: 0.5s;
-  	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.5));
+  	transition: 0.4s;
+  	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
 }
-.navbar:hover {
-	width: 160px;
+.navbar-menulist{
+	flex-flow: column;
+	margin: 0 24px 0 24px;
+	padding: 4px 2px 18px 2px;
 }
+.navbar-menulist-collapsed{
+	flex-flow: column;
+	margin: 0 4px 0 4px;
+	padding: 4px 0 18px 0;
+}
+.bottom-line {
+	border-bottom: 2px solid rgb(255,255,255,0.2)
+}
+.navbar-menulist-btn {
+	position: relative;
+	font-size: 1rem;
+	background-color: transparent;
+	margin: 8px 0px 8px 0px;
+	padding: 4px 4px 4px 42px;
+	width: 142px;
+	height: 32px;
+	border: none;
+	border-radius: 6px;
+	overflow: hidden;
+	transition: 0.1s ease-out;
+	text-align: left;
+}
+.navbar-menulist-btn-collapsed {
+	position: relative;
+	font-size: 1rem;
+	background-color: transparent;
+	margin: 8px 0px 8px 8px;
+	padding: 4px;
+	width: 32px;
+	height: 32px;
+	border: none;
+	border-radius: 3px;
+	overflow: hidden;
+	transition: 0.1s ease-out;
+	text-align: left;
+	color: transparent !important;
+}
+.navbar-menulist-btn-icon {
+	position: absolute;
+	margin-left: 16px;
+	margin-top: 14px;
+	font-size: 1rem;
+	z-index: -1;
+}
+.navbar-menulist-btn-icon-animated-dark {
+	position: absolute;
+	transform: rotate(360deg);
+	margin-left: 16px;
+	margin-top: 14px;
+	font-size: 1rem;
+	z-index: -1;
+	transition: 0.5s;
+}
+.navbar-menulist-btn-icon-animated-light {
+	position: absolute;
+	margin-left: 16px;
+	margin-top: 14px;
+	font-size: 1rem;
+	z-index: -1;
+	transition: 0.5s;
+}
+
+.navbar-menulist-btn-collapsed:hover{
+	background-color: rgb(255,255,255,0.2);
+}
+.navbar-menulist-btn:hover{
+	background-color: rgb(255,255,255,0.2);
+}
+.btn-navbarToggle-collapsed {
+	position: fixed;
+	transform: rotateY(180deg);
+	transition: 0.4s;
+	background-color: transparent;
+	font-size: 1.2rem;
+	top: 16px;
+	left: 14px;
+	z-index: 1; /* Sit on top */
+	border: none;
+}
+.btn-navbarToggle {
+	position: fixed;
+	transition: 0.4s;
+	background-color: transparent;
+	font-size: 1.2rem;
+	top: 16px;
+	left: 156px;
+	z-index: 1; /* Sit on top */
+	border: none;
+}
+
 @media (max-width: 770px) {
-	.navbar {
-		height: 100%;
-		padding-top: 5px;
-		width: 5px;
-	  	filter: unset;
+	.main-area {
+		margin-left: 40%;
+		background-color: yellow;
+		transition: 0.5s;
 	}
-	.navbar:hover {
-		width: 50%;
-		filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.5));
+	.main-area-expanded {
+		margin-left: 0;
+		background-color: yellow;
+		transition: 0.5s;
+	}
+	.navbar {
+		width: 40%;
+	}
+	.navbar-collapsed {
+		height: 100%;
+		width: 0;
+		position: fixed;
+	  	z-index: 1; /* Sit on top */
+	  	overflow: hidden;
+	  	left: 0;
+	  	top: 0;
+	  	transition: 0.5s;
+	  	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
 	}
 }
 
+/* components */
 .spinner {
 	font-size: 10px;
 	margin: 8px auto;
@@ -349,6 +478,8 @@ body {
 .dark-bg {
 	width: 100%;
 	height: 100%;
+	top: 0;
+	left: 0;
 	position: fixed;
 	background-color: #24292b;
 	z-index: -1;
@@ -377,7 +508,9 @@ body {
 .dark-accentbg2color {
 	background-color: #0D7377;
 }
-
+.dark-accentbg2coloronhover:hover {
+	background-color: #0D7377 !important;
+}
 
 .light-bg-spinner {
 	width: 100%;
@@ -401,6 +534,8 @@ body {
 .light-bg {
 	width: 100%;
 	height: 100%;
+	top: 0;
+	left: 0;
 	position: fixed;
 	background-color: white;
 	z-index: -1;
@@ -428,6 +563,9 @@ body {
 }
 .light-accentbg2color {
 	background-color: #0D7377;
+}
+.light-accentbg2coloronhover:hover {
+	background-color: #00c0ff !important;
 }
 
 /*for development*/

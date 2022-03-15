@@ -28,7 +28,7 @@ export default function ForgotPassword() {
 		if(!loading &&  authUser && dataWriteDone){
 			router.push('/user/dashboard')
 		}
-	}, [authUser, loading, dataWriteDone, router])
+	}, [authUser, loading, dataWriteDone])
 
 	const onChange = (e) => {
 		setFormData((prevState) => ({

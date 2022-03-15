@@ -40,7 +40,7 @@ export default function SignUp() {
 		if(!loading &&  authUser && dataWriteDone){
 			router.push('/user/dashboard')
 		}
-	}, [authUser, loading, dataWriteDone, router])
+	}, [authUser, loading, dataWriteDone])
 	
 	const onChange = (e) => {
 		setFormData((prevState) => ({

@@ -26,13 +26,15 @@ export const FirestoreDataProvider = ({children}) =>{
 
 
 	const getUserData = async () => {
+		console.log('getting user data')
 		try {
 			const auth = getAuth()
-			const docRef = doc(db,'users',auth.currentUser.uid)
-			const docSnap = await getDoc(docRef)
-			if(docSnap.exists()){
-				setUserData(docSnap.data())
-				setGetUserDataDone(true)
+			if(auth.currentUser){
+				const docRef = doc(db,'users',auth.currentUser.uid)
+				const docSnap = await getDoc(docRef)
+				if(docSnap.exists()){
+					setUserData(docSnap.data())
+				}
 			}
 		} catch(e) {
 			console.log('getUserData',e)
@@ -43,39 +45,41 @@ export const FirestoreDataProvider = ({children}) =>{
 					type : 'error',
 					hideProgressBar : true
 			})
+		} finally {
+			setGetUserDataDone(true)
 		}
 	}
 
-
-
 	const getSubjects = async () => {
+		console.log('getting Subjects')
 		try {
 			const auth = getAuth()
-			const q = query(collection(db,'users',auth.currentUser.uid,'subjects'))
-
-			const querySnapshot = await getDocs(q)
-			let subjectsList = []
-			querySnapshot.forEach((doc) => {
-				subjectsList.push({
-					id : doc.id,
-					data : doc.data()
+			if(auth.currentUser){
+				const q = query(collection(db,'users',auth.currentUser.uid,'subjects'))
+				const querySnapshot = await getDocs(q)
+				let subjectsList = []
+				querySnapshot.forEach((doc) => {
+					subjectsList.push({
+						id : doc.id,
+						data : doc.data()
+					})
 				})
-			})
-			setSubjects(subjectsList)
+				setSubjects(subjectsList)
+			}
 		} catch(e) {
 			console.log('getSubjects',e)
-			toast('An error occured while getting Database data', {
-					position : 'top-right',
-					autoClose : 5000,
-					theme : 'light',
-					type : 'error',
-					hideProgressBar : true
-			})
 		} finally {
 			setGetDataDone(true)
 		}
 	}
 
+
+	const clearData = async () => {
+		setGetDataDone(false)
+		setGetUserDataDone(false)
+		setUserData(null)
+		setSubjects([])
+	}
 	
 
 	return <FirestoreDataContext.Provider value={({
@@ -84,6 +88,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		getUserDataDone,
 		getUserData,
 		userData,
+		clearData,
 		subjects
 	})}>{children}</FirestoreDataContext.Provider>
 }
