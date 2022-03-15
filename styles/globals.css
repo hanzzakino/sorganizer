@@ -106,6 +106,7 @@ body {
 	width: 100%;
 	background-color: blue;
 	z-index: 1;
+	transition: 0.2s;
 }
 .notificationbar-collapsed-scrolled {
 	position: fixed;
@@ -116,6 +117,7 @@ body {
 	width: 100%;
 	background-color: blue;
 	z-index: 1;
+	transition: 0.2s;
 }
 .subjects-area {
 	background-color: rgba(255,255,255,0.5);
