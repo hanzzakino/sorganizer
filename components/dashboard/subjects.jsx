@@ -1,6 +1,9 @@
+import NotificationBar from '../notificationBar'
 
-export default function SubjectsPanel({theme, subjects}) {
+export default function SubjectsPanel({theme, subjects, collapsed, userData, scrolled, authUser}) {
   return (
+  	<>
+  	<NotificationBar collapsed={collapsed} userData={userData} scrolled={!scrolled} panelTitle='Subjects' authUser={authUser}/>
   	<div className='subjects-area'>
 		{subjects.map((subject) => 
 			<ul key={subject.id}>
@@ -24,5 +27,6 @@ export default function SubjectsPanel({theme, subjects}) {
 		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 		hanzs
 	</div>
+	</>
   )
 }

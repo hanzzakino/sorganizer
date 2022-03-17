@@ -67,7 +67,7 @@ export default function Dashboard() {
 	const showView = () => {
 		switch(currentView){
 			case 'subjects':
-				return <Subjects theme={settings.general.theme} subjects={subjects}/>
+				return <Subjects theme={settings.general.theme} subjects={subjects}  collapsed={navbarCollapsed} userData={userData} scrolled={pageScrollTop} authUser={authUser}/>
 				break
 			case 'todo':
 				return <p>todo</p>
@@ -82,7 +82,7 @@ export default function Dashboard() {
 				return <p>settings</p>
 				break
 			default:
-				return <Subjects theme={settings.general.theme} subjects={subjects}/>
+				return <div className=""></div>
 				break
 		}
 	}
@@ -102,7 +102,6 @@ export default function Dashboard() {
 	  	
 
 	  	<main className={'main-area'+(navbarCollapsed ? '-expanded':'')}>
-	  		<NotificationBar collapsed={navbarCollapsed} userData={userData} scrolled={!pageScrollTop}/>
 	  		<button className={'btn-navbarToggle'+(navbarCollapsed ? '-collapsed':'')+' '+settings.general.theme+'-fgcolor'} onClick={toggleNavbar}><i className='bi bi-chevron-left'/></button>
 	  		
 

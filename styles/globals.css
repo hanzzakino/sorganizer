@@ -59,12 +59,12 @@ body {
 .main-area {
 	padding-top: 120px;
 	margin-left: 200px;
-	transition: 0.2s;
+	transition: 0.45s;
 }
 .main-area-expanded {
 	padding-top: 120px;
 	margin-left: 56px;
-	transition: 0.2s;
+	transition: 0.45s;
 }
 .notificationbar-top {
 	position: fixed;
@@ -84,7 +84,7 @@ body {
 	width: 100%;
 	background-color: blue;
 	z-index: -1;
-	transition: 0.2s;
+	transition: 0.45s;
 }
 .notificationbar-collapsed {
 	position: fixed;
@@ -95,29 +95,72 @@ body {
 	width: 100%;
 	background-color: blue;
 	z-index: -1;
-	transition: 0.2s;
+	transition: 0.45s;
 }
 .notificationbar-scrolled {
 	position: fixed;
 	top: 0;
 	left: 0;
 	margin-left: 200px;
-	height: 56px;
+	height: 0;
 	width: 100%;
 	background-color: blue;
 	z-index: 1;
-	transition: 0.2s;
+	transition: 0.45s;
 }
 .notificationbar-collapsed-scrolled {
 	position: fixed;
 	top: 0;
 	left: 0;
 	margin-left: 56px;
-	height: 56px;
+	height: 0;
 	width: 100%;
 	background-color: blue;
 	z-index: 1;
-	transition: 0.2s;
+	transition: 0.45s;
+}
+.notificationbar-top {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin-left: 200px;
+	height: 56px;
+	width: calc(100% - 200px);
+	background-color: blue;
+	z-index: 1;
+	transition: 0.45s;
+}
+.notificationbar-top-collapsed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin-left: 56px;
+	height: 56px;
+	width: calc(100% - 56px);
+	background-color: blue;
+	z-index: 1;
+	transition: 0.45s;
+}
+.notificationbar-contents {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-top: 50px;
+	transition: 0.45s;
+}
+.notificationbar-contents-scrolled {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	transition: 0.45s;
+}
+.notificationbar-user-btn {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 .subjects-area {
 	background-color: rgba(255,255,255,0.5);
@@ -131,7 +174,7 @@ body {
   	overflow: hidden;
   	left: 0;
   	top: 0;
-  	transition: 0.2s;
+  	transition: 0.45s;
   	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
 }
 .navbar-collapsed {
@@ -143,7 +186,7 @@ body {
   	overflow: hidden;
   	left: 0;
   	top: 0;
-  	transition: 0.2s;
+  	transition: 0.45s;
   	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
 }
 .navbar-menulist{
@@ -225,7 +268,7 @@ body {
 .btn-navbarToggle-collapsed {
 	position: fixed;
 	transform: rotateY(180deg);
-	transition: 0.2s;
+	transition: 0.45s;
 	background-color: transparent;
 	font-size: 1.2rem;
 	top: 16px;
@@ -235,7 +278,7 @@ body {
 }
 .btn-navbarToggle {
 	position: fixed;
-	transition: 0.2s;
+	transition: 0.45s;
 	background-color: transparent;
 	font-size: 1.2rem;
 	top: 16px;
