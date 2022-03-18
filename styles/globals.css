@@ -70,7 +70,7 @@ body {
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-color: red;
+	background-color: #00c0ff;
 	z-index: 1;
 	height: 56px;
 	width: 100%;
@@ -80,9 +80,10 @@ body {
 	top: 0;
 	left: 0;
 	margin-left: 200px;
-	height: 200px;
+	height: 300px;
 	width: 100%;
-	background-color: blue;
+	background-color: #00c0ff;
+	/*background: linear-gradient(180deg, #00c0ff 0%, #00c0ff 50%, #0085ff 100%);*/
 	z-index: -1;
 	transition: 0.45s;
 }
@@ -91,9 +92,9 @@ body {
 	top: 0;
 	left: 0;
 	margin-left: 56px;
-	height: 200px;
+	height: 300px;
 	width: 100%;
-	background-color: blue;
+	background-color: #00c0ff;
 	z-index: -1;
 	transition: 0.45s;
 }
@@ -104,7 +105,7 @@ body {
 	margin-left: 200px;
 	height: 0;
 	width: 100%;
-	background-color: blue;
+	background-color: #00c0ff;
 	z-index: 1;
 	transition: 0.45s;
 }
@@ -115,7 +116,7 @@ body {
 	margin-left: 56px;
 	height: 0;
 	width: 100%;
-	background-color: blue;
+	background-color: #00c0ff;
 	z-index: 1;
 	transition: 0.45s;
 }
@@ -126,7 +127,7 @@ body {
 	margin-left: 200px;
 	height: 56px;
 	width: calc(100% - 200px);
-	background-color: blue;
+	background-color: #00c0ff;
 	z-index: 1;
 	transition: 0.45s;
 }
@@ -137,7 +138,7 @@ body {
 	margin-left: 56px;
 	height: 56px;
 	width: calc(100% - 56px);
-	background-color: blue;
+	background-color: #00c0ff;
 	z-index: 1;
 	transition: 0.45s;
 }
@@ -162,6 +163,12 @@ body {
 	flex-wrap: wrap;
 	justify-content: space-between;
 }
+.notificationbar-user-btn-collapsed {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
 .subjects-area {
 	background-color: rgba(255,255,255,0.5);
 }
@@ -176,6 +183,37 @@ body {
   	top: 0;
   	transition: 0.45s;
   	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
+}
+.navbar-logo-container {
+	margin-top: 8px;
+	margin-bottom: 10px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+    justify-content: flex-start;
+}
+.navbar-logo {
+	height: 26px;
+	width: 26px;
+	margin: 14px 0 10px 24px;
+	background-image: url('/favicon.svg');
+	background-size: cover;
+	transition: 0.45s;
+}
+.navbar-logo-collapsed {
+	height: 20px;
+	width: 20px;
+	margin: 14px 0 10px 17px;
+	background-image: url('/favicon.svg');
+	background-size: cover;
+	transition: 0.45s;
+}
+.navbar-logo-text {
+	font-family: 'Ubuntu';
+	font-weight: bold;
+	font-size: 1.1rem;
+	margin-top: 19px;
+	margin-left: 16px;
 }
 .navbar-collapsed {
 	padding-top: 40px;
@@ -273,7 +311,7 @@ body {
 	font-size: 1.2rem;
 	top: 16px;
 	left: 14px;
-	z-index: 1; /* Sit on top */
+	z-index: 3; /* Sit on top */
 	border: none;
 }
 .btn-navbarToggle {
@@ -283,7 +321,7 @@ body {
 	font-size: 1.2rem;
 	top: 16px;
 	left: 156px;
-	z-index: 1; /* Sit on top */
+	z-index: 3; /* Sit on top */
 	border: none;
 }
 
@@ -306,6 +344,14 @@ body {
 	.notificationbar-collapsed-scrolled {
 		margin-left: 0;
 	}
+	.notificationbar-top-collapsed {
+		margin: 0;
+		width: 100%;
+	}
+	.notificationbar-top {
+		margin-left: 40%;
+		width: 60%;
+	}
 	.navbar {
 		width: 40%;
 	}
@@ -318,6 +364,13 @@ body {
 	}
 	.btn-navbarToggle {
 		left: 28%;
+	}
+	.notificationbar-user-btn {
+		visibility: hidden;
+	}
+	.notificationbar-user-btn-collapsed {
+		transition: 0s;
+		transition-delay: 0.5s;
 	}
 }
 
