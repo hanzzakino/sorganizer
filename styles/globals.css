@@ -372,6 +372,21 @@ body {
 		transition: 0s;
 		transition-delay: 0.5s;
 	}
+	.navbar-logo {
+		height: 22px;
+		width: 22px;
+		margin: 14px 0 10px 14px;
+		background-image: url('/favicon.svg');
+		background-size: cover;
+		transition: 0.45s;
+	}
+	.navbar-logo-text {
+		font-family: 'Ubuntu';
+		font-weight: bold;
+		font-size: 1rem;
+		margin-top: 19px;
+		margin-left: 6px;
+	}
 }
 
 /* components */
