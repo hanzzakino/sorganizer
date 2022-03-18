@@ -59,66 +59,34 @@ body {
 .main-area {
 	padding-top: 120px;
 	margin-left: 200px;
-	transition: 0.45s;
+	transition: 0.25s;
 }
 .main-area-expanded {
 	padding-top: 120px;
 	margin-left: 56px;
-	transition: 0.45s;
+	transition: 0.25s;
 }
-.notificationbar-top {
-	position: fixed;
-	top: 0;
-	left: 0;
-	background-color: #00c0ff;
-	z-index: 1;
-	height: 56px;
-	width: 100%;
+.ma_expanded {
+	margin-left: 56px;
 }
 .notificationbar {
 	position: fixed;
 	top: 0;
 	left: 0;
-	margin-left: 200px;
-	height: 300px;
-	width: 100%;
-	background-color: #00c0ff;
-	/*background: linear-gradient(180deg, #00c0ff 0%, #00c0ff 50%, #0085ff 100%);*/
-	z-index: -1;
-	transition: 0.45s;
-}
-.notificationbar-collapsed {
-	position: fixed;
-	top: 0;
-	left: 0;
-	margin-left: 56px;
 	height: 300px;
 	width: 100%;
 	background-color: #00c0ff;
 	z-index: -1;
-	transition: 0.45s;
-}
-.notificationbar-scrolled {
-	position: fixed;
-	top: 0;
-	left: 0;
+	transition: 0.25s;
 	margin-left: 200px;
-	height: 0;
-	width: 100%;
-	background-color: #00c0ff;
-	z-index: 1;
-	transition: 0.45s;
 }
-.notificationbar-collapsed-scrolled {
-	position: fixed;
-	top: 0;
-	left: 0;
+.nb_collapsed {
 	margin-left: 56px;
-	height: 0;
-	width: 100%;
-	background-color: #00c0ff;
+}
+.nb_scrolled {
+	height: 56px;
 	z-index: 1;
-	transition: 0.45s;
+	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.2));
 }
 .notificationbar-top {
 	position: fixed;
@@ -129,18 +97,11 @@ body {
 	width: calc(100% - 200px);
 	background-color: #00c0ff;
 	z-index: 1;
-	transition: 0.45s;
+	transition: 0.25s;
 }
-.notificationbar-top-collapsed {
-	position: fixed;
-	top: 0;
-	left: 0;
+.nbt_collapsed {
 	margin-left: 56px;
-	height: 56px;
 	width: calc(100% - 56px);
-	background-color: #00c0ff;
-	z-index: 1;
-	transition: 0.45s;
 }
 .notificationbar-contents {
 	display: flex;
@@ -148,14 +109,10 @@ body {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	margin-top: 50px;
-	transition: 0.45s;
+	transition: 0.25s;
 }
-.notificationbar-contents-scrolled {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	transition: 0.45s;
+.nbc_scrolled {
+	margin-top: 0;
 }
 .notificationbar-user-btn {
 	display: flex;
@@ -163,14 +120,23 @@ body {
 	flex-wrap: wrap;
 	justify-content: space-between;
 }
-.notificationbar-user-btn-collapsed {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
+.nbub_collapsed {
+	transition: 0.25s;
+	transition-delay: 0.2s;
 }
-.subjects-area {
-	background-color: rgba(255,255,255,0.5);
+.btn-navbarToggle {
+	position: fixed;
+	transition: 0.25s;
+	background-color: transparent;
+	font-size: 1.2rem;
+	top: 16px;
+	left: 156px;
+	z-index: 3; /* Sit on top */
+	border: none;
+}
+.nvbtg_collapsed {
+	transform: rotateY(180deg);
+	left: 15px;
 }
 .navbar {
 	padding-top: 40px;
@@ -181,8 +147,33 @@ body {
   	overflow: hidden;
   	left: 0;
   	top: 0;
-  	transition: 0.45s;
+  	transition: 0.25s;
   	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
+}
+.nv_collapsed {
+	width: 56px;
+}
+.navbar-logo {
+	height: 26px;
+	width: 26px;
+	margin: 14px 0 10px 24px;
+	background-image: url('/favicon.svg');
+	background-size: cover;
+	transition: 0.25s;
+}
+.nvlg_collapsed {
+	height: 20px;
+	width: 20px;
+	margin: 14px 0 10px 17px;
+}
+.navbar-menulist{
+	flex-flow: column;
+	margin: 0 24px 0 24px;
+	padding: 4px 2px 18px 2px;
+}
+.nvml_collapsed{
+	margin: 0 4px 0 4px;
+	padding: 4px 0 18px 0;
 }
 .navbar-logo-container {
 	margin-top: 8px;
@@ -192,53 +183,12 @@ body {
 	align-items: center;
     justify-content: flex-start;
 }
-.navbar-logo {
-	height: 26px;
-	width: 26px;
-	margin: 14px 0 10px 24px;
-	background-image: url('/favicon.svg');
-	background-size: cover;
-	transition: 0.45s;
-}
-.navbar-logo-collapsed {
-	height: 20px;
-	width: 20px;
-	margin: 14px 0 10px 17px;
-	background-image: url('/favicon.svg');
-	background-size: cover;
-	transition: 0.45s;
-}
 .navbar-logo-text {
 	font-family: 'Ubuntu';
 	font-weight: bold;
 	font-size: 1.1rem;
 	margin-top: 19px;
 	margin-left: 16px;
-}
-.navbar-collapsed {
-	padding-top: 40px;
-	height: 100%;
-	width: 56px;
-	position: fixed;
-  	z-index: 1; /* Sit on top */
-  	overflow: hidden;
-  	left: 0;
-  	top: 0;
-  	transition: 0.45s;
-  	filter: drop-shadow(4px 0px 6px rgb(0,0,0,0.1));
-}
-.navbar-menulist{
-	flex-flow: column;
-	margin: 0 24px 0 24px;
-	padding: 4px 2px 18px 2px;
-}
-.navbar-menulist-collapsed{
-	flex-flow: column;
-	margin: 0 4px 0 4px;
-	padding: 4px 0 18px 0;
-}
-.bottom-line {
-	border-bottom: 2px solid rgb(255,255,255,0.2)
 }
 .navbar-menulist-btn {
 	position: relative;
@@ -254,19 +204,11 @@ body {
 	transition: 0.1s ease-out;
 	text-align: left;
 }
-.navbar-menulist-btn-collapsed {
-	position: relative;
-	font-size: 1rem;
-	background-color: transparent;
+.nvmlbtn_minimized {
 	margin: 8px 0px 8px 8px;
 	padding: 4px;
 	width: 32px;
-	height: 32px;
-	border: none;
 	border-radius: 3px;
-	overflow: hidden;
-	transition: 0.1s ease-out;
-	text-align: left;
 	color: transparent !important;
 }
 .navbar-menulist-btn-icon {
@@ -276,7 +218,7 @@ body {
 	font-size: 1rem;
 	z-index: -1;
 }
-.navbar-menulist-btn-icon-animated-dark {
+.nvmltheme_dark {
 	position: absolute;
 	transform: rotate(360deg);
 	margin-left: 16px;
@@ -285,7 +227,7 @@ body {
 	z-index: -1;
 	transition: 0.5s;
 }
-.navbar-menulist-btn-icon-animated-light {
+.nvmltheme_light {
 	position: absolute;
 	margin-left: 16px;
 	margin-top: 14px;
@@ -293,84 +235,68 @@ body {
 	z-index: -1;
 	transition: 0.5s;
 }
-
 .navbar-menulist-btn-collapsed:hover{
-	background-color: rgb(255,255,255,0.2);
+	background-color: rgb(215,215,215,0.2);
 }
 .navbar-menulist-btn:hover{
-	background-color: rgb(255,255,255,0.2);
+	background-color: rgb(215,215,215,0.2);
 }
 .navbar-btn-selected {
-	background-color: rgb(255,255,255,0.2) !important;
+	background-color: rgb(215,215,215,0.2) !important;
 }
-.btn-navbarToggle-collapsed {
-	position: fixed;
-	transform: rotateY(180deg);
-	transition: 0.45s;
-	background-color: transparent;
-	font-size: 1.2rem;
-	top: 16px;
-	left: 14px;
-	z-index: 3; /* Sit on top */
-	border: none;
+.bottom-line {
+	border-bottom: 2px solid rgb(215,215,215,0.2);
 }
-.btn-navbarToggle {
-	position: fixed;
-	transition: 0.45s;
-	background-color: transparent;
-	font-size: 1.2rem;
-	top: 16px;
-	left: 156px;
-	z-index: 3; /* Sit on top */
-	border: none;
+
+
+
+.subjects-area {
+	background-color: rgba(255,255,255,0.5);
 }
+
 
 @media (max-width: 770px) {
 	.main-area {
 		margin-left: 40%;
 	}
-	.main-area-expanded {
+	.ma_expanded {
 		margin-left: 0;
 	}
 	.notificationbar {
 		margin-left: 40%;
 	}
-	.notificationbar-collapsed {
+	.nb_collapsed {
 		margin-left: 0;
-	}
-	.notificationbar-scrolled {
-		margin-left: 40%;
-	}
-	.notificationbar-collapsed-scrolled {
-		margin-left: 0;
-	}
-	.notificationbar-top-collapsed {
-		margin: 0;
-		width: 100%;
 	}
 	.notificationbar-top {
 		margin-left: 40%;
 		width: 60%;
 	}
+	.nbt_collapsed {
+		margin: 0;
+		width: 100%;
+	}
+	.btn-navbarToggle {
+		left: 28%;
+	}
+	.nvbtg_collapsed {
+		left: 10px;
+	}
 	.navbar {
 		width: 40%;
+	}
+	.nv_collapsed {
+		width: 0;
 	}
 	.navbar-menulist{
 		margin: 0;
 		padding: 4px 2px 18px 2px;
 	}
-	.navbar-collapsed {
-		width: 0;
-	}
-	.btn-navbarToggle {
-		left: 28%;
-	}
 	.notificationbar-user-btn {
 		visibility: hidden;
 	}
-	.notificationbar-user-btn-collapsed {
-		transition: 0s;
-		transition-delay: 0.5s;
+	.nbub_collapsed {
+		visibility: unset !important;
 	}
 	.navbar-logo {
 		height: 22px;
@@ -378,7 +304,7 @@ body {
 		margin: 14px 0 10px 14px;
 		background-image: url('/favicon.svg');
 		background-size: cover;
-		transition: 0.45s;
+		transition: 0.25s;
 	}
 	.navbar-logo-text {
 		font-family: 'Ubuntu';
@@ -390,6 +316,8 @@ body {
 }
 
 /* components */
+
+/*spinner*/
 .spinner {
 	font-size: 10px;
 	margin: 8px auto;
@@ -425,7 +353,6 @@ body {
 	bottom: 0;
 	right: 0;
 }
-
 @keyframes load3 {
 	0% {
 		transform: rotate(0deg);
@@ -434,7 +361,7 @@ body {
 		transform: rotate(360deg);
 	}
 }
-
+/*spinner*/
 .btn {
 	padding: 5px 16px 5px 16px;
 	margin: 10px;
@@ -602,9 +529,6 @@ body {
 	justify-content: center;
 	align-items: center;
 }
-
-
-
 .fill-screen {
 	height: 100vh;
 	width: 100wh;
@@ -721,7 +645,7 @@ body {
 	background-color:rgb(253,253,253);
 }
 .light-bg2color {
-	background-color: gray;
+	background-color: rgb(223,223,223);
 }
 .light-bg3color {
 	background-color: gainsboro;

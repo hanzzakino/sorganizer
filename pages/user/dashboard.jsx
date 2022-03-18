@@ -21,7 +21,7 @@ import {useDashboardContext} from '../../context/DashboardContext'
 
 
 export default function Dashboard() {
-	const {currentView} = useDashboardContext()
+	const {currentView, currentTitle, setCurrentTitle} = useDashboardContext()
 	const {getDataDone, getSubjects, subjects, userData, getUserDataDone, getUserData, clearData} = useFirestoreData()
 	const {settings, toggleTheme, setLocalSettings} = useSettings()
 	const {authUser, loading, signOut, currentTask, dataWriteDone} = useAuth()
@@ -67,21 +67,27 @@ export default function Dashboard() {
 	const showView = () => {
 		switch(currentView){
 			case 'subjects':
+				setCurrentTitle('Subjects')
 				return <Subjects theme={settings.general.theme} subjects={subjects}  navbarCollapsed={navbarCollapsed} userData={userData} scrolled={pageScrollTop} authUser={authUser}/>
 				break
 			case 'todo':
+				setCurrentTitle('To-do')
 				return <p>todo</p>
 				break
 			case 'schedule':
+				setCurrentTitle('Schedule')
 				return <p>schedule</p>
 				break
 			case 'notes':
+				setCurrentTitle('Notes')
 				return <p>notes</p>
 				break
 			case 'settings':
+				setCurrentTitle('Settings')
 				return <p>settings</p>
 				break
 			default:
+				setCurrentTitle('Subjects')
 				return <div className=""></div>
 				break
 		}
@@ -101,8 +107,9 @@ export default function Dashboard() {
 
 	  	
 
-	  	<main className={'main-area'+(navbarCollapsed ? '-expanded':'')}>
-	  		<button className={'btn-navbarToggle'+(navbarCollapsed ? '-collapsed':'')+' '+settings.general.theme+'-fgcolor'} onClick={toggleNavbar}><i className='bi bi-chevron-left'/></button>
+	  	<main className={'main-area'+(navbarCollapsed ? ' ma_expanded':'')}>
+	  		<NotificationBar navbarCollapsed={navbarCollapsed} userData={userData} scrolled={!pageScrollTop} panelTitle={currentTitle} authUser={authUser}/>
+	  		<button className={'btn-navbarToggle '+(navbarCollapsed ? 'nvbtg_collapsed ':'')+' '+'dark-fgcolor'} onClick={toggleNavbar}><i className='bi bi-chevron-left'/></button>
 	  		
 
 	  		{showView()}

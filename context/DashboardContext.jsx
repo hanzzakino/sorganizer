@@ -6,6 +6,7 @@ const DashboardContext = createContext()
 export const DashboardProvider = ({children}) =>{
 
 	const [currentView, setCurrentView] = useState('subjects')
+	const [currentTitle, setCurrentTitle] = useState('Subjects')
 
 	const setDashboardView = (view) => {
 		setCurrentView(view)
@@ -13,7 +14,9 @@ export const DashboardProvider = ({children}) =>{
 
 	return <DashboardContext.Provider value={({
 		currentView,
-		setDashboardView
+		setDashboardView,
+		currentTitle,
+		setCurrentTitle
 	})}>{children}</DashboardContext.Provider>
 }
 
