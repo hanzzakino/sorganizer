@@ -58,7 +58,7 @@ body {
 
 /*Dashboard Components*/
 .main-area {
-	padding-top: 120px;
+	padding-top: 160px;
 	margin-left: 200px;
 	transition: 0.25s;
 }
@@ -104,28 +104,19 @@ body {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	margin: 50px 20px 0px 20px;
+	align-items: center;
+	margin: 32px 38px 0px 38px;
 	transition: 0.25s;
 }
 .nbc_scrolled {
-	margin-top: 0;
-}
-.notificationbar-user-btn {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
-}
-.nbub_collapsed {
-	transition: 0.25s;
-	transition-delay: 0.2s;
+	margin-top: -13px !important;
 }
 .btn-navbarToggle {
 	position: fixed;
 	transition: 0.25s;
 	background-color: transparent;
 	font-size: 1.2rem;
-	top: 16px;
+	top: 18px;
 	left: 156px;
 	z-index: 3; /* Sit on top */
 	border: none;
@@ -231,12 +222,47 @@ body {
 	z-index: -1;
 	transition: 0.5s;
 }
+.notificationbar-user-btn {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-items: center;
+}
+.nbub_collapsed {
+	transition: 0.25s;
+	transition-delay: 0.2s;
+}
+.notificationbar-title {
+	font-size: 1.6rem;
+	font-family: 'Roboto';
+	font-weight: bold;
+	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.1));
+}
+.notificationbar-username {
+	font-size: 1.2rem;
+	font-family: 'Roboto';
+	font-weight: bold;
+	margin-right: -12px;
+	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.1));
+}
+.notificationbar-profilepic {
+	border-radius: 50%;
+	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.1));
+}
+
+.notificationbar-user-btn:hover {
+	transform: scale(1.05);
+	transition: 0.1s;
+	cursor: pointer;
+}
 .navbar-menulist-btn-collapsed:hover{
 	background-color: rgb(215,215,215,0.2);
 }
 .navbar-menulist-btn:hover{
 	background-color: rgb(215,215,215,0.2);
 }
+
 .navbar-btn-selected {
 	background-color: rgb(215,215,215,0.2) !important;
 }
@@ -305,6 +331,9 @@ body {
 		font-size: 1rem;
 		margin-top: 19px;
 		margin-left: 6px;
+	}
+	.notificationbar-contents {
+		margin: 32px 8px 0px 46px;
 	}
 }
 /*Dashboard Components*/
