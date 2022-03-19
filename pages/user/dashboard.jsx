@@ -21,10 +21,10 @@ import {useDashboardContext} from '../../context/DashboardContext'
 
 
 export default function Dashboard() {
-	const {currentView, currentTitle, setCurrentTitle} = useDashboardContext()
-	const {getDataDone, getSubjects, subjects, userData, getUserDataDone, getUserData, clearData} = useFirestoreData()
-	const {settings, toggleTheme, setLocalSettings} = useSettings()
-	const {authUser, loading, signOut, currentTask, dataWriteDone} = useAuth()
+	const {currentView, currentTitle, setDashboardTitle} = useDashboardContext()
+	const {getDataDone, getSubjects, subjects, userData, getUserDataDone, getUserData} = useFirestoreData()
+	const {settings, setLocalSettings} = useSettings()
+	const {authUser, loading, currentTask, dataWriteDone} = useAuth()
 	const router = useRouter()
 	const [navbarCollapsed, setNavbarCollapsed] = useState(false)
 	const [pageScrollTop, setPageScrollTop] = useState(true)
@@ -67,27 +67,27 @@ export default function Dashboard() {
 	const showView = () => {
 		switch(currentView){
 			case 'subjects':
-				setCurrentTitle('Subjects')
+				setDashboardTitle('Subjects')
 				return <Subjects theme={settings.general.theme} subjects={subjects}  navbarCollapsed={navbarCollapsed} userData={userData} scrolled={pageScrollTop} authUser={authUser}/>
 				break
 			case 'todo':
-				setCurrentTitle('To-do')
+				setDashboardTitle('To-do')
 				return <p>todo</p>
 				break
 			case 'schedule':
-				setCurrentTitle('Schedule')
+				setDashboardTitle('Schedule')
 				return <p>schedule</p>
 				break
 			case 'notes':
-				setCurrentTitle('Notes')
+				setDashboardTitle('Notes')
 				return <p>notes</p>
 				break
 			case 'settings':
-				setCurrentTitle('Settings')
+				setDashboardTitle('Settings')
 				return <p>settings</p>
 				break
 			default:
-				setCurrentTitle('Subjects')
+				setDashboardTitle('Subjects')
 				return <div className=""></div>
 				break
 		}

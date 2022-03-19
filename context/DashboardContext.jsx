@@ -11,12 +11,15 @@ export const DashboardProvider = ({children}) =>{
 	const setDashboardView = (view) => {
 		setCurrentView(view)
 	}
+	const setDashboardTitle = (title) => {
+		setCurrentTitle(title)
+	}
 
 	return <DashboardContext.Provider value={({
 		currentView,
 		setDashboardView,
 		currentTitle,
-		setCurrentTitle
+		setDashboardTitle
 	})}>{children}</DashboardContext.Provider>
 }
 

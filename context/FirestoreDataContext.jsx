@@ -21,7 +21,13 @@ export const FirestoreDataProvider = ({children}) =>{
 	//default settings
 	const [getDataDone, setGetDataDone] = useState(false)
 	const [getUserDataDone, setGetUserDataDone] = useState(false)
-	const [userData, setUserData] = useState(null)
+	const [userData, setUserData] = useState({
+		firstname : '',
+		lastname : '',
+		email : '',
+		settings : null,
+		timestamp : null,
+	})
 	const [subjects, setSubjects] = useState([])
 
 
@@ -46,6 +52,7 @@ export const FirestoreDataProvider = ({children}) =>{
 					hideProgressBar : true
 			})
 		} finally {
+			console.log('userData', userData)
 			setGetUserDataDone(true)
 		}
 	}

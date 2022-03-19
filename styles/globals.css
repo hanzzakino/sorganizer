@@ -55,15 +55,11 @@ body {
 	}
 }
 
-/*Main Components*/
+
+/*Dashboard Components*/
 .main-area {
 	padding-top: 120px;
 	margin-left: 200px;
-	transition: 0.25s;
-}
-.main-area-expanded {
-	padding-top: 120px;
-	margin-left: 56px;
 	transition: 0.25s;
 }
 .ma_expanded {
@@ -108,7 +104,7 @@ body {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	margin-top: 50px;
+	margin: 50px 20px 0px 20px;
 	transition: 0.25s;
 }
 .nbc_scrolled {
@@ -248,12 +244,9 @@ body {
 	border-bottom: 2px solid rgb(215,215,215,0.2);
 }
 
-
-
 .subjects-area {
 	background-color: rgba(255,255,255,0.5);
 }
-
 
 @media (max-width: 770px) {
 	.main-area {
@@ -314,6 +307,8 @@ body {
 		margin-left: 6px;
 	}
 }
+/*Dashboard Components*/
+
 
 /* components */
 
