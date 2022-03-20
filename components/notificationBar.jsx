@@ -24,7 +24,7 @@ export default function NotificationBar({theme, scrolled, navbarCollapsed, userD
 						&nbsp;&nbsp;&nbsp;&nbsp;
 					</p>
 
-					{authUser.photoURL===null ? <div className='notificationbar-profilepic' width={42} height={42}></div>:<img className='notificationbar-profilepic' src={authUser.photoURL} alt='Profile Picture' width={42} height={42} layout='fill'/>}
+					{authUser.photoURL===null ? <div className='notificationbar-profilepic'></div>:<img className='notificationbar-profilepic' src={authUser.photoURL} alt='Profile Picture' width={42} height={42} layout='fill'/>}
 				</span>
 			</div>
 		</div>	
