@@ -1,12 +1,15 @@
-
+import { useRouter } from 'next/router'
 
 import Image from 'next/image'
 
 
 export default function NotificationBar({theme, scrolled, navbarCollapsed, userData, panelTitle, authUser}) {
 
+	const router = useRouter()
+
+
 	const userClick = () => {
-		console.log('route to user')
+		router.push('/user')
 	}
 
 	return (
@@ -24,7 +27,7 @@ export default function NotificationBar({theme, scrolled, navbarCollapsed, userD
 						&nbsp;&nbsp;&nbsp;&nbsp;
 					</p>
 
-					{authUser.photoURL===null ? <div className='notificationbar-profilepic'></div>:<img className='notificationbar-profilepic' src={authUser.photoURL} alt='Profile Picture' width={42} height={42} layout='fill'/>}
+					{authUser.photoURL==='' ? <div className='notificationbar-subprofilepic'>{userData.firstname.slice(0,1)}</div>:<img className='notificationbar-profilepic' src={authUser.photoURL} alt='Profile Picture'/>}
 				</span>
 			</div>
 		</div>	
