@@ -89,6 +89,7 @@ export default function Dashboard() {
 
 	return authUser && !loading && getDataDone && getUserDataDone ? (
 		<>
+		
 		<Head>
 	    	<title>Dashboard | SOrganizer</title>
 	    	<link rel='icon' href='/favicon.svg' />
@@ -98,20 +99,13 @@ export default function Dashboard() {
 
 
 	  	<Navbar theme={settings.general.theme} navbarCollapsed={navbarCollapsed}/>
-
-	  	
+	  	<NotificationBar navbarCollapsed={navbarCollapsed} userData={userData} scrolled={!pageScrollTop} panelTitle={currentTitle} authUser={authUser}/>
+	  	<button className={'btn-navbarToggle '+(navbarCollapsed ? 'nvbtg_collapsed ':'')+' '+'dark-fgcolor'} onClick={toggleNavbar}><i className='bi bi-chevron-left'/></button>
 
 	  	<main className={'main-area'+(navbarCollapsed ? ' ma_expanded':'')}>
-	  		<NotificationBar navbarCollapsed={navbarCollapsed} userData={userData} scrolled={!pageScrollTop} panelTitle={currentTitle} authUser={authUser}/>
-	  		<button className={'btn-navbarToggle '+(navbarCollapsed ? 'nvbtg_collapsed ':'')+' '+'dark-fgcolor'} onClick={toggleNavbar}><i className='bi bi-chevron-left'/></button>
-	  		
-
 	  		{showView()}
-
-
-
-	  		
 	  	</main>
+
 		</>
 		):(<Spinner theme={settings.general.theme} currentTask={currentTask}/>)
 }

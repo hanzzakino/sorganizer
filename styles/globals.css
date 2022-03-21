@@ -278,20 +278,20 @@ body {
 
 @media (max-width: 770px) {
 	.main-area {
-		margin-left: 40%;
+		margin-left: 40%; /*0 if navbar pushes the window*/
 	}
 	.ma_expanded {
 		margin-left: 0;
 	}
 	.notificationbar {
-		margin-left: 40%;
+		margin-left: 40%; /*0 if navbar pushes the window*/
 	}
 	.nb_collapsed {
 		margin-left: 0;
 	}
 	.notificationbar-top {
-		margin-left: 40%;
-		width: 60%;
+		margin-left: 40%; /*0 if navbar pushes the window*/
+		width: 60%; /*100% if navbar pushes the window*/
 	}
 	.nbt_collapsed {
 		margin: 0;
@@ -304,6 +304,7 @@ body {
 		left: 10px;
 	}
 	.navbar {
+		/*z-index: 2;*/ /*set if navbar pushes the window*/
 		width: 40%;
 	}
 	.nv_collapsed {
@@ -314,7 +315,7 @@ body {
 		padding: 4px 2px 18px 2px;
 	}
 	.notificationbar-user-btn {
-		visibility: hidden;
+		visibility: hidden; /*comment out if navbar pushes the window*/
 	}
 	.nbub_collapsed {
 		visibility: unset !important;
@@ -336,14 +337,14 @@ body {
 	.notificationbar-contents {
 		margin: 32px 8px 0px 46px;
 	}
+	.nbc_scrolled {
+		margin-top: -4px !important;
+	}
 	.notificationbar-title {
-		font-size: 1.2rem;
+		font-size: 1.3rem;
 	}
 	.notificationbar-username {
 		font-size: 1rem;
-	}
-	.nbc_scrolled {
-		margin-top: -2px !important;
 	}
 	.nvmlbtn_minimized {
 		color: unset;
