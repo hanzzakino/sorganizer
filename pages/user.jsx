@@ -50,7 +50,7 @@ export default function User() {
 					>
 						<p><i className='bi bi-chevron-left'/> Dashboard</p>
 					</div>
-					{authUser.photoURL==='' ?  <div className='userpage-subprofilepic'>{userData.firstname.slice(0,1)}</div>:<img className='userpage-profilepic' src={authUser.photoURL} alt='Profile Picture' width={64} height={64} layout='fill'/>}
+					{authUser.photoURL===null ?  <div className='userpage-subprofilepic'>{userData.firstname.slice(0,1)}</div>:<img className='userpage-profilepic' src={authUser.photoURL} alt='Profile Picture' width={64} height={64} layout='fill'/>}
 					<form>
 
 					</form>

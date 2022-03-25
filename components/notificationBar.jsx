@@ -23,11 +23,11 @@ export default function NotificationBar({theme, scrolled, navbarCollapsed, userD
 				 
 				<span onClick={userClick} className={'notificationbar-user-btn '+(navbarCollapsed ? 'nbub_collapsed':'')}>
 					<p className='notificationbar-username'>
-						{userData.firstname.length < 14 ? userData.firstname:userData.firstname.slice(0,11)+'...'}
+						{userData.firstname.split(' ')[0].length < 14 ? userData.firstname.split(' ')[0]:userData.firstname.split(' ')[0].slice(0,11)+'...'}
 						&nbsp;&nbsp;&nbsp;&nbsp;
 					</p>
 
-					{authUser.photoURL==='' ? <div className='notificationbar-subprofilepic'>{userData.firstname.slice(0,1)}</div>:<img className='notificationbar-profilepic' src={authUser.photoURL} alt='Profile Picture'/>}
+					{authUser.photoURL===null ? <div className='notificationbar-subprofilepic'>{userData.firstname.slice(0,1)}</div>:<img className='notificationbar-profilepic' src={authUser.photoURL} alt='Profile Picture'/>}
 				</span>
 			</div>
 		</div>	
