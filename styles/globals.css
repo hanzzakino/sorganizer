@@ -288,6 +288,25 @@ body {
 .user-area {
 	margin: 26px 10px 10px 10px;
 }
+.user-data {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.user-data-name {
+	font-family: 'Ubuntu';
+	font-size: 1.9rem;
+}
+.user-data-name-form {
+	font-size: 1.4rem;
+	width: 180px;
+	margin: 32px 10px 40px 10px;
+	padding: 3px 2px 3px 16px;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	filter: drop-shadow(0px 3px 4px rgb(0,0,0,0.3));
+}
 .userpage-backbtn {
 	height: 40px;
 	width: 160px;
@@ -304,8 +323,8 @@ body {
 }
 .userpage-profilepic {
 	border-radius: 50%;
-	height: 68px;
-	width: 68px;
+	height: 80px;
+	width: 80px;
 	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.1));
 }
 .userpage-subprofilepic {

@@ -57,6 +57,36 @@ export const FirestoreDataProvider = ({children}) =>{
 		}
 	}
 
+	const setUsername = async (firstname, lastname) => {
+		console.log('setting user name')
+		try {
+			const auth = getAuth()
+			const docRef = doc(db, 'users', auth.currentUser.uid)
+	    	const docSnap = await getDoc(docRef)
+
+	    	if(docSnap.exists()){
+	    		await setDoc(doc(db,'users',auth.currentUser.uid), {
+		    		...userData,
+		    		firstname,
+		    		lastname
+				})
+	    	}
+		} catch(e) {
+			console.log('getUserData',e)
+			toast('An error occured while setting username in Database', {
+					position : 'top-right',
+					autoClose : 5000,
+					theme : 'light',
+					type : 'error',
+					hideProgressBar : true
+			})
+		} finally {
+			console.log('userData', userData)
+			getUserData()
+			setGetUserDataDone(true)
+		}
+	}
+
 	const getSubjects = async () => {
 		console.log('getting Subjects')
 		try {
@@ -94,6 +124,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		getSubjects,
 		getUserDataDone,
 		getUserData,
+		setUsername,
 		userData,
 		clearData,
 		subjects
