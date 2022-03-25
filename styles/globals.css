@@ -294,6 +294,13 @@ body {
 	align-items: center;
 	flex-direction: column;
 }
+.user-editmode-toggle {
+	align-self: flex-end;
+	background-color: transparent;
+	font-size: 1.2rem;
+	border: none;
+	cursor: pointer;
+}
 .user-data-name {
 	font-family: 'Ubuntu';
 	font-size: 1.9rem;
@@ -425,6 +432,25 @@ body {
 		width: 20px;
 		margin: 14px 0 10px 17px;
 	}
+
+
+
+
+	/* User Page < */
+	.user-data-name {
+		font-size: 1.4rem;
+	}
+	.user-data-name-form {
+		font-size: 1.2rem;
+		margin: 10px;
+	}
+	.user-data-name {
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+		padding: 16px 0px 36px 0px;
+	}
+	/* > User Page */
 }
 
 

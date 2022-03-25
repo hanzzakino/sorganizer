@@ -86,13 +86,13 @@ export default function User() {
 				<div className="container ">
 					<div className='userpage-backbtn' onClick={handleBackClick}>
 						<p><i className='bi bi-chevron-left'/> Dashboard</p>
-					</div>
+					</div>					
 					
-					<button onClick={editModeChange}>Edit mode</button>
 					<form>
 						<div className='user-data'>
+							<button className={'user-editmode-toggle '+settings.general.theme+'-fgcolor'} onClick={editModeChange}><i className='bi bi-pencil-square' /></button>
 							{authUser.photoURL===null ?  <div className='userpage-subprofilepic'>{userData.firstname.slice(0,1)}</div>:<img className='userpage-profilepic' src={authUser.photoURL} alt='Profile Picture' width={64} height={64} layout='fill'/>}
-							<div>
+							<div className='user-data-name'>
 								{editMode ?
 								(
 									<>
@@ -123,7 +123,7 @@ export default function User() {
 							<div>
 								{editMode ?
 								(
-									<button onClick={handleSave}>Save</button>
+									<button className='btn' onClick={handleSave}>Save</button>
 								):
 								(
 									null
