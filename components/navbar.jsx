@@ -3,13 +3,14 @@ import {useFirestoreData} from '../context/FirestoreDataContext'
 import {useDashboardContext} from '../context/DashboardContext'
 import {useAuth} from '../context/AuthUserContext'
 import {useSettings} from '../context/SettingsContext'
-
+import { useRouter } from 'next/router'
 
 export default function Navbar({theme, navbarCollapsed}) {
 	const {signOut} = useAuth()
 	const {settings, toggleTheme} = useSettings()
 	const {currentView, setDashboardView, setDashboardTitle} = useDashboardContext()
 	const {clearData} = useFirestoreData()
+	const router = useRouter()
 
 	const signOutClicked = () => {
 		signOut()
@@ -50,7 +51,7 @@ export default function Navbar({theme, navbarCollapsed}) {
 	return (	
 	<nav className={'dark-bg2color navbar '+(navbarCollapsed ? 'nv_collapsed ':'')}>
 
-	<div className={'dark-fgcolor navbar-logo-container'}>
+	<div onClick={() => router.push('/')} className={'dark-fgcolor navbar-logo-container'}>
 		<div className={'navbar-logo '+(navbarCollapsed ? 'nvlg_collapsed':'')}></div>
 		{navbarCollapsed ? <></>:<p className='navbar-logo-text'>SOrganizer</p>}
 	</div>

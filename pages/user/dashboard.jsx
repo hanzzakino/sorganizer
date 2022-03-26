@@ -26,7 +26,7 @@ export default function Dashboard() {
 	const {settings, setLocalSettings} = useSettings()
 	const {authUser, loading, currentTask, dataWriteDone} = useAuth()
 	const router = useRouter()
-	const [navbarCollapsed, setNavbarCollapsed] = useState(false)
+	const [navbarCollapsed, setNavbarCollapsed] = useState(true)
 	const [pageScrollTop, setPageScrollTop] = useState(true)
 	const [scrollY, setScrollY] = useState(0)
 
