@@ -67,7 +67,7 @@ export default function Dashboard() {
 	const showView = () => {
 		switch(currentView){
 			case 'subjects':
-				return <Subjects theme={settings.general.theme} subjects={subjects}  navbarCollapsed={navbarCollapsed} userData={userData} scrolled={pageScrollTop} authUser={authUser}/>
+				return <Subjects theme={settings.general.theme} subjects={subjects}/>
 				break
 			case 'todo':
 				return <p>todo</p>

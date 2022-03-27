@@ -30,7 +30,6 @@ export const FirestoreDataProvider = ({children}) =>{
 	})
 	const [subjects, setSubjects] = useState([])
 
-
 	const getUserData = async () => {
 		console.log('getting user data')
 		try {
@@ -101,7 +100,31 @@ export const FirestoreDataProvider = ({children}) =>{
 						data : doc.data()
 					})
 				})
+				
+
+				for (let i = 0; i<subjectsList.length; i++) {
+					let subjectTasksList = []
+					try {
+						const q2 = query(collection(db,'users',auth.currentUser.uid,'subjects',subjectsList[i].id,'tasks'))
+						const querySnapshot2 = await getDocs(q2)
+						
+						querySnapshot2.forEach((task) => {
+							subjectTasksList.push({
+								id : task.id,
+								data : task.data()
+							})
+						})
+					} catch(e) {
+						console.log('getTasks',e)
+					}
+					subjectsList[i] = {
+						...subjectsList[i],
+						tasks : subjectTasksList
+					}
+				}
 				setSubjects(subjectsList)
+				
+
 			}
 		} catch(e) {
 			console.log('getSubjects',e)
