@@ -305,6 +305,9 @@ body {
 .user-data-name {
 	font-family: 'Ubuntu';
 	font-size: 1.9rem;
+	height: 1.9rem;
+	margin: 28px 0 0 0;
+	padding: 0;
 }
 .user-data-name-form {
 	font-size: 1.4rem;

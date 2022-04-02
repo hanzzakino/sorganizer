@@ -72,8 +72,27 @@ export default function User() {
 		setEditMode((prevState) => !prevState)
 	}
 
+	const timestampToDate = (timestamp) => {
+		const ts = timestamp.toDate()
+		const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+		const weekDayList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+		const date =({
+			hour : ts.getHours(),
+			minute : ts.getMinutes(),
+			seconds : ts.getSeconds(),
+			month : ts.getMonth(),
+			monthWord : monthList[ts.getMonth()],
+			day : ts.getDate(),
+			dayOfWeek : ts.getDay(),
+			dayOfWeekWord : weekDayList[ts.getDay()],
+			year : ts.getFullYear()
+		})
 
-	return userData && authUser && !loading ? (
+		return date
+	}
+
+
+	return userData && authUser && !loading && getUserDataDone ? (
 		<>
 			<Head>
 		    	<title>Profile | SOrganizer</title>
@@ -93,34 +112,45 @@ export default function User() {
 							<button className={'user-editmode-toggle '+settings.general.theme+'-fgcolor '+(editMode ? 'dark-accentfgcolor':null)} onClick={editModeChange}><i className='bi bi-pencil-square' /></button>
 							{authUser.photoURL===null ?  <div className='userpage-subprofilepic'>{userData.firstname.slice(0,1)}</div>:<img className='userpage-profilepic' src={authUser.photoURL} alt='Profile Picture' width={64} height={64} layout='fill'/>}
 							
-							<div className='user-data-name'>
+							<div align='center'>
 								{editMode ?
-								(
-									<>
-										<input 
-										id='firstname'
-										value={firstname}
-										onChange={onChange}
-										autoComplete='first-name' 
-										className='user-data-name-form'
-										type='text' 
-										placeholder='First name'/>
-										<input 
-										id='lastname'
-										value={lastname}
-										onChange={onChange}
-										autoComplete='last-name'
-										className='user-data-name-form'
-										type='text' 
-										placeholder='Last name'/>
-									</>
-								):
-								(
-									<p className='user-data-name'>{userData.firstname} {userData.lastname}</p>
-								)
+									(
+										<>
+											<input 
+											id='firstname'
+											value={firstname}
+											onChange={onChange}
+											autoComplete='first-name' 
+											className='user-data-name-form'
+											type='text' 
+											placeholder='First name'/>
+											<input 
+											id='lastname'
+											value={lastname}
+											onChange={onChange}
+											autoComplete='last-name'
+											className='user-data-name-form'
+											type='text' 
+											placeholder='Last name'/>
+										</>
+									):
+									(
+										<p className='user-data-name'>{userData.firstname} {userData.lastname}</p>
+									)
+								}
+
+								{editMode ? null:<p>
+									{userData.email} 
+									<br />
+									<br />
+									<br />
+									<br />
+									<br />
+									{'Date joined: '+(timestampToDate(userData.timestamp).monthWord)+' '+timestampToDate(userData.timestamp).day+', '+timestampToDate(userData.timestamp).year}
+									</p>
 								}
 							</div>
-							{editMode ? null:<p>{userData.email}</p>}
+							
 							<div>
 								{editMode ?
 								(

@@ -82,7 +82,6 @@ export const FirestoreDataProvider = ({children}) =>{
 		} finally {
 			console.log('userData', userData)
 			getUserData()
-			setGetUserDataDone(true)
 		}
 	}
 
