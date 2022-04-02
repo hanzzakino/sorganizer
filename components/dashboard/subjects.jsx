@@ -60,11 +60,11 @@ export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 				{ 	
 					subjects.length>0 ? subjects.map((subject) => 
 
-						<div className='subject-box' key={subject.id}>
+						<div className={'subject-box '+(theme+'-fgcolor ')+(theme+'-accentstroke')} key={subject.id}>
 							<p className='subject-title'>{subject.data.code.toUpperCase()+' - '+subject.data.name}</p>
 							<p className='subject-prof'>{subject.data.teacher}</p>	
 							<p className='subject-sched'>{toWeekDay[subject.data.scheduleDay]+' '+toClockTime(subject.data.scheduleTimeFrom)+' - '+toClockTime(subject.data.scheduleTimeTo)}</p>
-							<div className='subject-task-box'>
+							<div className={'subject-task-box '+(theme+'-bg2colorgradient ')}>
 								<p className='subject-task-title'>Tasks</p>
 								{
 									subject.tasks.length>0 ? subject.tasks.filter((it, ix) => ix <= 3).map((task) =>

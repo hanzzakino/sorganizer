@@ -375,12 +375,11 @@ body {
 	flex-wrap: wrap;
 }
 .subject-box {
-	background: gray;
 	height: 280px;
 	width: 318px;
 	min-height: 280px;
 	min-width: 318px;
-	margin: 18px;
+	margin: 16px;
 	overflow: hidden;
 	border-radius: 14px;
 
@@ -413,7 +412,6 @@ body {
 	text-align: right;
 }
 .subject-task-box {
-	background-color: white;
 	height: 160px;
 	margin: 0 14px 0 14px;
 	width: 290px;
@@ -867,6 +865,25 @@ body {
 .dark-accentbg2coloronhover:hover {
 	background-color: #0D7377 !important;
 }
+.dark-bgcolorgradient {
+	background: linear-gradient(180deg, #1b1e20 0%, #0d0e0f 100%);
+}
+.dark-bg2colorgradient {
+	background: linear-gradient(180deg, #292e31 0%, #0d0e0f 100%);
+}
+.dark-bg2colorgradient:hover {
+	background: unset;
+	background-color: #292e31;
+}
+.dark-accentstroke {
+	background: linear-gradient(180deg, #1b1e20 0%, #0d0e0f 100%) padding-box, linear-gradient(to bottom, #390089, #0d0e0f) border-box;
+	border-radius: 14px;
+	border: 2px solid transparent;
+}
+.dark-accentstroke:hover {
+	background: linear-gradient(180deg, #1b1e20 0%, #0d0e0f 100%) padding-box, linear-gradient(to bottom, #390089, #390089) border-box;
+}
+
 
 .light-bg-spinner {
 	width: 100%;
@@ -923,6 +940,25 @@ body {
 .light-accentbg2coloronhover:hover {
 	background-color: #00c0ff !important;
 }
+.light-bgcolorgradient {
+	background: linear-gradient(180deg, white 0%, gray 100%);
+}
+.light-bg2colorgradient {
+	background: linear-gradient(180deg, white 0%, gray 100%);
+}
+.light-bg2colorgradient:hover {
+	background: unset;
+	background-color: gray;
+}
+.light-accentstroke {
+	background: linear-gradient(180deg, white 0%, gray 100%) padding-box, linear-gradient(to bottom, #390089, #0d0e0f) border-box;
+	border-radius: 14px;
+	border: 2px solid transparent;
+}
+.light-accentstroke:hover {
+	background: linear-gradient(180deg, white 0%, gray 100%) padding-box, linear-gradient(to bottom, #390089, #390089) border-box;
+}
+
 
 /*for development*/
 /*.container {
