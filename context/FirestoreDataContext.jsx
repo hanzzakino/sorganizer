@@ -9,7 +9,9 @@ import {
 	query,
 	getDocs,
 	collection,
-	serverTimestamp
+	serverTimestamp,
+	orderBy,
+	where
 } from 'firebase/firestore'
 
 
@@ -104,7 +106,7 @@ export const FirestoreDataProvider = ({children}) =>{
 				for (let i = 0; i<subjectsList.length; i++) {
 					let subjectTasksList = []
 					try {
-						const q2 = query(collection(db,'users',auth.currentUser.uid,'subjects',subjectsList[i].id,'tasks'))
+						const q2 = query(collection(db,'users',auth.currentUser.uid,'subjects',subjectsList[i].id,'tasks'),where('isDone','==',false),orderBy('deadline','asc'))
 						const querySnapshot2 = await getDocs(q2)
 						
 						querySnapshot2.forEach((task) => {
@@ -116,6 +118,7 @@ export const FirestoreDataProvider = ({children}) =>{
 					} catch(e) {
 						console.log('getTasks',e)
 					}
+					console.log(subjectsList)
 					subjectsList[i] = {
 						...subjectsList[i],
 						tasks : subjectTasksList
