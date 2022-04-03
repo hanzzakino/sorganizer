@@ -57,7 +57,7 @@ export default function ForgotPassword() {
 	  				<br />
 	  				<h1 className={settings.general.theme+'-fgcolor'}>SOrganizer</h1>
 	  				<br />
-	  				<div className={'fit-width card '+settings.general.theme+'-bg3color'}>
+	  				<div className={'fit-width card '+settings.general.theme+'-bg2color'}>
 
 	  					<div className='row vertical-center'>
 		  					<h1 className={settings.general.theme+'-fgcolor form-label'}>Reset Password</h1>

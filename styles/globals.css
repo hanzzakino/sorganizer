@@ -12,6 +12,55 @@
 	version: 1.0.0
 */
 
+/*Variables*/
+:root {
+	--dark-bg: #24292b;
+	--dark-bg2: #1b1e20;
+	--dark-bg3: #292e31;
+
+	--dark-fg: rgb(250,250,250);
+	--dark-fg2: rgb(160,160,160);
+	--dark-fg3: rgb(100,100,100);
+
+	--dark-accent: #00c0ff; /*light-blue*/
+	--dark-accent2: #08f7ff; /*light-aqua-blue*/
+	--dark-accent3: #390089; /*dark-violet*/
+
+	--dark-bg-gradient: linear-gradient(180deg, #24292b 0%, #0d0e0f 100%);
+	--dark-bg-gradient2: linear-gradient(180deg, #1b1e20 0%, #0d0e0f 100%);
+	--dark-bg-gradient3: linear-gradient(180deg, #292e31 0%, #0d0e0f 100%);
+
+	--dark-accent-gradient: linear-gradient(to bottom, #00c0ff, #0d0e0f);
+	--dark-accent2-gradient: linear-gradient(to bottom, #0D7377, #0d0e0f);
+	--dark-accent3-gradient: linear-gradient(to bottom, #390089, #0d0e0f);
+
+
+
+
+
+	--light-bg: white;
+	--light-bg2: rgb(240,240,240);
+	--light-bg3: rgb(200,200,200);
+
+	--light-fg: rgb(12,12,12);
+	--light-fg2: rgb(160,160,160);
+	--light-fg3: rgb(100,100,100);
+
+	--light-accent: #00c0ff;
+	--light-accent2: #0D7377;
+	--light-accent3: #390089;
+
+	--light-bg-gradient: linear-gradient(180deg, rgb(250,250,250) 0%, white 100%);
+	--light-bg-gradient2: linear-gradient(180deg, rgb(240,240,240) 0%, white 100%);
+	--light-bg-gradient3: linear-gradient(180deg, rgb(200,200,200) 0%, white 100%);
+
+	--light-accent-gradient: linear-gradient(to bottom, #00c0ff, rgb(200,200,200));
+	--light-accent2-gradient: linear-gradient(to bottom, #0D7377, rgb(200,200,200));
+	--light-accent3-gradient: linear-gradient(to bottom, #390089, rgb(200,200,200));
+
+}
+/*Variables*/
+
 /*HTML*/
 html,
 body {
@@ -71,7 +120,7 @@ body {
 	left: 0;
 	height: 300px;
 	width: 100%;
-	background-color: #00c0ff;
+	background-color: var(--dark-accent);
 	z-index: -1;
 	transition: 0.25s;
 	margin-left: 200px;
@@ -90,7 +139,7 @@ body {
 	margin-left: 200px;
 	height: 56px;
 	width: calc(100% - 200px);
-	background-color: #00c0ff;
+	background-color: var(--dark-accent);
 	z-index: 1;
 	transition: 0.25s;
 }
@@ -392,6 +441,7 @@ body {
 	margin: 18px 24px 2px 24px;
 	overflow: hidden;
 	overflow-wrap: break-word;
+	cursor: pointer;
 }
 .subject-prof {
 	font-size: 1rem;
@@ -401,6 +451,8 @@ body {
 	overflow: hidden;
 	overflow-wrap: break-word;
 	text-align: right;
+	cursor: pointer;
+	opacity: 70%;
 }
 .subject-sched {
 	font-size: 0.8rem;
@@ -410,6 +462,8 @@ body {
 	overflow: hidden;
 	overflow-wrap: break-word;
 	text-align: right;
+	cursor: pointer;
+	opacity: 70%;
 }
 .subject-task-box {
 	height: 160px;
@@ -417,11 +471,13 @@ body {
 	width: 290px;
 	border-radius: 14px;
 	overflow: hidden;
+	cursor: pointer;
 }
 .subject-task-title {
 	font-size: 0.8rem;
 	font-weight: bold;
 	margin: 10px 14px 4px 14px;
+	cursor: pointer;
 }
 .subject-task-item {
 	font-size: 0.8rem;
@@ -431,23 +487,29 @@ body {
 	width: 270px;
 	margin: 8px 14px 8px 14px;
 	overflow: hidden;
+	cursor: pointer;
 }
 .subject-task-noitem {
 	font-size: 0.8rem;
 	margin: 8px 14px 8px 14px;
+	cursor: pointer;
 }
 .subject-task-dot {
 	font-size: 0.4rem;
 	margin: 0 3px 0 3px;
+	cursor: pointer;
 }
 .subject-task-item-deadline {
 	margin: 0 3px 0 3px;
+	cursor: pointer;
 }
 .subject-task-item-name {
 	margin: 0 3px 0 3px;
+	cursor: pointer;
 }
 .subject-task-item-desc {
 	margin: 0 3px 0 3px;
+	cursor: pointer;
 }
 .task_red {
 	color: #FE5757;
@@ -723,7 +785,7 @@ body {
 	border: 1px solid rgb(0,0,0,0.3);
 	border-radius: 10px;
 	font-size: 1rem;
-	filter: drop-shadow(0px 3px 4px rgb(0,0,0,0.3));
+	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.1));
 }
 .input-field-name input:focus {
 	outline: none;
@@ -814,7 +876,7 @@ body {
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	background-color: #24292b;
+	background-color: var(--dark-bg);
 	z-index: 1;
 }
 .dark-spinner-text{
@@ -823,11 +885,11 @@ body {
 	top: 56%;
 	left: calc(50%-4px);
 	opacity: 35%;
-	color: white;
+	color: var(--dark-fg);
 	font-size: 12px;
 }
 .dark-spinner:after {
-	background: #24292b;
+	background: var(--dark-bg);
 }
 .dark-bg {
 	width: 100%;
@@ -835,57 +897,57 @@ body {
 	top: 0;
 	left: 0;
 	position: fixed;
-	background-color: #24292b;
+	background-color: var(--dark-bg);
 	z-index: -3;
 }
 .dark-bgcolor {
-	background-color: #24292b;
+	background-color: var(--dark-bg);
 }
 .dark-bg2color {
-	background-color: #1a1e1f;
+	background-color: var(--dark-bg2);
 }
 .dark-bg3color {
-	background-color: #1a1e1f;
+	background-color: var(--dark-bg3);
 }
 .dark-fgcolor {
-	color: white;
+	color:  var(--dark-fg);
 }
 .dark-fg2color {
-	color: rgb(160,160,160);
+	color: var(--dark-fg2);
 }
 .dark-accentfgcolor {
-	color: #00c0ff !important;
+	color: var(--dark-accent) !important;
 }
 .dark-accentbgcolor {
-	background-color: #00c0ff;
+	background-color: var(--dark-accent);
 }
 .dark-accentbg2color {
-	background-color: #0D7377;
+	background-color: var(--dark-accent2);
 }
 .dark-accentbg2coloronhover:hover {
-	background-color: #0D7377 !important;
+	background-color: var(--dark-accent2) !important;
 }
 .dark-bgcolorgradient {
-	background: linear-gradient(180deg, #1b1e20 0%, #0d0e0f 100%);
+	background: var(--dark-bg-gradient2);
 }
 .dark-bg2colorgradient {
-	background: linear-gradient(180deg, #292e31 0%, #0d0e0f 100%);
+	background: var(--dark-bg-gradient3);
 }
 .dark-bg2colorgradient:hover {
 	background: unset;
-	background-color: #292e31;
+	background-color: var(--dark-bg3);
 }
 .dark-accentstroke {
-	background: linear-gradient(180deg, #1b1e20 0%, #0d0e0f 100%) padding-box, linear-gradient(to bottom, #390089, #0d0e0f) border-box;
+	background: var(--dark-bg-gradient2) padding-box, var(--dark-accent3-gradient) border-box;
 	border-radius: 14px;
 	border: 2px solid transparent;
 }
 .dark-accentstroke:hover {
-	background: linear-gradient(180deg, #1b1e20 0%, #0d0e0f 100%) padding-box, linear-gradient(to bottom, #390089, #390089) border-box;
+	background: var(--dark-bg-gradient2) padding-box, var(--dark-accent3) border-box;
 }
 
 
-.light-bg-spinner {
+/*.light-bg-spinner {
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -957,6 +1019,82 @@ body {
 }
 .light-accentstroke:hover {
 	background: linear-gradient(180deg, white 0%, gray 100%) padding-box, linear-gradient(to bottom, #390089, #390089) border-box;
+}
+*/
+
+
+.light-bg-spinner {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: var(--light-bg);
+	z-index: 1;
+}
+.light-spinner-text{
+	position: fixed;
+	text-align: center;
+	top: 56%;
+	left: calc(50%-4px);
+	opacity: 35%;
+	color: var(--light-fg);
+	font-size: 12px;
+}
+.light-spinner:after {
+	background: var(--light-bg);
+}
+.light-bg {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	background-color: var(--light-bg);
+	z-index: -3;
+}
+.light-bgcolor {
+	background-color: var(--light-bg);
+}
+.light-bg2color {
+	background-color: var(--light-bg2);
+}
+.light-bg3color {
+	background-color: var(--light-bg3);
+}
+.light-fgcolor {
+	color:  var(--light-fg);
+}
+.light-fg2color {
+	color: var(--light-fg2);
+}
+.light-accentfgcolor {
+	color: var(--light-accent) !important;
+}
+.light-accentbgcolor {
+	background-color: var(--light-accent);
+}
+.light-accentbg2color {
+	background-color: var(--light-accent2);
+}
+.light-accentbg2coloronhover:hover {
+	background-color: var(--light-accent2) !important;
+}
+.light-bgcolorgradient {
+	background: var(--light-bg-gradient2);
+}
+.light-bg2colorgradient {
+	background: var(--light-bg-gradient3);
+}
+.light-bg2colorgradient:hover {
+	background: unset;
+	background-color: var(--light-bg3);
+}
+.light-accentstroke {
+	background: var(--light-bg-gradient2) padding-box, var(--light-accent3-gradient) border-box;
+	border-radius: 14px;
+	border: 2px solid transparent;
+}
+.light-accentstroke:hover {
+	background: var(--light-bg-gradient2) padding-box, var(--light-accent3) border-box;
 }
 
 

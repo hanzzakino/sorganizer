@@ -74,7 +74,7 @@ export default function SignIn() {
 	  					<br />
 	  				</div>
 	  				<div className='column flex vertical-center'>
-	  					<div className={'flex vertical-center fit-width  card '+settings.general.theme+'-bg3color'}>
+	  					<div className={'flex vertical-center fit-width  card '+settings.general.theme+'-bg2color'}>
 		  					<h1 className={settings.general.theme+'-fgcolor form-label'}>Sign in</h1>
 		  					<br />
 		  					<form onSubmit={onSubmit}>

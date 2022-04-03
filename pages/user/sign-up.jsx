@@ -77,7 +77,7 @@ export default function SignUp() {
 	  				<div className='column flex vertical-center'>
 		  				<h1 className={settings.general.theme+'-fgcolor'}>SOrganizer</h1>
 		  				<br />
-	  					<div className={'flex vertical-center fit-width  card '+settings.general.theme+'-bg3color'}>
+	  					<div className={'flex vertical-center fit-width  card '+settings.general.theme+'-bg2color'}>
 		  					<h1 className={settings.general.theme+'-fgcolor form-label'}>Create an Account</h1>
 		  					<br />
 		  					<form onSubmit={onSubmit}>
