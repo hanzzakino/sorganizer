@@ -431,7 +431,7 @@ body {
 	margin: 16px;
 	overflow: hidden;
 	border-radius: 14px;
-
+	cursor: pointer;
 }
 .subject-title {
 	font-size: 1rem;
