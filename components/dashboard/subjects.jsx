@@ -17,6 +17,10 @@ export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 
 	const onSubjectClick = (subject) => {
 		setSingleSubject(subject)
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		})
 	}
 
 	const onBackClick = () => {
@@ -37,7 +41,16 @@ export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 							)
 						):(
 							<>
-								{singleSubject ? <SubjectPanel subject={singleSubject} onBackClick={onBackClick}/>:null}
+								{singleSubject ? <SubjectPanel subject={singleSubject} onBackClick={onBackClick}/>:<div>
+									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+								</div>}
 							</>
 						)
 				}

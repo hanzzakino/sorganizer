@@ -118,7 +118,7 @@ export const FirestoreDataProvider = ({children}) =>{
 					} catch(e) {
 						console.log('getTasks',e)
 					}
-					console.log(subjectsList)
+					
 					subjectsList[i] = {
 						...subjectsList[i],
 						tasks : subjectTasksList
