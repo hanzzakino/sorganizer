@@ -41,7 +41,7 @@ export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 							)
 						):(
 							<>
-								{singleSubject ? <SubjectPanel subject={singleSubject} onBackClick={onBackClick}/>:<div>
+								{singleSubject ? <SubjectPanel subject={singleSubject} onBackClick={onBackClick} theme={theme}/>:<div>
 									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

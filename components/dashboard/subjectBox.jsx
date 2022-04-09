@@ -45,6 +45,8 @@ export default function SubjectBox({subject, theme, onSubjectClick}) {
 
 		if(dateSub<dateNow){
 			return 'task_red'
+		} else if(dateSub-dateNow<604800000){
+			return 'task_orange'
 		} else {
 			return 'task_green'
 		}
