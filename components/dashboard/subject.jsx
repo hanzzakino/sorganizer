@@ -113,35 +113,35 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 				<br /><br />
 
 				<div className='subject-task-group'>
-					<span className='subject-task-group-title'>Due date <button onClick={dueDateToggle}><i className={dueDateExpanded ? 'bi bi-chevron-up':'bi bi-chevron-down'}/></button></span>
-					<br /><br />
+					<span className='subject-task-group-title'><i className={'bi bi-circle-fill subject-task-dot task_red'}/>&nbsp;Due date <button onClick={dueDateToggle}><i className={dueDateExpanded ? 'bi bi-chevron-up':'bi bi-chevron-down'}/></button></span>
+					
 					<div className={'subject-task-group-items '+(dueDateExpanded ? '':'stgi_collapsed')}>
 						{
 							taskGroup.dueDate.length>0 ? taskGroup.dueDate.map((task) =>
 								<TaskBox task={task} theme={theme} key={task.id}/>
-							):<p className='subject-task-noitem'>No tasks</p>
+							):<p className='subject-task-noitem'><br />No tasks</p>
 						}
 					</div>
 				</div>
 				<div className='subject-task-group'>
-					<span className='subject-task-group-title'>This week <button onClick={thisWeekToggle}><i className={thisWeekExpanded ? 'bi bi-chevron-up':'bi bi-chevron-down'}/></button></span>
-					<br /><br />
+					<span className='subject-task-group-title'><i className={'bi bi-circle-fill subject-task-dot task_orange'}/>&nbsp;This week <button onClick={thisWeekToggle}><i className={thisWeekExpanded ? 'bi bi-chevron-up':'bi bi-chevron-down'}/></button></span>
+					
 					<div className={'subject-task-group-items '+(thisWeekExpanded ? '':'stgi_collapsed')}>
 						{
 							taskGroup.thisWeek.length>0 ? taskGroup.thisWeek.map((task) =>
 								<TaskBox task={task} theme={theme} key={task.id}/>
-							):<p className='subject-task-noitem'>No tasks</p>
+							):<p className='subject-task-noitem'><br />No tasks</p>
 						}
 					</div>
 				</div>
 				<div className='subject-task-group'>
-					<span className='subject-task-group-title'>Next week <button onClick={nextWeekToggle}><i className={nextWeekExpanded ? 'bi bi-chevron-up':'bi bi-chevron-down'}/></button></span>
-					<br /><br />
+					<span className='subject-task-group-title'><i className={'bi bi-circle-fill subject-task-dot task_green'}/>&nbsp;Next week <button onClick={nextWeekToggle}><i className={nextWeekExpanded ? 'bi bi-chevron-up':'bi bi-chevron-down'}/></button></span>
+					
 					<div className={'subject-task-group-items '+(nextWeekExpanded ? '':'stgi_collapsed')}>
 						{
 							taskGroup.nextWeek.length>0 ? taskGroup.nextWeek.map((task) =>
 								<TaskBox task={task} theme={theme} key={task.id}/>
-							):<p className='subject-task-noitem'>No tasks</p>
+							):<p className='subject-task-noitem'><br />No tasks</p>
 						}
 					</div>
 				</div>

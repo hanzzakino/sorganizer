@@ -32,17 +32,26 @@ export default function TaskBox({task, theme}) {
 		}
 	}
 
+	const onDelete = () => {
+		if(window.confirm('Are you sure to delete this item?')){
+			console.log('confirmed',task.id)
+		} else {
+			console.log('not confirmed')
+		}
+	}
+
 	const toWeekDay = ['SUN','MON','TUE','WED','THU','FRI','SAT']
 
 	
 
   	return (
-	 <div key={task.id} className='subject-task-item'>
-		<i className={'bi bi-circle-fill subject-task-dot '+getColor(task.data.deadline)}/>
-		<p className='subject-task-item-deadline'>{(+timestampToDate(task.data.deadline).day) + '/' + (timestampToDate(task.data.deadline).month+1)+'/'+timestampToDate(task.data.deadline).year+' - '}</p>
-		<p className='subject-task-item-name'>
-		{task.data.name.length < 20 ? (task.data.name):(task.data.name.slice(0,20)+'...')}
-		</p>
+	 <div key={task.id} className={'task-box '+theme+'-bg3color'}>
+	 	<span className='task-box-header'>
+	 		<p className='task-box-name'>{task.data.name}</p>
+		 	<button className='task-box-delete' onClick={onDelete}>&times;</button>
+		</span>
+		<p className='task-box-description'>{'- '+task.data.description}</p>
+		<p className={'task-box-deadline '+getColor(task.data.deadline)}>{'Deadline: '+timestampToDate(task.data.deadline).monthWord+' '+timestampToDate(task.data.deadline).day+', '+timestampToDate(task.data.deadline).year}</p>
 	</div>
   )
 }

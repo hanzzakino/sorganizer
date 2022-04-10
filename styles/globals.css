@@ -623,10 +623,61 @@ body {
 	font-size: 1.1rem;
 }
 .subject-task-group-title {
-	font-size: 0.9rem;
+	font-size: 1rem;
 	opacity: 70%;
+
+	display: flex;
+	flex-flow: row;
+	align-items: center;
 }
 /* > Subject Panel */
+
+/* > Task box */
+.task-box {
+	padding: 12px 0 12px 0;
+	width: 100%;
+	margin: 8px 0 8px 0;
+	border-radius: 14px;
+}
+.task-box-name {
+	font-size: 1.1rem;
+	letter-spacing: 1px;
+	margin: 0;
+	padding: 4px 74px 4px 24px;
+}
+.task-box-description {
+	font-size: 1rem;
+	opacity: 80%;
+	margin: 0;
+	padding: 4px 24px 4px 24px;
+}
+.task-box-deadline {
+	font-size: 0.9rem;
+	opacity: 80%;
+	margin: 0;
+	padding: 14px 24px 4px 24px;
+}
+.task-box-header {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+}
+.task-box-delete {
+	font-size: 1.5rem;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	color: #FE5757;
+	height: 30px;
+	width: 30px;
+	margin-top: -6px;
+	margin-right: 8px;
+}
+.task-box-delete:hover {
+	font-size: 1.6rem;
+}
+/* > Task box */
+
 
 
 @media (max-width: 770px) {
