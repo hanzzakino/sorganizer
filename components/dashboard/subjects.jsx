@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react'
 import SubjectBox from './subjectBox'
 import SubjectPanel from './subject'
+import {useFirestoreData} from '../../context/FirestoreDataContext'
+import {Timestamp} from 'firebase/firestore'
 
 export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
-
-	const [singleSubjectView, setSingleSubjectView] = useState(false)
 	const [singleSubject, setSingleSubject] = useState(null)
+	const [singleSubjectView, setSingleSubjectView] = useState(false)
 
 	useEffect(()=>{
 		if(!singleSubject) {
@@ -25,6 +26,18 @@ export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 
 	const onBackClick = () => {
 		setSingleSubject(null)
+	}
+
+	const addNewSubject = () => {
+		const newSubject = {
+			code : 'SUBJECT1',
+			name : 'New Test Subject',
+			scheduleDay : 6,
+			scheduleTimeFrom : 6,
+			scheduleTimeTo : 9,
+			teacher : 'New Teacher'
+		}
+		addSubject(newSubject)
 	}
 
 
@@ -54,6 +67,7 @@ export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 							</>
 						)
 				}
+				
 			</div>
 		</>
   )

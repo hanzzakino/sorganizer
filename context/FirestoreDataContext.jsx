@@ -103,6 +103,21 @@ export const FirestoreDataProvider = ({children}) =>{
 		}
 	}
 
+	const addTask = async (subjectID, task) => {
+		console.log('adding new task')
+		try {
+			const auth = getAuth()
+			const docRef = collection(db, 'users', auth.currentUser.uid,'subjects',subjectID,'tasks')
+			
+			await addDoc(docRef, task)
+		} catch(e) {
+			console.log(e)
+		} finally {
+			console.log('subject task ADDED')
+			getSubjects()
+		}
+	}
+
 	const getSubjects = async () => {
 		console.log('getting Subjects')
 		try {
@@ -167,6 +182,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		getUserData,
 		setUsername,
 		addSubject,
+		addTask,
 		userData,
 		clearData,
 		subjects
