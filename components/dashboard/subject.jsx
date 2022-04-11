@@ -34,8 +34,6 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 		} else {
 			return 'task_green'
 		}
-
-		
 	}
 
 	useEffect(()=>{
@@ -118,7 +116,7 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 					<div className={'subject-task-group-items '+(dueDateExpanded ? '':'stgi_collapsed')}>
 						{
 							taskGroup.dueDate.length>0 ? taskGroup.dueDate.map((task) =>
-								<TaskBox task={task} theme={theme} key={task.id}/>
+								<TaskBox task={task} theme={theme} key={task.id} subjectID={subject.id}/>
 							):<p className='subject-task-noitem'><br />No tasks</p>
 						}
 					</div>
@@ -129,7 +127,7 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 					<div className={'subject-task-group-items '+(thisWeekExpanded ? '':'stgi_collapsed')}>
 						{
 							taskGroup.thisWeek.length>0 ? taskGroup.thisWeek.map((task) =>
-								<TaskBox task={task} theme={theme} key={task.id}/>
+								<TaskBox task={task} theme={theme} key={task.id} subjectID={subject.id}/>
 							):<p className='subject-task-noitem'><br />No tasks</p>
 						}
 					</div>
@@ -140,7 +138,7 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 					<div className={'subject-task-group-items '+(nextWeekExpanded ? '':'stgi_collapsed')}>
 						{
 							taskGroup.nextWeek.length>0 ? taskGroup.nextWeek.map((task) =>
-								<TaskBox task={task} theme={theme} key={task.id}/>
+								<TaskBox task={task} theme={theme} key={task.id} subjectID={subject.id}/>
 							):<p className='subject-task-noitem'><br />No tasks</p>
 						}
 					</div>

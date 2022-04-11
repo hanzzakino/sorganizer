@@ -1,5 +1,8 @@
-export default function TaskBox({task, theme}) {
+import {useFirestoreData} from '../../context/FirestoreDataContext'
+import {Timestamp} from 'firebase/firestore'
 
+export default function TaskBox({task, theme, subjectID}) {
+	const {addSubject} = useFirestoreData()
 	const timestampToDate = (timestamp) => {
 		const ts = timestamp.toDate()
 		const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -34,7 +37,16 @@ export default function TaskBox({task, theme}) {
 
 	const onDelete = () => {
 		if(window.confirm('Are you sure to delete this item?')){
-			console.log('confirmed',task.id)
+			// const newSubject = {
+			// 	code : 'NEWSUB',
+			// 	name : 'sECOND New Subject',
+			// 	scheduleDay : 0,
+			// 	scheduleTimeFrom : 7.5,
+			// 	scheduleTimeTo : 10.5,
+			// 	teacher : 'Hanz Christian Aquino'
+			// }
+			// addSubject(newSubject)
+			console.log('Deleted:','subjects/'+subjectID+'/tasks/'+task.id)
 		} else {
 			console.log('not confirmed')
 		}

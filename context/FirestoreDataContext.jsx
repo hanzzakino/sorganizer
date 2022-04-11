@@ -5,6 +5,7 @@ import {db} from '../firebase.config'
 import {
 	setDoc,
 	getDoc,
+	addDoc,
 	doc,
 	query,
 	getDocs,
@@ -87,6 +88,21 @@ export const FirestoreDataProvider = ({children}) =>{
 		}
 	}
 
+	const addSubject = async (subject) => {
+		console.log('adding new subject')
+		try {
+			const auth = getAuth()
+			const docRef = collection(db, 'users', auth.currentUser.uid,'subjects')
+			
+			await addDoc(docRef, subject)
+		} catch(e) {
+			console.log(e)
+		} finally {
+			console.log('subject added')
+			getSubjects()
+		}
+	}
+
 	const getSubjects = async () => {
 		console.log('getting Subjects')
 		try {
@@ -150,6 +166,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		getUserDataDone,
 		getUserData,
 		setUsername,
+		addSubject,
 		userData,
 		clearData,
 		subjects
