@@ -5,19 +5,19 @@ import {useFirestoreData} from '../../context/FirestoreDataContext'
 import {Timestamp} from 'firebase/firestore'
 
 export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
-	const [singleSubject, setSingleSubject] = useState(null)
+	const {selectedSubject, setSelectedSubject, updateSelectedSubject} = useFirestoreData()
 	const [singleSubjectView, setSingleSubjectView] = useState(false)
 
 	useEffect(()=>{
-		if(!singleSubject) {
+		if(!selectedSubject) {
 			setSingleSubjectView(false)
 		} else {
 			setSingleSubjectView(true)
 		}
-	},[singleSubject])
+	},[selectedSubject])
 
 	const onSubjectClick = (subject) => {
-		setSingleSubject(subject)
+		setSelectedSubject(subject)
 		window.scrollTo({
 			top: 0,
 			behavior: 'smooth'
@@ -25,7 +25,7 @@ export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 	}
 
 	const onBackClick = () => {
-		setSingleSubject(null)
+		setSelectedSubject(null)
 	}
 
 	const addNewSubject = () => {
@@ -54,7 +54,7 @@ export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 							)
 						):(
 							<>
-								{singleSubject ? <SubjectPanel subject={singleSubject} onBackClick={onBackClick} theme={theme}/>:<div>
+								{selectedSubject ? <SubjectPanel onBackClick={onBackClick} theme={theme}/>:<div>
 									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 									<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

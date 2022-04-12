@@ -1,9 +1,10 @@
 
 import {useState, useEffect} from 'react'
 import TaskBox from './taskBox'
+import {useFirestoreData} from '../../context/FirestoreDataContext'
 
-
-export default function SubjectPanel({subject, onBackClick, theme}) {
+export default function SubjectPanel({onBackClick, theme}) {
+	const {selectedSubject, updateSelectedSubject} = useFirestoreData()
 	const [editMode, setEditMode] = useState(false)
 	const [taskGroup, setTaskGroup] = useState({
 		dueDate : [],
@@ -42,7 +43,7 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 			thisWeek : [],
 			nextWeek : []
 		})
-		subject.tasks.forEach((task) => {
+		selectedSubject.tasks.forEach((task) => {
 			if(getColor(task.data.deadline) === 'task_red'){
 				setTaskGroup((prevState) => ({
 					...prevState,
@@ -61,7 +62,7 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 			}
 
 		})
-	},[subject])
+	},[selectedSubject])
 
 	const toClockTime = (num) => {
 		const hour = Math.floor(num)
@@ -101,11 +102,11 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 
 			<div className={'subject-card '+(theme+'-fgcolor ')+(theme+'-accentstroke-focused')}>
 				{/*<p className='subject-card-title'><strong>{subject.data.code.toUpperCase()+' -'}</strong>&nbsp;{(subject.data.name.length < 50 ? subject.data.name:(subject.data.name.slice(0,50)+'...'))}</p>*/}
-				<p className='subject-card-code'>{subject.data.code.toUpperCase()}</p>
-				<p className='subject-card-name'>{subject.data.name}</p>
+				<p className='subject-card-code'>{selectedSubject.data.code.toUpperCase()}</p>
+				<p className='subject-card-name'>{selectedSubject.data.name}</p>
 				<span className='subject-card-detail2'>
-					<p>{subject.data.teacher}</p>
-					<p>{toWeekDay[subject.data.scheduleDay]+' '+toClockTime(subject.data.scheduleTimeFrom)+' - '+toClockTime(subject.data.scheduleTimeTo)}</p>
+					<p>{selectedSubject.data.teacher}</p>
+					<p>{toWeekDay[selectedSubject.data.scheduleDay]+' '+toClockTime(selectedSubject.data.scheduleTimeFrom)+' - '+toClockTime(selectedSubject.data.scheduleTimeTo)}</p>
 				</span>
 
 				<br /><br />
@@ -116,7 +117,7 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 					<div className={'subject-task-group-items '+(dueDateExpanded ? '':'stgi_collapsed')}>
 						{
 							taskGroup.dueDate.length>0 ? taskGroup.dueDate.map((task) =>
-								<TaskBox task={task} theme={theme} key={task.id} subjectID={subject.id}/>
+								<TaskBox task={task} theme={theme} key={task.id} subjectID={selectedSubject.id}/>
 							):<p className='subject-task-noitem'><br />No tasks</p>
 						}
 					</div>
@@ -127,7 +128,7 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 					<div className={'subject-task-group-items '+(thisWeekExpanded ? '':'stgi_collapsed')}>
 						{
 							taskGroup.thisWeek.length>0 ? taskGroup.thisWeek.map((task) =>
-								<TaskBox task={task} theme={theme} key={task.id} subjectID={subject.id}/>
+								<TaskBox task={task} theme={theme} key={task.id} subjectID={selectedSubject.id}/>
 							):<p className='subject-task-noitem'><br />No tasks</p>
 						}
 					</div>
@@ -138,7 +139,7 @@ export default function SubjectPanel({subject, onBackClick, theme}) {
 					<div className={'subject-task-group-items '+(nextWeekExpanded ? '':'stgi_collapsed')}>
 						{
 							taskGroup.nextWeek.length>0 ? taskGroup.nextWeek.map((task) =>
-								<TaskBox task={task} theme={theme} key={task.id} subjectID={subject.id}/>
+								<TaskBox task={task} theme={theme} key={task.id} subjectID={selectedSubject.id}/>
 							):<p className='subject-task-noitem'><br />No tasks</p>
 						}
 					</div>

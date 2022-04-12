@@ -21,7 +21,7 @@ import {
 const FirestoreDataContext = createContext()
 
 export const FirestoreDataProvider = ({children}) =>{
-	//default settings
+	//states
 	const [getDataDone, setGetDataDone] = useState(false)
 	const [getUserDataDone, setGetUserDataDone] = useState(false)
 	const [userData, setUserData] = useState({
@@ -32,7 +32,9 @@ export const FirestoreDataProvider = ({children}) =>{
 		timestamp : null,
 	})
 	const [subjects, setSubjects] = useState([])
+	const [selectedSubject, setSelectedSub] = useState(null)
 
+	//user data methods
 	const getUserData = async () => {
 		console.log('getting user data')
 		try {
@@ -45,7 +47,7 @@ export const FirestoreDataProvider = ({children}) =>{
 				}
 			}
 		} catch(e) {
-			console.log('getUserData',e)
+			console.log('getUserData error',e)
 			toast('An error occured while getting Database data', {
 					position : 'top-right',
 					autoClose : 5000,
@@ -54,11 +56,10 @@ export const FirestoreDataProvider = ({children}) =>{
 					hideProgressBar : true
 			})
 		} finally {
-			console.log('userData', userData)
+			console.log('getUserData success', userData)
 			setGetUserDataDone(true)
 		}
 	}
-
 	const setUsername = async (firstname, lastname) => {
 		console.log('setting user name')
 		try {
@@ -74,7 +75,7 @@ export const FirestoreDataProvider = ({children}) =>{
 				})
 	    	}
 		} catch(e) {
-			console.log('getUserData',e)
+			console.log('setUsername error',e)
 			toast('An error occured while setting username in Database', {
 					position : 'top-right',
 					autoClose : 5000,
@@ -83,11 +84,12 @@ export const FirestoreDataProvider = ({children}) =>{
 					hideProgressBar : true
 			})
 		} finally {
-			console.log('userData', userData)
+			console.log('setUsername success', userData)
 			getUserData()
 		}
 	}
 
+	//user subjects methods
 	const addSubject = async (subject) => {
 		console.log('adding new subject')
 		try {
@@ -96,13 +98,12 @@ export const FirestoreDataProvider = ({children}) =>{
 			
 			await addDoc(docRef, subject)
 		} catch(e) {
-			console.log(e)
+			console.log('addSubject error',e)
 		} finally {
-			console.log('subject added')
+			console.log('addSubject success')
 			getSubjects()
 		}
 	}
-
 	const addTask = async (subjectID, task) => {
 		console.log('adding new task')
 		try {
@@ -111,13 +112,12 @@ export const FirestoreDataProvider = ({children}) =>{
 			
 			await addDoc(docRef, task)
 		} catch(e) {
-			console.log(e)
+			console.log('addTask error',e)
 		} finally {
-			console.log('subject task ADDED')
+			console.log('addTask success')
 			getSubjects()
 		}
 	}
-
 	const getSubjects = async () => {
 		console.log('getting Subjects')
 		try {
@@ -147,7 +147,7 @@ export const FirestoreDataProvider = ({children}) =>{
 							})
 						})
 					} catch(e) {
-						console.log('getTasks',e)
+						console.log('getSubjects tasks error',e)
 					}
 					
 					subjectsList[i] = {
@@ -160,13 +160,59 @@ export const FirestoreDataProvider = ({children}) =>{
 
 			}
 		} catch(e) {
-			console.log('getSubjects',e)
+			console.log('getSubjects error',e)
 		} finally {
+			console.log('getSubjects success')
+			updateSelectedSubject()
+		}
+	}
+
+
+	const setSelectedSubject = (subject) => {
+		console.log('setSelectedSubject', subject)
+		setSelectedSub(subject)
+	}
+
+	const updateSelectedSubject = async () => {
+		if(selectedSubject){
+			try {
+				const auth = getAuth()
+				const docRef = doc(db,'users',auth.currentUser.uid,'subjects',selectedSubject.id)
+				const docSnap = await getDoc(docRef)
+				if(docSnap.exists()){
+					const q = query(collection(db,'users',auth.currentUser.uid,'subjects',selectedSubject.id,'tasks'))
+					const querySnapshot = await getDocs(q)
+					const taskslist = []
+					querySnapshot.forEach((doc) => {
+						taskslist.push({
+							id : doc.id,
+							data : doc.data()
+						})
+					})
+					setSelectedSubject({
+						id : docSnap.id,
+						data : docSnap.data(),
+						tasks : taskslist
+					})
+				}
+			} catch(e) {
+				// statements
+				console.log('updateSelectedSubject error',e);
+			} finally {
+				setGetDataDone(true)
+				console.log('updateSelectedSubject success', selectedSubject)
+			}
+		} else {
+			console.log('updateSelectedSubject success')
 			setGetDataDone(true)
 		}
 	}
 
 
+
+
+
+	//clear data
 	const clearData = async () => {
 		setGetDataDone(false)
 		setGetUserDataDone(false)
@@ -182,6 +228,9 @@ export const FirestoreDataProvider = ({children}) =>{
 		getUserData,
 		setUsername,
 		addSubject,
+		selectedSubject,
+		setSelectedSubject,
+		updateSelectedSubject,
 		addTask,
 		userData,
 		clearData,

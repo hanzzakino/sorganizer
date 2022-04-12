@@ -31,12 +31,10 @@ export default function Dashboard() {
 	const [scrollY, setScrollY] = useState(0)
 
 	useEffect(() => {
-		console.log('effect',loading,authUser)
 		if(!loading &&  !authUser && dataWriteDone){
 			router.push('/user/sign-in')
 		} 
 		if (!loading &&  authUser) {
-			console.log('getssss',loading,authUser)
 			getSubjects()
 			getUserData()
 			setLocalSettings()
