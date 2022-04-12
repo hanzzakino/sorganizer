@@ -811,9 +811,10 @@ body {
 	width: 560px;
 	border-radius: 14px;
 	padding: 30px 42px 30px 42px;
-	animation-name: slideUp;
+	
+	/*animation-name: slideUp;
 	animation-duration: 1.5s;
-	animation-timing-function: ease-in;
+	animation-timing-function: ease-in;*/
 }
 @keyframes slideUp {
 	0% {

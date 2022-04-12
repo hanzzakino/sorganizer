@@ -6,6 +6,7 @@ import {
 	setDoc,
 	getDoc,
 	addDoc,
+	deleteDoc,
 	doc,
 	query,
 	getDocs,
@@ -118,6 +119,20 @@ export const FirestoreDataProvider = ({children}) =>{
 			getSubjects()
 		}
 	}
+	const setToTaskDone = async (subjectID, taskID) => {
+		console.log('setting task done')
+		try {
+			const auth = getAuth()
+			const docRef = doc(db, 'users', auth.currentUser.uid,'subjects',subjectID,'tasks',taskID)
+	    	await deleteDoc(docRef)
+		} catch(e) {
+			console.log('setToTaskDone error',e)
+		} finally {
+			console.log('setToTaskDone success')
+			getSubjects()
+		}
+	}
+
 	const getSubjects = async () => {
 		console.log('getting Subjects')
 		try {
@@ -232,6 +247,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		setSelectedSubject,
 		updateSelectedSubject,
 		addTask,
+		setToTaskDone,
 		userData,
 		clearData,
 		subjects
