@@ -630,6 +630,86 @@ body {
 	flex-flow: row;
 	align-items: center;
 }
+.subject-addtask-button {
+	background-color: var(--dark-accent3);
+	opacity: 80%;
+	color: white;
+	position: fixed;
+	bottom: 42px;
+	right: 30px;
+	direction: rtl;
+	height: 52px;
+	width: 52px;
+	border: none;
+	outline: none;
+	font-weight: bolder;
+	padding: 0 18px 0 18px;
+	border-radius: 26px;
+	overflow: hidden;
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+	transition: 0.25s ease-out;
+	filter: drop-shadow(4px 4px 3px rgb(0,0,0,0.5));
+}
+.subject-addtask-button p {
+	visibility: hidden;
+}
+.subject-addtask-button h1 {
+	margin-top: 18px;
+}
+.subject-addtask-button:hover {
+	width: 130px;
+	opacity: 100%;
+	justify-content: space-between;
+	transition: 0.25s ease-out;
+}
+.subject-addtask-button:hover p {
+	transition: 0.25s ease-out;
+	transition-delay: 0.25s;
+	visibility: unset;
+}
+
+.subject-editsub-button {
+	background-color: var(--dark-accent3);
+	opacity: 80%;
+	color: white;
+	position: fixed;
+	bottom: 112px;
+	right: 30px;
+	direction: rtl;
+	height: 52px;
+	width: 52px;
+	border: none;
+	outline: none;
+	font-weight: bolder;
+	padding: 0 16px 0 18px;
+	border-radius: 26px;
+	overflow: hidden;
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+	transition: 0.25s ease-out;
+	filter: drop-shadow(4px 4px 3px rgb(0,0,0,0.5));
+}
+.subject-editsub-button p {
+	visibility: hidden;
+}
+.subject-editsub-button h1 {
+	font-size: 1.2rem;
+	margin-top: 16px;
+}
+.subject-editsub-button:hover {
+	width: 150px;
+	opacity: 100%;
+	justify-content: space-between;
+	transition: 0.25s ease-out;
+}
+.subject-editsub-button:hover p {
+	transition: 0.25s ease-out;
+	transition-delay: 0.25s;
+	visibility: unset;
+}
 /* > Subject Panel */
 
 /* > Task box */
@@ -678,6 +758,72 @@ body {
 }
 /* > Task box */
 
+/* > Add Task dialog */
+.addtask-dialog-background{
+	background: transparent;
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+  	-moz-backdrop-filter: blur(2px);
+  	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.4));
+	/*opacity: 40%;*/
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.addtask-dialog-header {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+}
+.addtask-dialog-header p {
+	font-size: 1.2rem;
+	font-weight: bolder;
+	letter-spacing: 1px;
+	margin-top: -4px;
+}
+.addtask-dialog-close {
+	font-size: 1.8rem;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	color: #FE5757;
+	height: 30px;
+	width: 30px;
+	margin-top: -8px;
+	margin-right: -24px;
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+.addtask-dialog-close:hover {
+	font-size: 1.9rem;
+}
+.addtask-dialog{
+	background-color: white;
+	height: 420px;
+	width: 560px;
+	border-radius: 14px;
+	padding: 30px 42px 30px 42px;
+	animation-name: slideUp;
+	animation-duration: 1.5s;
+	animation-timing-function: ease-in;
+}
+@keyframes slideUp {
+	0% {
+		transform: translateY(100px);
+	}
+	100% {
+		transform: unset;
+	}
+}
+/* > Add Task dialog */
 
 
 @media (max-width: 770px) {
@@ -1120,6 +1266,9 @@ body {
 	background: unset;
 	background-color: var(--dark-bg3);
 }
+.dark-bg2colorgradient-nohover {
+	background: var(--dark-bg-gradient3);
+}
 .dark-accentstroke {
 	background: var(--dark-bg-gradient2) padding-box, var(--dark-accent3-gradient) border-box;
 	border-radius: 14px;
@@ -1274,6 +1423,9 @@ body {
 .light-bg2colorgradient:hover {
 	background: unset;
 	background-color: var(--light-bg3);
+}
+.light-bg2colorgradient-nohover {
+	background: var(--light-bg-gradient3);
 }
 .light-accentstroke {
 	background: var(--light-bg-gradient2) padding-box, var(--light-accent3-gradient) border-box;

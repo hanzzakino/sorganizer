@@ -2,6 +2,7 @@
 import {useState, useEffect} from 'react'
 import TaskBox from './taskBox'
 import {useFirestoreData} from '../../context/FirestoreDataContext'
+import AddTaskDialog from '../addTaskDialog'
 
 export default function SubjectPanel({onBackClick, theme}) {
 	const {selectedSubject, updateSelectedSubject} = useFirestoreData()
@@ -14,7 +15,7 @@ export default function SubjectPanel({onBackClick, theme}) {
 	const [dueDateExpanded, setDueDateExpanded] = useState(true)
 	const [thisWeekExpanded, setThisWeekExpanded] = useState(true)
 	const [nextWeekExpanded, setNextWeekExpanded] = useState(true)
-
+	const [addTaskDialogVisible, setAddTaskDialogVisible] = useState(false)
 	const dueDateToggle = () => {
 		setDueDateExpanded(!dueDateExpanded)
 	}
@@ -35,6 +36,14 @@ export default function SubjectPanel({onBackClick, theme}) {
 		} else {
 			return 'task_green'
 		}
+	}
+
+	const onDialogClose = () => {
+		setAddTaskDialogVisible(false)
+	}
+
+	const onDialogOpen = () => {
+		setAddTaskDialogVisible(true)
 	}
 
 	useEffect(()=>{
@@ -93,11 +102,26 @@ export default function SubjectPanel({onBackClick, theme}) {
 
   	return (
 	  	<div className='subject-area'>
+
+
+	  		<AddTaskDialog subject={selectedSubject} closeDialog={onDialogClose} theme={theme} hidden={!addTaskDialogVisible}/>
+
+	  		<button className='subject-addtask-button' onClick={onDialogOpen}>
+	  			<h1>{'+'}</h1>
+	  			<p>Add Task</p>
+	  		</button>
+
+	  		<button className='subject-editsub-button' onClick={editModeChange}>
+	  			<h1><i className='bi bi-pencil-square' /></h1>
+	  			<p >Edit Subject</p>
+	  		</button>
+		  	
+
 		  	<div className='subject-header'>
 				<div className='subject-backbtn' onClick={onBackClick}>
 					<p><i className='bi bi-chevron-left'/>&nbsp;All Subjects</p>
 				</div>	
-				<p onClick={editModeChange} className={'subject-editbtn '+(editMode ? 'dark-accentfgcolor3':'dark-fgcolor')}><i className='bi bi-pencil-square' /> Edit</p>
+				<p className={'subject-editbtn '+(editMode ? 'dark-accentfgcolor3':'dark-fgcolor')}><i className='bi bi-pencil-square' /> Temporary Edit indicator</p>
 			</div>
 
 			<div className={'subject-card '+(theme+'-fgcolor ')+(theme+'-accentstroke-focused')}>
