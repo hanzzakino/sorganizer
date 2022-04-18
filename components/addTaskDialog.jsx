@@ -3,14 +3,16 @@ import {Timestamp} from 'firebase/firestore'
 import {useFirestoreData} from '../context/FirestoreDataContext'
 
 
-export default function AddTaskDialog({theme, subject, hidden, closeDialog}){subject
-	const {addTask} = useFirestoreData()
+export default function AddTaskDialog({theme, subject, hidden, closeDialog}){
+
+	const {addTask, subjects} = useFirestoreData()
 	const [formData, setFormData] = useState({
 		name : '',
 		description : '',
 		deadlineDate : '',
 		deadlineTime : '' 
 	})
+	const [selectedSubjID, setSelecetedSubjID] = useState(null)
 	const {name, description, deadlineDate, deadlineTime} = formData
 
 	const onChange = (e) => {
@@ -18,6 +20,11 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){sub
 			...prevState,
 			[e.target.id] : e.target.value
 		}))
+	}
+
+	const onSelect = (e) => {
+		const sel = e.target
+		setSelecetedSubjID(sel.options[sel.selectedIndex].value)
 	}
 
 	const onSubmit = (e) => {
@@ -31,7 +38,11 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){sub
 			isDone : false,
 			deadline : Timestamp.fromDate(deadline)
 		}
-		addTask(subject.id,newTaskData)
+		if(selectedSubjID){
+			addTask(selectedSubjID,newTaskData)
+		} else if(subject) {
+			addTask(subject.id,newTaskData)
+		}
 		setFormData({
 			name : '',
 			description : '',
@@ -51,35 +62,55 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){sub
 						<p>Add Task</p>
 						<button onClick={closeDialog} className='addtask-dialog-close'>&times;</button>
 					</span>
-					{subject ? (<p>{subject.id}</p>):(<p>No Subject</p>)}
-					<form onSubmit={onSubmit}>
+					<form onSubmit={onSubmit} className='addtask-dialog-form'>
+						
+						{subject ? (<p>{subject.data.code.toUpperCase()+' - '+subject.data.name}</p>):(
+							<>
+							<label htmlFor="subjectLists">Choose Subject</label>
+							<select onChange={onSelect} name="subjectLists" id="subjectLists" className='addtask-dialog-form-list'>
+								{subjects.length > 0 ? <option disabled selected>{'-- Select Subject --'}</option>:null}
+								{subjects.length > 0 ? (
+										subjects.map((subj)=><option key={subj.id} value={subj.id}>{subj.data.code.toUpperCase()+' - '+(subj.data.name.length < 35 ? subj.data.name:subj.data.name.slice(0,35)+'...')}</option>)
+									):<option value="">No Subjects</option>
+								}
+							</select>
+							</>
+						)}
+
 						<input
+						 className='addtask-dialog-form-text'
 						 type='text' 
 						 placeholder='Task Name'
 						 id='name'
 						 value={name}
 						 onChange={onChange}
 						 />
-						 <input
-						 type='text' 
+						 <textarea
+						 className='addtask-dialog-form-text-description' 
 						 placeholder='Description'
 						 id='description'
 						 value={description}
 						 onChange={onChange}
 						 />
-						 <input
-						 type='date' 
-						 id='deadlineDate'
-						 value={deadlineDate}
-						 onChange={onChange}
-						 />
-						 <input
-						 type='time' 
-						 id='deadlineTime'
-						 value={deadlineTime}
-						 onChange={onChange}
-						 />
-						 <input type='submit' />
+						 <p>{'Deadline:'}</p>
+						 <div className='addtask-dialog-form-date-container'>
+							 <input
+							 className='addtask-dialog-form-date'
+							 type='date' 
+							 id='deadlineDate'
+							 value={deadlineDate}
+							 onChange={onChange}
+							 />
+							 <input
+							 className='addtask-dialog-form-date'
+							 type='time' 
+							 id='deadlineTime'
+							 value={deadlineTime}
+							 onChange={onChange}
+							 />
+						 </div>
+						 <br />
+						 <input type='submit' className='btn'/>
 					</form>
 				</div>
 			</div>

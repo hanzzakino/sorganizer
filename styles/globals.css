@@ -829,6 +829,53 @@ body {
 		transform: unset;
 	}
 }
+
+.addtask-dialog-form {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	width: 100%;
+}
+.addtask-dialog-form-text {
+	padding: 3px 12px 3px 12px;
+	margin: 5px;
+	height: 28px;
+	width: 70%;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	font-size: 1rem;
+}
+.addtask-dialog-form-text-description {
+	padding: 12px 12px 3px 12px;
+	margin: 5px;
+	height: 60px;
+	width: 70%;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	font-size: 1rem;
+	font-family: inherit;
+	resize: none;
+}
+.addtask-dialog-form-list {
+	padding: 3px 12px 3px 12px;
+	margin: 5px 5px 16px 5px;
+	height: 32px;
+	width: 70%;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	font-size: 1rem;
+}
+.addtask-dialog-form-date-container {
+	width: fit-contents;
+}
+.addtask-dialog-form-date {
+	padding: 3px 12px 3px 12px;
+	margin: 5px;
+	height: 28px;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	font-size: 1rem;
+}
 /* > Add Task dialog */
 
 
