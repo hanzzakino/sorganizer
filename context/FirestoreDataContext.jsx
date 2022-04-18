@@ -42,6 +42,7 @@ export const FirestoreDataProvider = ({children}) =>{
 			const auth = getAuth()
 			if(auth.currentUser){
 				const docRef = doc(db,'users',auth.currentUser.uid)
+				console.log('FirestoreCommunicate getUserData get')
 				const docSnap = await getDoc(docRef)
 				if(docSnap.exists()){
 					setUserData(docSnap.data())
@@ -66,9 +67,11 @@ export const FirestoreDataProvider = ({children}) =>{
 		try {
 			const auth = getAuth()
 			const docRef = doc(db, 'users', auth.currentUser.uid)
+			console.log('FirestoreCommunicate setUsername get')
 	    	const docSnap = await getDoc(docRef)
 
 	    	if(docSnap.exists()){
+	    		console.log('FirestoreCommunicate setUsername set')
 	    		await setDoc(doc(db,'users',auth.currentUser.uid), {
 		    		...userData,
 		    		firstname,
@@ -96,7 +99,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		try {
 			const auth = getAuth()
 			const docRef = collection(db, 'users', auth.currentUser.uid,'subjects')
-			
+			console.log('FirestoreCommunicate addSubject add')
 			await addDoc(docRef, subject)
 		} catch(e) {
 			console.log('addSubject error',e)
@@ -110,7 +113,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		try {
 			const auth = getAuth()
 			const docRef = collection(db, 'users', auth.currentUser.uid,'subjects',subjectID,'tasks')
-			
+			console.log('FirestoreCommunicate addTask add')
 			await addDoc(docRef, task)
 		} catch(e) {
 			console.log('addTask error',e)
@@ -124,6 +127,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		try {
 			const auth = getAuth()
 			const docRef = doc(db, 'users', auth.currentUser.uid,'subjects',subjectID,'tasks',taskID)
+	    	console.log('FirestoreCommunicate setToTaskDone delete')
 	    	await deleteDoc(docRef)
 		} catch(e) {
 			console.log('setToTaskDone error',e)
@@ -139,6 +143,7 @@ export const FirestoreDataProvider = ({children}) =>{
 			const auth = getAuth()
 			if(auth.currentUser){
 				const q = query(collection(db,'users',auth.currentUser.uid,'subjects'))
+				console.log('FirestoreCommunicate getSubjects get')
 				const querySnapshot = await getDocs(q)
 				let subjectsList = []
 				querySnapshot.forEach((doc) => {
@@ -153,6 +158,7 @@ export const FirestoreDataProvider = ({children}) =>{
 					let subjectTasksList = []
 					try {
 						const q2 = query(collection(db,'users',auth.currentUser.uid,'subjects',subjectsList[i].id,'tasks'),where('isDone','==',false),orderBy('deadline','asc'))
+						console.log('FirestoreCommunicate getSubjects-task get')
 						const querySnapshot2 = await getDocs(q2)
 						
 						querySnapshot2.forEach((task) => {
@@ -193,9 +199,11 @@ export const FirestoreDataProvider = ({children}) =>{
 			try {
 				const auth = getAuth()
 				const docRef = doc(db,'users',auth.currentUser.uid,'subjects',selectedSubject.id)
+				console.log('FirestoreCommunicate updateSelectedSubject get')
 				const docSnap = await getDoc(docRef)
 				if(docSnap.exists()){
 					const q = query(collection(db,'users',auth.currentUser.uid,'subjects',selectedSubject.id,'tasks'))
+					console.log('FirestoreCommunicate updateSelectedSubject-task get')
 					const querySnapshot = await getDocs(q)
 					const taskslist = []
 					querySnapshot.forEach((doc) => {

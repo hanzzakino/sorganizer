@@ -20,8 +20,6 @@ import {
 } from 'firebase/firestore'
 
 
-
-
 const SettingsContext = createContext()
 
 export const SettingsProvider = ({children}) =>{
@@ -40,14 +38,17 @@ export const SettingsProvider = ({children}) =>{
 	const setLocalSettings = async () => {
 		console.log('syncing local settings from firestore')
 		try {
+			
 			const auth = getAuth()
 			if(auth.currentUser){
 				const docRef = doc(db,'users',auth.currentUser.uid)
+				console.log('FirestoreCommunicate setLocalSettings get')
 				const docSnap = await getDoc(docRef)
 				if(docSnap.exists()){
 					setSettings(docSnap.data().settings)
 				}
 			}
+			console.log('setLocalSettings success')
 		} catch(e) {
 			console.log('get',e)
 			toast('An error occured while getting Database data', {
@@ -63,14 +64,17 @@ export const SettingsProvider = ({children}) =>{
 	const setUserSettings = async (newSettings) => {
 		console.log('syncing firestore settings from local')
 		try {
+				
 				const auth = getAuth()
 				if(auth.currentUser){
 					const docRef = doc(db,'users',auth.currentUser.uid)
+					console.log('FirestoreCommunicate setUserSettings get')
 					const docSnap = await getDoc(docRef)
 					const newData = docSnap.data()
 					newData.settings = newSettings
 					await setDoc(docRef, newData)
 				}
+				console.log('setUserSettings success')
 			} catch(e) {
 				console.log('set',e)
 				toast('An error occured while setting Database data', {
