@@ -20,16 +20,19 @@ export default function Home() {
 
       <main>
         <div className='container'>
+          <br /><br /><br /><br />
+          <h1 className={settings.general.theme+'-fgcolor'}>SOrganier is still under development</h1>
+          
           <div className="row">
             <div className="column">
-              <Link href='/user'><a  className={settings.general.theme+'-fgcolor'}>User </a></Link>
-              <Link href='/user/sign-in'><a  className={settings.general.theme+'-fgcolor'}>Sign In </a></Link>
-              <Link href='/user/sign-up'><a  className={settings.general.theme+'-fgcolor'}>Sign Up </a></Link>
+              
+              <Link href='/user/sign-in'><a  className={settings.general.theme+'-fgcolor'}>Get started&nbsp;&nbsp;<i className='bi bi-arrow-right'/></a></Link>
+              
               </div>
-            <div className="column">
-              <Link href='/user/forgot-password'><a  className={settings.general.theme+'-fgcolor'}>Forgot Password </a></Link>
-            </div>
           </div>
+
+          <br /><br />
+          <button onClick={toggleTheme}>Switch theme</button>
         </div>
       </main>
 
