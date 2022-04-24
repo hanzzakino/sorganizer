@@ -714,7 +714,19 @@ body {
 	transition-delay: 0.25s;
 	visibility: unset;
 }
-
+.subject-deletesub-button {
+	background-color: transparent;
+	border: none;
+	outline: none;
+	color: rgb(225,95,95);
+	cursor: pointer;
+}
+.subject-deletesub-button:hover {
+	color: #FE5757;
+}
+.subject-deletesub-button:hover h3 {
+	transform: scale(1.05);
+}
 .subject-editsub-button {
 	background-color: var(--dark-accent3);
 	opacity: 80%;

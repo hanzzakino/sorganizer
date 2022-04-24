@@ -121,6 +121,21 @@ export const FirestoreDataProvider = ({children}) =>{
 		}
 	}
 
+	const deleteSubject = async (subjectID) => {
+		console.log('deleting subject')
+		try {
+			const auth = getAuth()
+			const docRef = doc(db, 'users', auth.currentUser.uid,'subjects',subjectID)
+	    	console.log('FirestoreCommunicate deleteSubject delete')
+	    	await deleteDoc(docRef)
+		} catch(e) {
+			console.log('deleteSubject error',e)
+		} finally {
+			console.log('deleteSubject success')
+			getSubjects()
+		}
+	}
+
 	const getSubjects = async () => {
 		console.log('getting Subjects')
 		try {
@@ -235,6 +250,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		getUserData,
 		setUsername,
 		addSubject,
+		deleteSubject,
 		selectedSubject,
 		setSelectedSubject,
 		updateSelectedSubject,

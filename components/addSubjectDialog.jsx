@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import {Timestamp} from 'firebase/firestore'
 import {useFirestoreData} from '../context/FirestoreDataContext'
+import { toast, ToastContainer } from 'react-toastify'
 
 
 export default function AddSubjectDialog({theme, hidden, closeDialog}){
@@ -50,29 +51,58 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 	const onSubmit = (e) => {
 		e.preventDefault()
 
+		const schedTFR = toDecimalTime(scheduleTimeFrom)
+		const schedTTO = toDecimalTime(scheduleTimeTo)
+
 		const newTaskData = {
 			code,
 		}
-		const newSubject = {
-			code,
-			name,
-			teacher,
-			scheduleDay,
-			scheduleTimeFrom : toDecimalTime(scheduleTimeFrom),
-			scheduleTimeTo : toDecimalTime(scheduleTimeTo),
+		if(code === ''){
+			toast('Subject Code empty',{
+				position : 'top-center',
+				autoClose : 5000,
+				theme : theme,
+				type : 'error',
+				hideProgressBar : true
+			})
+		} else if(name === ''){
+			toast('Subject Name empty',{
+				position : 'top-center',
+				autoClose : 5000,
+				theme : theme,
+				type : 'error',
+				hideProgressBar : true
+			})
+		} else if(schedTTO-schedTFR < 0){
+			toast('Invalid Time Schedule',{
+				position : 'top-center',
+				autoClose : 5000,
+				theme : theme,
+				type : 'error',
+				hideProgressBar : true
+			})
+		} else {
+			const newSubject = {
+				code,
+				name,
+				teacher,
+				scheduleDay,
+				scheduleTimeFrom : schedTFR,
+				scheduleTimeTo : schedTTO,
+			}
+			//add Sub in firestore here
+			addSubject(newSubject)
+			setFormData({
+				code : '',
+				name : '',
+				teacher : '',
+				scheduleDay : 0,
+				scheduleTimeFrom : '07:00',
+				scheduleTimeTo : '08:00',
+			})
+			closeDialog()
 		}
-		//add Sub in firestore here
-		addSubject(newSubject)
-
-		setFormData({
-			code : '',
-			name : '',
-			teacher : '',
-			scheduleDay : 0,
-			scheduleTimeFrom : '',
-			scheduleTimeTo : '',
-		})
-		closeDialog()
+		
 	}
 
 	return(
@@ -139,7 +169,7 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 							 onChange={onTimeChange}
 							 />
 						</div>
-						<br /><br />
+						<br />
 						<input type='submit' className='btn'/>
 					</form>
 				</div>

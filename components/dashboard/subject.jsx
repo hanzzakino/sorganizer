@@ -5,7 +5,7 @@ import {useFirestoreData} from '../../context/FirestoreDataContext'
 import AddTaskDialog from '../addTaskDialog'
 
 export default function SubjectPanel({onBackClick, theme}) {
-	const {selectedSubject, updateSelectedSubject} = useFirestoreData()
+	const {selectedSubject, updateSelectedSubject, deleteSubject} = useFirestoreData()
 	const [editMode, setEditMode] = useState(false)
 	const [taskGroup, setTaskGroup] = useState({
 		dueDate : [],
@@ -35,6 +35,15 @@ export default function SubjectPanel({onBackClick, theme}) {
 			return 'task_orange'
 		} else {
 			return 'task_green'
+		}
+	}
+
+	const onSubjectDelete = () => {
+		if(window.confirm('Are you sure to delete this subject?')){
+			deleteSubject(selectedSubject.id)
+			onBackClick()
+		} else {
+			console.log('not confirmed')
 		}
 	}
 
@@ -170,7 +179,10 @@ export default function SubjectPanel({onBackClick, theme}) {
 				</div>
 
 			</div>
-			<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+			<br /><br />
+			<button className={'subject-deletesub-button'} onClick={onSubjectDelete}>
+	  			<h3><i className='bi bi-trash3-fill' /> Delete Subject</h3>
+	  		</button>
 			<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 		</div>
   )
