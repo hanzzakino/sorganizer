@@ -426,6 +426,50 @@ body {
 	flex-flow: row;
 	flex-wrap: wrap;
 }
+
+.subjects-addsubj-button {
+	background-color: var(--dark-accent3);
+	opacity: 80%;
+	color: white;
+	position: fixed;
+	bottom: 42px;
+	right: 30px;
+	direction: rtl;
+	height: 52px;
+	width: 52px;
+	border: none;
+	outline: none;
+	font-weight: bolder;
+	padding: 0 18px 0 18px;
+	border-radius: 26px;
+	overflow: hidden;
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+	transition: 0.25s ease-out;
+	filter: drop-shadow(4px 4px 3px rgb(0,0,0,0.5));
+}
+.subjects-addsubj-button p {
+	visibility: hidden;
+}
+.subject-addtask-button h1 {
+	margin-top: 18px;
+}
+.subjects-addsubj-button:hover {
+	width: 146px;
+	opacity: 100%;
+	justify-content: space-between;
+	transition: 0.25s ease-out;
+}
+.subjects-addsubj-button:hover p {
+	transition: 0.25s ease-out;
+	transition-delay: 0.25s;
+	visibility: unset;
+}
+
+
+
+
 .subject-box {
 	height: 280px;
 	width: 318px;
@@ -468,6 +512,7 @@ body {
 	cursor: pointer;
 	opacity: 70%;
 }
+
 .subject-task-box {
 	height: 160px;
 	margin: 0 14px 0 14px;
@@ -761,12 +806,12 @@ body {
 /* > Add Task dialog */
 .addtask-dialog-background{
 	/*Dev Only*/
-	/*background-color: rgb(255,255,255,0.4);*/
+	background-color: rgb(255,255,255,0.4);
 	/*Production Only*/
-	background: transparent;
+	/*background: transparent;
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
-  	-moz-backdrop-filter: blur(2px);
+  	-moz-backdrop-filter: blur(2px);*/
 
 
   	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.5));
@@ -817,9 +862,9 @@ body {
 	border-radius: 14px;
 	padding: 30px 42px 30px 42px;
 	/*Production Only*/
-	animation-name: slideUp;
+	/*animation-name: slideUp;
 	animation-duration: 1.5s;
-	animation-timing-function: ease-in;
+	animation-timing-function: ease-in;*/
 }
 @keyframes slideUp {
 	0% {
@@ -877,6 +922,113 @@ body {
 	font-size: 1rem;
 }
 /* > Add Task dialog */
+
+
+/* > Add Subject dialog */
+.addsubject-dialog-background{
+	/*Dev Only*/
+	background-color: rgb(255,255,255,0.4);
+	/*Production Only*/
+	/*background: transparent;
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+  	-moz-backdrop-filter: blur(2px);*/
+
+
+  	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.5));
+	/*opacity: 40%;*/
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.addsubject-dialog-header {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+}
+.addsubject-dialog-header p {
+	font-size: 1.2rem;
+	font-weight: bolder;
+	letter-spacing: 1px;
+	margin-top: -4px;
+}
+.addsubject-dialog-close {
+	font-size: 1.8rem;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	color: #FE5757;
+	height: 30px;
+	width: 30px;
+	margin-top: -8px;
+	margin-right: -24px;
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+.addsubject-dialog-close:hover {
+	font-size: 1.9rem;
+}
+.addsubject-dialog{
+	background-color: white;
+	height: 420px;
+	width: 560px;
+	border-radius: 14px;
+	padding: 30px 42px 30px 42px;
+	/*Production Only*/
+	/*animation-name: slideUp;
+	animation-duration: 1.5s;
+	animation-timing-function: ease-in;*/
+}
+@keyframes slideUp {
+	0% {
+		transform: translateY(100px);
+	}
+	100% {
+		transform: unset;
+	}
+}
+
+.addsubject-dialog-form {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	width: 100%;
+}
+.addsubject-dialog-form-text {
+	padding: 3px 12px 3px 12px;
+	margin: 5px;
+	height: 28px;
+	width: 70%;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	font-size: 1rem;
+}
+.addsubject-dialog-form-list {
+	padding: 3px 12px 3px 12px;
+	margin: 5px 5px 16px 5px;
+	height: 32px;
+	width: 70%;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	font-size: 1rem;
+}
+.addsubject-dialog-form-date {
+	padding: 3px 12px 3px 12px;
+	margin: 5px;
+	height: 28px;
+	border: 1px solid rgb(0,0,0,0.3);
+	border-radius: 10px;
+	font-size: 1rem;
+}
+/* > Add Subject dialog */
 
 
 @media (max-width: 770px) {

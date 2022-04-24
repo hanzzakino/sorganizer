@@ -1,11 +1,11 @@
 import { createContext, useState, useContext } from 'react'
-import { toast } from 'react-toastify'
 import {getAuth} from 'firebase/auth'
 import {db} from '../firebase.config'
 import {
 	setDoc,
 	getDoc,
 	addDoc,
+	updateDoc,
 	deleteDoc,
 	doc,
 	query,
@@ -50,13 +50,6 @@ export const FirestoreDataProvider = ({children}) =>{
 			}
 		} catch(e) {
 			console.log('getUserData error',e)
-			toast('An error occured while getting Database data', {
-					position : 'top-right',
-					autoClose : 5000,
-					theme : 'light',
-					type : 'error',
-					hideProgressBar : true
-			})
 		} finally {
 			console.log('getUserData success', userData)
 			setGetUserDataDone(true)
@@ -67,29 +60,20 @@ export const FirestoreDataProvider = ({children}) =>{
 		try {
 			const auth = getAuth()
 			const docRef = doc(db, 'users', auth.currentUser.uid)
-			console.log('FirestoreCommunicate setUsername get')
-	    	const docSnap = await getDoc(docRef)
-
-	    	if(docSnap.exists()){
-	    		console.log('FirestoreCommunicate setUsername set')
-	    		await setDoc(doc(db,'users',auth.currentUser.uid), {
-		    		...userData,
-		    		firstname,
-		    		lastname
-				})
-	    	}
+			console.log('FirestoreCommunicate setUsername update')
+	    	await updateDoc(docRef, {
+	    		firstname,
+	    		lastname
+			})
+			setUserData((prevState) => ({
+				...prevState,
+				firstname,
+	    		lastname
+			}))
 		} catch(e) {
 			console.log('setUsername error',e)
-			toast('An error occured while setting username in Database', {
-					position : 'top-right',
-					autoClose : 5000,
-					theme : 'light',
-					type : 'error',
-					hideProgressBar : true
-			})
 		} finally {
 			console.log('setUsername success', userData)
-			getUserData()
 		}
 	}
 

@@ -38,7 +38,7 @@ export default function User() {
 		if(!loading &&  !authUser && dataWriteDone){
 			router.push('/user/sign-in')
 		} 
-		if (!loading &&  authUser) {
+		if (!loading &&  authUser && !userData.timestamp) {
 			console.log('getssss',loading,authUser)
 			getUserData()
 		}

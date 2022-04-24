@@ -3,10 +3,20 @@ import SubjectBox from './subjectBox'
 import SubjectPanel from './subject'
 import {useFirestoreData} from '../../context/FirestoreDataContext'
 import {Timestamp} from 'firebase/firestore'
+import AddSubjectDialog from '../addSubjectDialog'
 
 export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 	const {selectedSubject, setSelectedSubject, updateSelectedSubject} = useFirestoreData()
 	const [singleSubjectView, setSingleSubjectView] = useState(false)
+	const [addSubDialogVisible, setAddSubDialogVisible] = useState(false)
+
+	const onDialogClose = () => {
+		setAddSubDialogVisible(false)
+	}
+
+	const onDialogOpen = () => {
+		setAddSubDialogVisible(true)
+	}
 
 	useEffect(()=>{
 		if(!selectedSubject) {
@@ -43,6 +53,13 @@ export default function SubjectsPanel({theme, subjects, navbarCollapsed}) {
 
   	return (
 	  	<>
+	  		<AddSubjectDialog closeDialog={onDialogClose} theme={theme} hidden={!addSubDialogVisible}/>
+
+	  		<button className='subjects-addsubj-button' onClick={onDialogOpen}>
+	  			<h1>{'+'}</h1>
+	  			<p>Add Subject</p>
+	  		</button>
+
 		  	<div className={'subjects-area '+(!navbarCollapsed ? 'sa_collapsed':'')}>
 				{ 	!singleSubjectView ? (
 							subjects.length>0 ? subjects.map((subject) => 

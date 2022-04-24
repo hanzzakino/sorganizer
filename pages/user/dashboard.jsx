@@ -35,8 +35,12 @@ export default function Dashboard() {
 			router.push('/user/sign-in')
 		} 
 		if (!loading &&  authUser) {
-			getSubjects()
-			getUserData()
+			if(subjects.length===0){
+				getSubjects()
+			}
+			if(!userData.timestamp){
+				getUserData()
+			}
 			setLocalSettings()
 		}
 	}, [authUser, loading, dataWriteDone])
