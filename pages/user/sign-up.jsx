@@ -8,7 +8,7 @@ import Navbar from '../../components/navbar'
 import Spinner from '../../components/spinner'
 import OauthButton from '../../components/oauthButton'
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+
 
 //Context
 import {useAuth} from '../../context/AuthUserContext'

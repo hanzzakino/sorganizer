@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {Timestamp} from 'firebase/firestore'
 import {useFirestoreData} from '../context/FirestoreDataContext'
-
+import { toast } from 'react-toastify'
 
 export default function AddTaskDialog({theme, subject, hidden, closeDialog}){
 
@@ -11,6 +11,11 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){
 		description : '',
 		deadlineDate : '',
 		deadlineTime : '' 
+	})
+	const [emptyfield, setEmptyfield] = useState({
+		name : false,
+		description : false,
+		deadlineField : false
 	})
 	const [selectedSubjID, setSelecetedSubjID] = useState(null)
 	const {name, description, deadlineDate, deadlineTime} = formData
@@ -38,16 +43,79 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){
 			isDone : false,
 			deadline : Timestamp.fromDate(deadline)
 		}
-		if(selectedSubjID){
-			addTask(selectedSubjID,newTaskData)
-		} else if(subject) {
-			addTask(subject.id,newTaskData)
+
+
+		let nameVerified = false
+		let deadlineVerified = false
+
+		if(name === ''){
+			toast('Task Name empty',{
+				position : 'top-left',
+				autoClose : 5000,
+				theme : theme,
+				type : 'error',
+				hideProgressBar : true
+			})
+			setEmptyfield(prevState => ({
+				...prevState,
+				name : true
+			}))
+		} else {
+			setEmptyfield(prevState => ({
+				...prevState,
+				name : false
+			}))
+			nameVerified = true
 		}
+
+		if(deadlineDate === '' || deadlineTime === '' || (deadline-Date.now() < 0)){
+			toast('Invalid Task Deadline empty',{
+				position : 'top-left',
+				autoClose : 5000,
+				theme : theme,
+				type : 'error',
+				hideProgressBar : true
+			})
+			setEmptyfield(prevState => ({
+				...prevState,
+				deadlineField : true
+			}))
+		} else {
+			setEmptyfield(prevState => ({
+				...prevState,
+				deadlineField : false
+			}))
+			deadlineVerified = true
+		}
+
+		if(nameVerified && deadlineVerified){
+			if(selectedSubjID){
+				addTask(selectedSubjID,newTaskData)
+			} else if(subject) {
+				addTask(subject.id,newTaskData)
+			}
+			setFormData({
+				name : '',
+				description : '',
+				deadlineDate : '',
+				deadlineTime : '' 
+			})
+			closeDialog()
+		}
+		
+	}
+
+	const onClose = () => {
 		setFormData({
 			name : '',
 			description : '',
 			deadlineDate : '',
 			deadlineTime : '' 
+		})
+		setEmptyfield({
+			name : false,
+			description : false,
+			deadlineField : false
 		})
 		closeDialog()
 	}
@@ -60,7 +128,7 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){
 
 					<span className='addtask-dialog-header'>
 						<p>Add Task</p>
-						<button onClick={closeDialog} className='addtask-dialog-close'>&times;</button>
+						<button onClick={onClose} className='addtask-dialog-close'>&times;</button>
 					</span>
 					<form onSubmit={onSubmit} className='addtask-dialog-form'>
 						
@@ -78,7 +146,7 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){
 						)}
 
 						<input
-						 className='addtask-dialog-form-text'
+						 className={'addtask-dialog-form-text '+(emptyfield.name ? 'empty-field-error':'')}
 						 type='text' 
 						 placeholder='Task Name'
 						 id='name'
@@ -86,7 +154,7 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){
 						 onChange={onChange}
 						 />
 						 <textarea
-						 className='addtask-dialog-form-text-description' 
+						 className={'addtask-dialog-form-text-description '+(emptyfield.description ? 'empty-field-error':'')}
 						 placeholder='Description'
 						 id='description'
 						 value={description}
@@ -95,14 +163,14 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){
 						 <p>{'Deadline:'}</p>
 						 <div className='addtask-dialog-form-date-container'>
 							 <input
-							 className='addtask-dialog-form-date'
+							 className={'addtask-dialog-form-date '+(emptyfield.deadlineField ? 'empty-field-error':'')}
 							 type='date' 
 							 id='deadlineDate'
 							 value={deadlineDate}
 							 onChange={onChange}
 							 />
 							 <input
-							 className='addtask-dialog-form-date'
+							 className={'addtask-dialog-form-date '+(emptyfield.deadlineField ? 'empty-field-error':'')}
 							 type='time' 
 							 id='deadlineTime'
 							 value={deadlineTime}

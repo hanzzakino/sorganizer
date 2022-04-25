@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {Timestamp} from 'firebase/firestore'
 import {useFirestoreData} from '../context/FirestoreDataContext'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 
 export default function AddSubjectDialog({theme, hidden, closeDialog}){
@@ -15,6 +15,13 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 		scheduleTimeFrom : '07:00',
 		scheduleTimeTo : '08:00',
 	})
+	const [emptyfield, setEmptyfield] = useState({
+		code : false,
+		name : false,
+		teacher : false, 
+		scheduleTime: false
+	})
+
 
 	const toDecimalTime = (time) => {
 		const tempStr = time.split(':')
@@ -53,35 +60,73 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 
 		const schedTFR = toDecimalTime(scheduleTimeFrom)
 		const schedTTO = toDecimalTime(scheduleTimeTo)
+		let codeVerified = false
+		let nameVerified = false
+		let schedVerified = false
 
-		const newTaskData = {
-			code,
-		}
 		if(code === ''){
 			toast('Subject Code empty',{
-				position : 'top-center',
+				position : 'top-left',
 				autoClose : 5000,
 				theme : theme,
 				type : 'error',
 				hideProgressBar : true
 			})
-		} else if(name === ''){
-			toast('Subject Name empty',{
-				position : 'top-center',
-				autoClose : 5000,
-				theme : theme,
-				type : 'error',
-				hideProgressBar : true
-			})
-		} else if(schedTTO-schedTFR < 0){
-			toast('Invalid Time Schedule',{
-				position : 'top-center',
-				autoClose : 5000,
-				theme : theme,
-				type : 'error',
-				hideProgressBar : true
-			})
+			setEmptyfield(prevState => ({
+				...prevState,
+				code : true
+			}))
 		} else {
+			setEmptyfield(prevState => ({
+				...prevState,
+				code : false
+			}))
+			codeVerified = true
+		}
+
+
+		if(name === ''){
+			toast('Subject Name empty',{
+				position : 'top-left',
+				autoClose : 5000,
+				theme : theme,
+				type : 'error',
+				hideProgressBar : true
+			})
+			setEmptyfield(prevState => ({
+				...prevState,
+				name : true
+			}))
+		} else {
+			setEmptyfield(prevState => ({
+				...prevState,
+				name : false
+			}))
+			nameVerified = true
+		}
+
+
+		if(schedTTO-schedTFR < 0){
+			toast('Invalid Time Schedule',{
+				position : 'top-left',
+				autoClose : 5000,
+				theme : theme,
+				type : 'error',
+				hideProgressBar : true
+			})
+			setEmptyfield(prevState => ({
+				...prevState,
+				scheduleTime : true
+			}))
+		} else {
+			setEmptyfield(prevState => ({
+				...prevState,
+				scheduleTime : false
+			}))
+			schedVerified = true
+		}
+
+		if(codeVerified && nameVerified && schedVerified){
 			const newSubject = {
 				code,
 				name,
@@ -118,7 +163,7 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 					<form onSubmit={onSubmit} className='addsubject-dialog-form'>
 						
 						<input
-						 className='addsubject-dialog-form-text'
+						 className={'addsubject-dialog-form-text '+(emptyfield.code ? 'empty-field-error':'')}
 						 type='text' 
 						 placeholder='Subject Code'
 						 id='code'
@@ -126,7 +171,7 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 						 onChange={onChange}
 						 />
 						 <input
-						 className='addsubject-dialog-form-text'
+						 className={'addsubject-dialog-form-text '+(emptyfield.name ? 'empty-field-error':'')}
 						 type='text' 
 						 placeholder='Subject Name'
 						 id='name'
@@ -134,7 +179,7 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 						 onChange={onChange}
 						 />
 						 <input
-						 className='addsubject-dialog-form-text'
+						 className={'addsubject-dialog-form-text '+(emptyfield.teacher ? 'empty-field-error':'')}
 						 type='text' 
 						 placeholder='Subject Teacher'
 						 id='teacher'
@@ -155,14 +200,14 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 
 						<div className='addsubject-dialog-form-date-container'>
 							<input
-							 className='addsubject-dialog-form-date'
+							 className={'addsubject-dialog-form-date '+(emptyfield.scheduleTime ? 'empty-field-error':'')}
 							 type='time' 
 							 id='scheduleTimeFrom'
 							 value={scheduleTimeFrom}
 							 onChange={onTimeChange}
 							 />
 							 <input
-							 className='addsubject-dialog-form-date'
+							 className={'addsubject-dialog-form-date '+(emptyfield.scheduleTime ? 'empty-field-error':'')}
 							 type='time' 
 							 id='scheduleTimeTo'
 							 value={scheduleTimeTo}

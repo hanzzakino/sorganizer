@@ -35,6 +35,8 @@ export const FirestoreDataProvider = ({children}) =>{
 	const [subjects, setSubjects] = useState([])
 	const [selectedSubject, setSelectedSub] = useState(null)
 
+	const [firestoreLoading, setFirestoreLoading] = useState(false)
+
 	//user data methods
 	const getUserData = async () => {
 		console.log('getting user data')
@@ -57,6 +59,7 @@ export const FirestoreDataProvider = ({children}) =>{
 	}
 	const setUsername = async (firstname, lastname) => {
 		console.log('setting user name')
+		setFirestoreLoading(true)
 		try {
 			const auth = getAuth()
 			const docRef = doc(db, 'users', auth.currentUser.uid)
@@ -73,12 +76,14 @@ export const FirestoreDataProvider = ({children}) =>{
 		} catch(e) {
 			console.log('setUsername error',e)
 		} finally {
+			setFirestoreLoading(false)
 			console.log('setUsername success', userData)
 		}
 	}
 
 	//user subjects methods
 	const addSubject = async (subject) => {
+		setFirestoreLoading(true)
 		console.log('adding new subject',subject)
 		try {
 			const auth = getAuth()
@@ -93,6 +98,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		}
 	}
 	const addTask = async (subjectID, task) => {
+		setFirestoreLoading(true)
 		console.log('adding new task',subjectID,task)
 		try {
 			const auth = getAuth()
@@ -107,6 +113,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		}
 	}
 	const setToTaskDone = async (subjectID, taskID) => {
+		setFirestoreLoading(true)
 		console.log('setting task done')
 		try {
 			const auth = getAuth()
@@ -122,6 +129,7 @@ export const FirestoreDataProvider = ({children}) =>{
 	}
 
 	const deleteSubject = async (subjectID) => {
+		setFirestoreLoading(true)
 		console.log('deleting subject')
 		try {
 			const auth = getAuth()
@@ -137,6 +145,7 @@ export const FirestoreDataProvider = ({children}) =>{
 	}
 
 	const getSubjects = async () => {
+		setFirestoreLoading(true)
 		console.log('getting Subjects')
 		try {
 			const auth = getAuth()
@@ -221,11 +230,13 @@ export const FirestoreDataProvider = ({children}) =>{
 				// statements
 				console.log('updateSelectedSubject error',e);
 			} finally {
+				setFirestoreLoading(false)
 				setGetDataDone(true)
 				console.log('updateSelectedSubject success', selectedSubject)
 			}
 		} else {
 			console.log('updateSelectedSubject success')
+			setFirestoreLoading(false)
 			setGetDataDone(true)
 		}
 	}
@@ -258,6 +269,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		setToTaskDone,
 		userData,
 		clearData,
+		firestoreLoading,
 		subjects
 	})}>{children}</FirestoreDataContext.Provider>
 }

@@ -2,8 +2,8 @@ import {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import Spinner from '../../components/spinner'
+import LoadingNotify from '../../components/loadingNotify'
 import Navbar from '../../components/navbar'
 import NotificationBar from '../../components/notificationBar'
 import Subjects from '../../components/dashboard/subjects'
@@ -22,7 +22,7 @@ import {useDashboardContext} from '../../context/DashboardContext'
 
 export default function Dashboard() {
 	const {currentView, currentTitle} = useDashboardContext()
-	const {getDataDone, getSubjects, subjects, userData, getUserDataDone, getUserData} = useFirestoreData()
+	const {firestoreLoading, getDataDone, getSubjects, subjects, userData, getUserDataDone, getUserData} = useFirestoreData()
 	const {settings, setLocalSettings} = useSettings()
 	const {authUser, loading, currentTask, dataWriteDone} = useAuth()
 	const router = useRouter()
@@ -38,9 +38,7 @@ export default function Dashboard() {
 			if(subjects.length===0){
 				getSubjects()
 			}
-			if(!userData.timestamp){
-				getUserData()
-			}
+			getUserData()
 			setLocalSettings()
 		}
 	}, [authUser, loading, dataWriteDone])
@@ -99,6 +97,7 @@ export default function Dashboard() {
 	  	<ToastContainer/>
 	  	<div className={settings.general.theme+'-bg'}></div>
 
+	  	<LoadingNotify hidden={!firestoreLoading}/>
 
 	  	<Navbar theme={settings.general.theme} navbarCollapsed={navbarCollapsed}/>
 	  	<NotificationBar navbarCollapsed={navbarCollapsed} userData={userData} scrolled={!pageScrollTop} panelTitle={currentTitle} authUser={authUser}/>

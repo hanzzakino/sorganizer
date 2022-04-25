@@ -1346,6 +1346,28 @@ body {
 }
 
 
+.hidden {
+	bottom: -170px !important;
+}
+.loading-notify {
+	transition: 0.5;
+	background-color: var(--dark-accent);
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	width: 160px;
+	height: 60px;
+	position: fixed;
+	z-index: 4;
+	bottom: -5px;
+	left: 70px;
+	border-radius: 14px 14px 0 0;
+	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.3));
+	cursor: wait;
+}
+.loading-notify h4 {
+	color: white;
+}
 
 .card {
 	padding: 2px 12px 2px 12px;
