@@ -178,7 +178,7 @@ export default function AddTaskDialog({theme, subject, hidden, closeDialog}){
 							 />
 						 </div>
 						 <br />
-						 <input type='submit' className='btn'/>
+						 <input type='submit' className='btn' value='Add'/>
 					</form>
 				</div>
 			</div>

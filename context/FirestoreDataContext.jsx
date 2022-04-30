@@ -97,6 +97,21 @@ export const FirestoreDataProvider = ({children}) =>{
 			getSubjects()
 		}
 	}
+	const editSubject = async (subject, subjectID) => {
+		setFirestoreLoading(true)
+		console.log('updating new subject',subject)
+		try {
+			const auth = getAuth()
+			const docRef = doc(db, 'users', auth.currentUser.uid,'subjects',subjectID)
+			console.log('FirestoreCommunicate editSubject update')
+	    	await updateDoc(docRef,subject)
+		} catch(e) {
+			console.log('editSubject error',e)
+		} finally {
+			console.log('editSubject success')
+			getSubjects()
+		}
+	}
 	const addTask = async (subjectID, task) => {
 		setFirestoreLoading(true)
 		console.log('adding new task',subjectID,task)
@@ -261,6 +276,7 @@ export const FirestoreDataProvider = ({children}) =>{
 		getUserData,
 		setUsername,
 		addSubject,
+		editSubject,
 		deleteSubject,
 		selectedSubject,
 		setSelectedSubject,

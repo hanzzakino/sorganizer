@@ -1,19 +1,31 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {Timestamp} from 'firebase/firestore'
 import {useFirestoreData} from '../context/FirestoreDataContext'
 import { toast } from 'react-toastify'
 
 
-export default function AddSubjectDialog({theme, hidden, closeDialog}){
-
-	const {addSubject, subjects} = useFirestoreData()
+export default function EditSubjectDialog({theme, hidden, closeDialog, subject}){
+	const toDecimalTime = (time) => {
+		const tempStr = time.split(':')
+		const hour = +tempStr[0]
+		const minute = (+tempStr[1])/60
+		return hour+minute
+	}
+	const toClockTime = (num) => {
+		const hour = Math.floor(num)
+		const min = Math.round((num-hour)*60)
+		const hourStr = hour.toString().length === 1 ? ('0'+hour.toString()):hour.toString()
+		const minStr = min.toString().length === 1 ? ('0'+min.toString()):min.toString()
+		return hourStr+':'+minStr
+	}
+	const {editSubject, subjects} = useFirestoreData()
 	const [formData, setFormData] = useState({
-		code : '',
-		name : '',
-		teacher : '',
-		scheduleDay : 0,
-		scheduleTimeFrom : '07:00',
-		scheduleTimeTo : '08:00',
+		code : subject.data.code,
+		name : subject.data.name,
+		teacher : subject.data.teacher,
+		scheduleDay : subject.data.scheduleDay,
+		scheduleTimeFrom : toClockTime( subject.data.scheduleTimeFrom),
+		scheduleTimeTo : toClockTime( subject.data.scheduleTimeTo),
 	})
 	const [emptyfield, setEmptyfield] = useState({
 		code : false,
@@ -22,13 +34,9 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 		scheduleTime: false
 	})
 
+	
 
-	const toDecimalTime = (time) => {
-		const tempStr = time.split(':')
-		const hour = +tempStr[0]
-		const minute = (+tempStr[1])/60
-		return hour+minute
-	}
+	
 
 	const {code, name, scheduleDay, scheduleTimeFrom, scheduleTimeTo, teacher} = formData
 
@@ -136,18 +144,26 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 				scheduleTimeTo : schedTTO,
 			}
 			//add Sub in firestore here
-			addSubject(newSubject)
-			setFormData({
-				code : '',
-				name : '',
-				teacher : '',
-				scheduleDay : 0,
-				scheduleTimeFrom : '07:00',
-				scheduleTimeTo : '08:00',
-			})
+			//console.log(newSubject,subject.id)
+			editSubject(newSubject,subject.id)
 			closeDialog()
 		}
+
+
 		
+	}
+
+
+	const onExit = () => {
+		setFormData({
+			code : subject.data.code,
+			name : subject.data.name,
+			teacher : subject.data.teacher,
+			scheduleDay : subject.data.scheduleDay,
+			scheduleTimeFrom : toClockTime( subject.data.scheduleTimeFrom),
+			scheduleTimeTo : toClockTime( subject.data.scheduleTimeTo),
+		})
+		closeDialog()
 	}
 
 	return(
@@ -156,8 +172,8 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 				<div className={'addsubject-dialog '+theme+'-bg2colorgradient-nohover '+theme+'-fgcolor '}>
 					
 					<span className='addsubject-dialog-header'>
-						<p>Add Subject</p>
-						<button onClick={closeDialog} className='addsubject-dialog-close'>&times;</button>
+						<p>Edit Subject</p>
+						<button onClick={onExit} className='addsubject-dialog-close'>&times;</button>
 					</span>
 
 					<form onSubmit={onSubmit} className='addsubject-dialog-form'>
@@ -189,13 +205,14 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 
 						<p>{'Schedule:'}</p>
 						<select onChange={onSelect} name='scheduleDay' id='scheduleDay' className='addsubject-dialog-form-list'>
-							<option value={0}>Sunday</option>
-							<option value={1}>Monday</option>
-							<option value={2}>Tuesday</option>
-							<option value={3}>Wednesday</option>
-							<option value={4}>Thursday</option>
-							<option value={5}>Friday</option>
-							<option value={6}>Saturday</option>
+							
+							<option value={0} selected={subject.data.scheduleDay === 0}>Sunday</option>
+							<option value={1} selected={subject.data.scheduleDay === 1}>Monday</option>
+							<option value={2} selected={subject.data.scheduleDay === 2}>Tuesday</option>
+							<option value={3} selected={subject.data.scheduleDay === 3}>Wednesday</option>
+							<option value={4} selected={subject.data.scheduleDay === 4}>Thursday</option>
+							<option value={5} selected={subject.data.scheduleDay === 5}>Friday</option>
+							<option value={6} selected={subject.data.scheduleDay === 6}>Saturday</option>
 						</select>
 
 						<div className='addsubject-dialog-form-date-container'>
@@ -215,7 +232,7 @@ export default function AddSubjectDialog({theme, hidden, closeDialog}){
 							 />
 						</div>
 						<br />
-						<input type='submit' className='btn' value='Add'/>
+						<input type='submit' className='btn' value='Save'/>
 					</form>
 				</div>
 			</div>

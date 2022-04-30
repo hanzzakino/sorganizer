@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react'
 import TaskBox from './taskBox'
 import {useFirestoreData} from '../../context/FirestoreDataContext'
 import AddTaskDialog from '../addTaskDialog'
+import EditSubjectDialog from '../editSubjectDialog'
 
 export default function SubjectPanel({onBackClick, theme}) {
 	const {selectedSubject, updateSelectedSubject, deleteSubject} = useFirestoreData()
@@ -53,6 +54,10 @@ export default function SubjectPanel({onBackClick, theme}) {
 
 	const onDialogOpen = () => {
 		setAddTaskDialogVisible(true)
+	}
+
+	const onEditClose = () => {
+		setEditMode(false)
 	}
 
 	useEffect(()=>{
@@ -115,6 +120,8 @@ export default function SubjectPanel({onBackClick, theme}) {
 
 	  		<AddTaskDialog subject={selectedSubject} closeDialog={onDialogClose} theme={theme} hidden={!addTaskDialogVisible}/>
 
+	  		<EditSubjectDialog closeDialog={() => setEditMode(false)} theme={theme} hidden={!editMode} subject={selectedSubject}/>
+
 	  		<button className='subject-addtask-button' onClick={onDialogOpen}>
 	  			<h1>{'+'}</h1>
 	  			<p>Add Task</p>
@@ -130,7 +137,7 @@ export default function SubjectPanel({onBackClick, theme}) {
 				<div className='subject-backbtn' onClick={onBackClick}>
 					<p><i className='bi bi-chevron-left'/>&nbsp;All Subjects</p>
 				</div>	
-				<p className={'subject-editbtn '+(editMode ? 'dark-accentfgcolor3':'dark-fgcolor')}><i className='bi bi-pencil-square' /> Temporary Edit indicator</p>
+				
 			</div>
 
 			<div className={'subject-card '+(theme+'-fgcolor ')+(theme+'-accentstroke-focused')}>
