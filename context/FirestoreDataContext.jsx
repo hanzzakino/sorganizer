@@ -257,9 +257,6 @@ export const FirestoreDataProvider = ({children}) =>{
 	}
 
 
-
-
-
 	//clear data
 	const clearData = async () => {
 		setGetDataDone(false)
