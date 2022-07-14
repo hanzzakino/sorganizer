@@ -818,12 +818,13 @@ body {
 /* > Add Task dialog */
 .addtask-dialog-background{
 	/*Dev Only*/
-	background-color: rgb(255,255,255,0.4);
+	background-color: rgb(0,0,0,0.7);
+
 	/*Production Only*/
-	/*background: transparent;
+	/* background: transparent;
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
-  	-moz-backdrop-filter: blur(2px);*/
+  	-moz-backdrop-filter: blur(2px); */
 
 
   	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.5));
@@ -939,12 +940,13 @@ body {
 /* > Add Subject dialog */
 .addsubject-dialog-background{
 	/*Dev Only*/
-	background-color: rgb(255,255,255,0.4);
+	background-color: rgb(0,0,0,0.7);
+
 	/*Production Only*/
-	/*background: transparent;
+	/* background: transparent;
 	backdrop-filter: blur(2px);
 	-webkit-backdrop-filter: blur(2px);
-  	-moz-backdrop-filter: blur(2px);*/
+  	-moz-backdrop-filter: blur(2px); */
 
 
   	filter: drop-shadow(2px 2px 3px rgb(0,0,0,0.5));
@@ -1081,9 +1083,9 @@ body {
 		margin: 0;
 		padding: 4px 2px 18px 2px;
 	}
-	.notificationbar-user-btn {
+	/* .notificationbar-user-btn {
 		/*visibility: hidden; */ /*comment out if navbar pushes the window*/
-	}
+	/*} */
 	.nbub_collapsed {
 		visibility: unset !important;
 	}
