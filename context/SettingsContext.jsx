@@ -1,22 +1,16 @@
+//Global context for the settings
+
 import { createContext, useState, useContext } from 'react'
 import { toast } from 'react-toastify'
 import {
-	getAuth, 
-	signInWithEmailAndPassword, 
-	createUserWithEmailAndPassword,
-	sendPasswordResetEmail,
-	signInWithPopup,
-	GoogleAuthProvider,
-	FacebookAuthProvider,
-	updateProfileresetSettings
+	getAuth
 } from 'firebase/auth'
 
 import {db} from '../firebase.config'
 import {
 	setDoc,
 	getDoc,
-	doc,
-	serverTimestamp
+	doc
 } from 'firebase/firestore'
 
 
@@ -24,6 +18,7 @@ const SettingsContext = createContext()
 
 export const SettingsProvider = ({children}) =>{
 	//default settings
+	//Settings template
 	const [settings, setSettings] = useState({
 		general : {
 			tempSettingsF : false,
@@ -35,6 +30,7 @@ export const SettingsProvider = ({children}) =>{
 		}
 	})
 
+	//retrieves the settings of the current user signed in
 	const setLocalSettings = async () => {
 		console.log('syncing local settings from firestore')
 		try {
@@ -45,6 +41,7 @@ export const SettingsProvider = ({children}) =>{
 				console.log('FirestoreCommunicate setLocalSettings get')
 				const docSnap = await getDoc(docRef)
 				if(docSnap.exists()){
+					//add the settings from the user's firestore db to the settings state
 					setSettings(docSnap.data().settings)
 				}
 			}
@@ -61,6 +58,7 @@ export const SettingsProvider = ({children}) =>{
 		}
 	}
 
+	//updates the new user settings in the firestore
 	const setUserSettings = async (newSettings) => {
 		console.log('syncing firestore settings from local')
 		try {
@@ -88,6 +86,7 @@ export const SettingsProvider = ({children}) =>{
 	}
 
 
+	//toggle theme between dark and light
 	const toggleTheme = () => {
 		setSettings((prevSettings) => {
 

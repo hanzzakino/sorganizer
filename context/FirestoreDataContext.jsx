@@ -1,3 +1,6 @@
+//Global context for data create,read,update,delete in the firestore
+
+
 import { createContext, useState, useContext } from 'react'
 import {getAuth} from 'firebase/auth'
 import {db} from '../firebase.config'
@@ -22,7 +25,7 @@ import {
 const FirestoreDataContext = createContext()
 
 export const FirestoreDataProvider = ({children}) =>{
-	//states
+	/////HOOKS
 	const [getDataDone, setGetDataDone] = useState(false)
 	const [getUserDataDone, setGetUserDataDone] = useState(false)
 	const [userData, setUserData] = useState({
@@ -33,9 +36,13 @@ export const FirestoreDataProvider = ({children}) =>{
 		timestamp : null,
 	})
 	const [subjects, setSubjects] = useState([])
+	//selected subject panel (when a subject is clicked in the subjects panel, it will be passed into this state)
 	const [selectedSubject, setSelectedSub] = useState(null)
 
 	const [firestoreLoading, setFirestoreLoading] = useState(false)
+
+
+	/////CONTEXT FUNCTIONS
 
 	//user data methods
 	const getUserData = async () => {
@@ -142,7 +149,6 @@ export const FirestoreDataProvider = ({children}) =>{
 			getSubjects()
 		}
 	}
-
 	const deleteSubject = async (subjectID) => {
 		setFirestoreLoading(true)
 		console.log('deleting subject')
@@ -158,7 +164,6 @@ export const FirestoreDataProvider = ({children}) =>{
 			getSubjects()
 		}
 	}
-
 	const getSubjects = async () => {
 		setFirestoreLoading(true)
 		console.log('getting Subjects')
@@ -210,13 +215,10 @@ export const FirestoreDataProvider = ({children}) =>{
 			updateSelectedSubject()
 		}
 	}
-
-
 	const setSelectedSubject = (subject) => {
 		console.log('setSelectedSubject', subject)
 		setSelectedSub(subject)
 	}
-
 	const updateSelectedSubject = async () => {
 		if(selectedSubject){
 			try {

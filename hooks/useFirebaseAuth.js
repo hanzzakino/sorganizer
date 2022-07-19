@@ -22,7 +22,7 @@ import {
 
 
 
-
+//format auth user to object
 const formatAuthUser = (user) => ({
 	...user
 })
@@ -33,6 +33,7 @@ export default function useFirebaseAuth() {
 	const [dataWriteDone, setDataWriteDone] = useState(true)
 	const [currentTask, setCurrentTask] = useState('Loading')
 
+	//If someone signed in or signed out
 	const authStateChanged = async (authState) => {
 		//console.log('auth state is change to ',authState)
 		setCurrentTask('Loading')
@@ -52,9 +53,10 @@ export default function useFirebaseAuth() {
 		setCurrentTask('')
 	}
 
-	//Auth
+	//AUTH METHODS
 
-	// auth/{} Error Messages
+	// auth/* Error Messages
+	//CONVERTS FIREBASE ERROR MESSAGE for this app
 	const parseErrorMessage = (errMessage, theme) => {
 		let message = null
 		let attributes = null
@@ -195,13 +197,16 @@ export default function useFirebaseAuth() {
 			toast(message,attributes)
 		} else {
 			try {
+				//get the firebase authentcator
 				const auth = getAuth()
+				//try signing in using the email and password
 				const userCredential = await signInWithEmailAndPassword(auth, email, password)
 			} catch(e) {
 				const {message,attributes} = parseErrorMessage(e.code, settings.general.theme)
 				toast(message,attributes)
 			}
 		}
+		//return the empty field to display the error
 		return emptyfield
 	}
 
@@ -339,8 +344,13 @@ export default function useFirebaseAuth() {
 		auth.signOut()
 	}
 
+
+
+
+	//listen for chages in auth (if user signs in or signs out)
 	useEffect(() => {
 		const auth = getAuth()
+		// run the authStateChanged method if the auth changes state
 		const unsubscribe = auth.onAuthStateChanged(authStateChanged)
 		return () => unsubscribe()
 	}, [])
