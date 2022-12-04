@@ -7,6 +7,8 @@ import LoadingNotify from '../../components/loadingNotify'
 import Navbar from '../../components/navbar'
 import NotificationBar from '../../components/notificationBar'
 import Subjects from '../../components/dashboard/subjects'
+import Tasks from '../../components/dashboard/tasks'
+import Schedule from '../../components/dashboard/schedule'
 
 //initialize firebase app using the firebase.config file
 import {db} from '../../firebase.config'
@@ -70,10 +72,10 @@ export default function Dashboard() {
 				return <Subjects theme={settings.general.theme} subjects={subjects} navbarCollapsed={navbarCollapsed}/>
 				break
 			case 'todo':
-				return <p>todo</p>
+				return <Tasks theme={settings.general.theme} subjects={subjects} navbarCollapsed={navbarCollapsed}/>
 				break
 			case 'schedule':
-				return <p>schedule</p>
+				return <Schedule theme={settings.general.theme} subjects={subjects} navbarCollapsed={navbarCollapsed}/>
 				break
 			case 'notes':
 				return <p>notes</p>

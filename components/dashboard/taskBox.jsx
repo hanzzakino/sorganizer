@@ -58,4 +58,5 @@ export default function TaskBox({task, theme, subjectID}) {
 		<p className={'task-box-deadline '+getColor(task.data.deadline)}>{'Deadline: '+timestampToDate(task.data.deadline).monthWord+' '+timestampToDate(task.data.deadline).day+', '+timestampToDate(task.data.deadline).year}</p>
 	</div>
   )
+  
 }

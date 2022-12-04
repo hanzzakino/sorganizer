@@ -815,6 +815,8 @@ body {
 }
 /* > Task box */
 
+
+
 /* > Add Task dialog */
 .addtask-dialog-background{
 	/*Dev Only*/
@@ -1044,6 +1046,41 @@ body {
 }
 /* > Add Subject dialog */
 
+/* > Schedul Panel */
+.schedule-area{
+	padding: 0 42px 0 42px;
+	display: flex;
+	flex-flow: row;
+	flex-wrap: wrap;
+}
+.schedule-card {
+	width: 100% !important;
+	padding: 32px 42px 32px 42px;
+	margin: 32px 0 0 0;
+	overflow: hidden;
+	border-radius: 14px;
+
+	display: flex;
+	flex-flow: column;
+}
+.schedule-table {
+	border: 1px solid black;
+	padding: 0;
+	margin: 0;
+	border-collapse: collapse;
+}
+.schedule-table-cell {
+	border: 1px solid black;
+	margin: 0;
+	padding: 8px;
+}
+/* > Schedul Panel */
+
+
+
+
+
+
 
 @media (max-width: 770px) {
 	.main-area {
@@ -1153,6 +1190,15 @@ body {
 	}
 	/*Subjects Panel < */
 
+	/*Schedule Panel < */
+	.schedule-area{
+		padding: 0;
+		justify-content: center;
+	}
+	.schedule-card {
+		width: 90%; 
+	}
+	/*Schedule Panel < */
 		
 	/*Subject Panel < */
 	.subject-header {
