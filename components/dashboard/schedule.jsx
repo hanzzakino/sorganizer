@@ -28,7 +28,7 @@ export default function SchedulePanel({theme, subjects, navbarCollapsed}) {
 
   	return (
 		<div className='schedule-area'>
-			<p>Schedulesssss</p>
+			
             <div className={'schedule-card '+(theme+'-fgcolor ')+(theme+'-accentstroke-focused')}>
                 <p className='subject-card-code'>Weekly Schedule</p>
                 <br /><br />
@@ -48,11 +48,6 @@ export default function SchedulePanel({theme, subjects, navbarCollapsed}) {
                             subjects.map((sub) => (
                                 <tr key={sub.id}>
                                     <th className='schedule-table-cell'>{sub.data.code}</th>
-                                    <th className='schedule-table-cell'>{
-                                        sub.data.scheduleDay == 0 ? (
-                                            toClockTime(sub.data.scheduleTimeFrom)+' - '+toClockTime(sub.data.scheduleTimeTo)
-                                        ):''
-                                    }</th>
                                     <th className='schedule-table-cell'>{
                                         sub.data.scheduleDay == 1 ? (
                                             toClockTime(sub.data.scheduleTimeFrom)+' - '+toClockTime(sub.data.scheduleTimeTo)
@@ -83,6 +78,11 @@ export default function SchedulePanel({theme, subjects, navbarCollapsed}) {
                                             toClockTime(sub.data.scheduleTimeFrom)+' - '+toClockTime(sub.data.scheduleTimeTo)
                                         ):''
                                     }</th>
+                                    <th className='schedule-table-cell'>{
+                                        sub.data.scheduleDay == 0 ? (
+                                            toClockTime(sub.data.scheduleTimeFrom)+' - '+toClockTime(sub.data.scheduleTimeTo)
+                                        ):''
+                                    }</th>
                                 </tr>
                             
                             ))
@@ -91,7 +91,8 @@ export default function SchedulePanel({theme, subjects, navbarCollapsed}) {
                 </table>
                 
             </div>
-           
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 		</div>
   )
 }
