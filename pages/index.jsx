@@ -1,14 +1,36 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Navbar from '../components/navbar'
+import Spinner from '../components/spinner'
+
+import { useRouter } from 'next/router'
+import {useState, useEffect} from 'react'
 
 //Context
 import {useAuth} from '../context/AuthUserContext'
 import {useSettings} from '../context/SettingsContext'
+import {useFirestoreData} from '../context/FirestoreDataContext'
 
 export default function Home() {
-  const {settings, toggleTheme} = useSettings()
-  return (
+  const {settings, toggleTheme, setLocalSettings} = useSettings()
+  const {firestoreLoading, getDataDone, getSubjects, subjects, userData, getUserDataDone, getUserData} = useFirestoreData()
+	const {authUser, loading, currentTask, dataWriteDone} = useAuth()
+  const router = useRouter()
+  
+  useEffect(() => {
+		if(!loading &&  !authUser && dataWriteDone){
+			router.push('/user/sign-in')
+		} 
+		if (!loading &&  authUser) {
+			if(subjects.length===0){
+				getSubjects()
+			}
+			getUserData()
+			setLocalSettings()
+		}
+	}, [authUser, loading, dataWriteDone])
+
+  return authUser && !loading && getDataDone && getUserDataDone ? (
     <>
       <Head>
         <title>SOrganizer</title>
@@ -37,5 +59,5 @@ export default function Home() {
       </main>
 
     </>
-  )
+  ):(<Spinner theme={settings.general.theme} currentTask={currentTask} />)
 }
